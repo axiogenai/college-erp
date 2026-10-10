@@ -376,30 +376,30 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
               Established 1958. Preparing innovators in technology, scientific discovery, and societal governance across 8 specialized academic faculties and enterprise research centers.
             </p>
 
-            {/* Action Buttons */}
+            {/* Action Buttons (Public University Actions) */}
             <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-              <button
-                onClick={() => onEnterPortal('principal')}
-                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-institutional-600 hover:bg-institutional-500 active:bg-institutional-700 text-white text-xs sm:text-sm font-bold transition-all duration-150 shadow-lg hover:shadow-institutional-500/30 hover:-translate-y-0.5"
-              >
-                <LogIn className="w-4 h-4" />
-                <span>Launch ERP System</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </button>
-
               <a
                 href="#admissions"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-semibold transition-all duration-150 shadow-md hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 text-xs sm:text-sm font-bold transition-all duration-150 shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5"
               >
-                <GraduationCap className="w-4 h-4 text-amber-400" />
-                <span>Admissions 2026</span>
+                <GraduationCap className="w-4 h-4" />
+                <span>Admissions 2026 Portal</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </a>
 
               <a
                 href="#programs"
-                className="inline-flex items-center gap-1.5 px-4 py-3 text-slate-300 hover:text-white text-xs sm:text-sm font-medium transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold transition-all duration-150 shadow-md hover:-translate-y-0.5"
               >
-                <span>Explore Programs</span>
+                <BookOpen className="w-4 h-4 text-amber-300" />
+                <span>Explore Academic Programs</span>
+              </a>
+
+              <a
+                href="#infrastructure"
+                className="inline-flex items-center gap-1.5 px-4 py-3.5 text-slate-200 hover:text-white text-xs sm:text-sm font-medium transition-colors"
+              >
+                <span>Research Centers</span>
                 <ChevronDown className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -407,51 +407,43 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
           </div>
         </div>
 
-        {/* Bottom 4 Frosted Glass Metric Cards (Compact & Fits on Screen) */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-2">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Enrolled Scholars</p>
-                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">3,420+</p>
-                <p className="text-[10px] text-emerald-400 font-medium">8 Specialized Departments</p>
+        {/* Bottom Stat Ribbon (Classic, Refined, Luxury Glass UI) */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-3">
+          <div className="rounded-2xl bg-slate-950/40 backdrop-blur-xl border border-white/20 shadow-2xl p-4 sm:p-5">
+            <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-white/15 gap-4 lg:gap-0">
+              
+              <div className="px-3 sm:px-5 text-center lg:text-left">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Enrolled Scholars</span>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
+                  3,420<span className="text-amber-400 font-light">+</span>
+                </p>
+                <p className="text-[11px] text-slate-300 mt-0.5">8 Autonomous Departments</p>
               </div>
-              <div className="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
-                <GraduationCap className="w-4 h-4" />
-              </div>
-            </div>
 
-            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Career Placement</p>
-                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">96.8%</p>
-                <p className="text-[10px] text-amber-300 font-medium">₹14.2 LPA Median CTC</p>
+              <div className="px-3 sm:px-5 text-center lg:text-left pt-3 lg:pt-0">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Career Placement</span>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
+                  96.8<span className="text-amber-400 font-light">%</span>
+                </p>
+                <p className="text-[11px] text-slate-300 mt-0.5">₹14.2 LPA Median Package</p>
               </div>
-              <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                <Trophy className="w-4 h-4" />
-              </div>
-            </div>
 
-            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Highest Package</p>
-                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">₹48.5 LPA</p>
-                <p className="text-[10px] text-slate-300 font-medium">240+ Global Recruiters</p>
+              <div className="px-3 sm:px-5 text-center lg:text-left pt-3 lg:pt-0">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Highest Package</span>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
+                  ₹48.5 <span className="text-sm font-semibold text-slate-300">LPA</span>
+                </p>
+                <p className="text-[11px] text-slate-300 mt-0.5">240+ Global Recruiters</p>
               </div>
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                <TrendingUp className="w-4 h-4" />
-              </div>
-            </div>
 
-            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Faculty Mentorship</p>
-                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">1:18 Ratio</p>
-                <p className="text-[10px] text-sky-400 font-medium">84% Ph.D. Researchers</p>
+              <div className="px-3 sm:px-5 text-center lg:text-left pt-3 lg:pt-0">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Faculty Mentorship</span>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
+                  1:18 <span className="text-sm font-semibold text-slate-300">Ratio</span>
+                </p>
+                <p className="text-[11px] text-slate-300 mt-0.5">84% Doctoral Researchers</p>
               </div>
-              <div className="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
-                <Users className="w-4 h-4" />
-              </div>
+
             </div>
           </div>
         </div>
