@@ -333,118 +333,64 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         )}
       </header>
 
-      {/* ── 3. Ultra-Premium Full-Bleed Background Hero Section ─────── */}
+      {/* ── 3. Ultra-Premium Collegiate Background Hero Section ─────── */}
       <section 
         id="hero"
-        className="relative min-h-[560px] max-h-[720px] h-[calc(100vh-105px)] flex flex-col justify-between overflow-hidden bg-slate-950 text-white py-6 sm:py-8"
+        className="relative min-h-[540px] sm:min-h-[580px] lg:min-h-[640px] flex items-center justify-center overflow-hidden bg-slate-950 text-white py-16 sm:py-24"
       >
-        {/* Full-Bleed Background Image (Clear, Vivid, High-Resolution) */}
+        {/* Full-Bleed Background Image (Clear, Vivid, High-Resolution Campus Photography) */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=2000&q=90"
-            alt="Chanakya Institute Collegiate Campus and Historic Quadrangle"
-            className="w-full h-full object-cover object-center filter brightness-[0.70] contrast-[1.05]"
+            alt="Chanakya Institute Collegiate Campus Quadrangle"
+            className="w-full h-full object-cover object-center filter brightness-[0.72] contrast-[1.05]"
           />
-          {/* Balanced Cinematic Scrim for Text Contrast without Blackout */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-slate-950/30" />
-          <div className="absolute inset-0 bg-radial-gradient from-transparent via-slate-950/30 to-slate-950/60 pointer-events-none" />
+          {/* Natural Vignette & Contrast Scrim for Flawless Readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-slate-950/30" />
+          <div className="absolute inset-0 bg-radial-gradient from-transparent via-slate-950/20 to-slate-950/50 pointer-events-none" />
         </div>
 
-        {/* Top/Center Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center items-center text-center">
-          <div className="max-w-3xl mx-auto space-y-4">
+        {/* Hero Content (Centered, Dignified Collegiate Hierarchy) */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
+          <div className="max-w-3xl mx-auto space-y-5">
             
-            {/* Top Accreditations Frosted Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/70 backdrop-blur-md border border-white/20 text-slate-200 text-xs font-semibold shadow-md">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-              <span>Autonomous University</span>
-              <span className="text-white/40">•</span>
-              <span className="text-amber-300 flex items-center gap-1 font-bold">
-                <Star className="w-3 h-3 fill-amber-300 text-amber-300" /> NAAC A++ (Score 3.82)
-              </span>
-              <span className="text-white/40">•</span>
-              <span className="text-white/90">NIRF National Rank #12</span>
+            {/* Elegant Institutional Overline */}
+            <div className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold tracking-widest uppercase text-amber-300 drop-shadow">
+              <span>Autonomous Technical University</span>
+              <span className="text-amber-400/60">•</span>
+              <span>Established 1958</span>
             </div>
 
             {/* Main Headline (Prestigious, Dignified, Screen-Balanced) */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-white leading-[1.18] drop-shadow-md">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.16] drop-shadow-md">
               Where Intellectual Rigor Meets <span className="text-amber-300">Autonomous Excellence</span>.
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-2xl mx-auto drop-shadow-sm">
-              Established 1958. Preparing innovators in technology, scientific discovery, and societal governance across 8 specialized academic faculties and enterprise research centers.
+            <p className="text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl mx-auto drop-shadow-sm">
+              Preparing innovators in technology, scientific discovery, and societal governance across 8 specialized academic faculties and enterprise research centers.
             </p>
 
-            {/* Action Buttons (Public University Actions) */}
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            {/* Action Buttons (Clean, Authoritative University CTAs) */}
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
               <a
                 href="#admissions"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 text-xs sm:text-sm font-bold transition-all duration-150 shadow-lg hover:shadow-amber-500/30 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 text-sm font-bold transition-all duration-150 shadow-lg hover:shadow-amber-500/25 hover:-translate-y-0.5"
               >
                 <GraduationCap className="w-4 h-4" />
                 <span>Admissions 2026 Portal</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </a>
 
               <a
                 href="#programs"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-semibold transition-all duration-150 shadow-md hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 backdrop-blur-md border border-white/20 text-white text-sm font-semibold transition-all duration-150 shadow-md hover:-translate-y-0.5"
               >
                 <BookOpen className="w-4 h-4 text-amber-300" />
                 <span>Explore Academic Programs</span>
               </a>
-
-              <a
-                href="#infrastructure"
-                className="inline-flex items-center gap-1.5 px-4 py-3.5 text-slate-200 hover:text-white text-xs sm:text-sm font-medium transition-colors"
-              >
-                <span>Research Centers</span>
-                <ChevronDown className="w-3.5 h-3.5" />
-              </a>
             </div>
 
-          </div>
-        </div>
-
-        {/* Bottom Stat Ribbon (Classic, Refined, Luxury Glass UI) */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-3">
-          <div className="rounded-2xl bg-slate-950/40 backdrop-blur-xl border border-white/20 shadow-2xl p-4 sm:p-5">
-            <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-white/15 gap-4 lg:gap-0">
-              
-              <div className="px-3 sm:px-5 text-center lg:text-left">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Enrolled Scholars</span>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
-                  3,420<span className="text-amber-400 font-light">+</span>
-                </p>
-                <p className="text-[11px] text-slate-300 mt-0.5">8 Autonomous Departments</p>
-              </div>
-
-              <div className="px-3 sm:px-5 text-center lg:text-left pt-3 lg:pt-0">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Career Placement</span>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
-                  96.8<span className="text-amber-400 font-light">%</span>
-                </p>
-                <p className="text-[11px] text-slate-300 mt-0.5">₹14.2 LPA Median Package</p>
-              </div>
-
-              <div className="px-3 sm:px-5 text-center lg:text-left pt-3 lg:pt-0">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Highest Package</span>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
-                  ₹48.5 <span className="text-sm font-semibold text-slate-300">LPA</span>
-                </p>
-                <p className="text-[11px] text-slate-300 mt-0.5">240+ Global Recruiters</p>
-              </div>
-
-              <div className="px-3 sm:px-5 text-center lg:text-left pt-3 lg:pt-0">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-300">Faculty Mentorship</span>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-0.5">
-                  1:18 <span className="text-sm font-semibold text-slate-300">Ratio</span>
-                </p>
-                <p className="text-[11px] text-slate-300 mt-0.5">84% Doctoral Researchers</p>
-              </div>
-
-            </div>
           </div>
         </div>
       </section>
