@@ -186,18 +186,11 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
 
   // Reveal triggers
   const heroReveal = useReveal(0.05);
-  const statsReveal = useReveal(0.15);
   const programsReveal = useReveal(0.1);
   const facilitiesReveal = useReveal(0.1);
   const placementReveal = useReveal(0.1);
   const admissionsReveal = useReveal(0.1);
   const noticesReveal = useReveal(0.1);
-
-  // Live animated counters
-  const cScholars = useCounter(3420, 1600, statsReveal.visible);
-  const cPlacement = useCounter(97, 1400, statsReveal.visible);
-  const cFaculty = useCounter(184, 1400, statsReveal.visible);
-  const cRank = useCounter(12, 1200, statsReveal.visible);
 
   const filteredPrograms = programTab === 'all' 
     ? PROGRAMS 
@@ -340,139 +333,113 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         )}
       </header>
 
-      {/* ── 3. Ultra-Premium Hero Section with Collegiate Photography ─────── */}
+      {/* ── 3. Ultra-Premium Full-Bleed Background Hero Section ─────── */}
       <section 
         id="hero"
-        ref={heroReveal.ref}
-        className="relative overflow-hidden pt-12 pb-24 lg:pt-16 lg:pb-32 bg-white dark:bg-slate-950"
+        className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white py-20 lg:py-28"
       >
-        {/* Subtle Ambient Background Gradients */}
-        <div className="absolute top-0 right-0 -mr-40 -mt-40 w-[600px] h-[600px] rounded-full bg-institutional-100/60 dark:bg-institutional-950/40 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 -ml-40 -mb-40 w-[500px] h-[500px] rounded-full bg-amber-100/50 dark:bg-amber-950/30 blur-[120px] pointer-events-none" />
+        {/* Full-Bleed Background Image */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=2000&q=85"
+            alt="Chanakya Institute Campus Quadrangle"
+            className="w-full h-full object-cover object-center transform scale-105 filter brightness-[0.38] contrast-[1.15]"
+          />
+          {/* Deep Cinematic Multi-Layer Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40" />
+          {/* Subtle Ambient Accent Glows */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-institutional-500/20 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        {/* Foreground Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-4xl mx-auto text-center space-y-7">
             
-            {/* Left Content (7 columns) */}
-            <div className="lg:col-span-7 space-y-6 opacity-100">
-              
-              {/* Accreditations Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-institutional-50 dark:bg-institutional-950/70 border border-institutional-200/80 dark:border-institutional-800/80 text-institutional-700 dark:text-institutional-300 text-xs font-semibold shadow-xs">
-                <Award className="w-4 h-4 text-amber-500 shrink-0" />
-                <span>Autonomous University • Approved by AICTE • NIRF Top Ranked</span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
-                Pioneering <span className="text-institutional-600 dark:text-institutional-400">Knowledge</span>, Shaping Global Leaders.
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-normal max-w-2xl">
-                For over six decades, Chanakya Institute has prepared innovators in technology, scientific discovery, and societal governance. Powered by unified digital enterprise governance and world-class laboratory centers.
-              </p>
-
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <button
-                  onClick={() => onEnterPortal('principal')}
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-institutional-600 hover:bg-institutional-700 active:bg-institutional-800 text-white text-sm font-semibold transition-all duration-150 shadow-md hover:shadow-xl hover:-translate-y-0.5"
-                >
-                  <span>Launch ERP System</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-
-                <a
-                  href="#admissions"
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100/70 dark:hover:bg-slate-800/70 text-slate-700 dark:text-slate-200 text-sm font-semibold transition-all duration-150 shadow-xs"
-                >
-                  <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>Admissions 2026</span>
-                </a>
-
-                <a
-                  href="#programs"
-                  className="inline-flex items-center gap-1.5 px-4 py-3.5 text-slate-500 hover:text-institutional-600 dark:text-slate-400 dark:hover:text-institutional-300 text-sm font-medium transition-colors"
-                >
-                  <span>Explore Programs</span>
-                  <ChevronDown className="w-4 h-4" />
-                </a>
-              </div>
-
-              {/* Key Trust Signals */}
-              <div className="pt-4 border-t border-slate-200/80 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <div>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">3,420+</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Enrolled Scholars</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">96.8%</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Placement Record</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">₹48.5 L</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Highest CTC</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-slate-900 dark:text-white">1:18</p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Faculty Ratio</p>
-                </div>
-              </div>
+            {/* Top Accreditations Frosted Pill */}
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full bg-white/10 dark:bg-slate-900/70 backdrop-blur-md border border-white/15 text-slate-200 text-xs sm:text-[13px] font-semibold shadow-lg">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+              <span>Autonomous University</span>
+              <span className="text-white/40">•</span>
+              <span className="text-amber-300 flex items-center gap-1"><Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" /> NAAC A++ (Score 3.82)</span>
+              <span className="text-white/40">•</span>
+              <span>NIRF All-India Rank #12</span>
             </div>
 
-            {/* Right Visual Showcase (5 columns) */}
-            <div className="lg:col-span-5 relative opacity-100">
-              
-              {/* Outer Decorative Gradient Frame */}
-              <div className="relative rounded-3xl p-2 bg-gradient-to-tr from-institutional-500/20 via-amber-500/10 to-institutional-500/20 border border-slate-200 dark:border-slate-800 shadow-2xl">
-                
-                {/* Real High-Resolution University Campus Photograph */}
-                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group">
-                  <img
-                    src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80"
-                    alt="Chanakya Institute Collegiate Campus and Quadrangle"
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                  />
-                  
-                  {/* Subtle Cinematic Vignette Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-institutional-950/80 via-transparent to-black/20" />
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+              Pioneering <span className="bg-gradient-to-r from-sky-400 via-institutional-200 to-amber-300 bg-clip-text text-transparent">Knowledge</span>,<br className="hidden sm:inline" /> Shaping Global Leaders.
+            </h1>
 
-                  {/* Campus Tag on Image */}
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="inline-block px-2.5 py-1 rounded-md bg-white/20 backdrop-blur-md text-[11px] font-semibold tracking-wider uppercase mb-1">
-                      Academic Quadrangle & Clock Tower
-                    </span>
-                    <p className="text-sm font-semibold drop-shadow-md">
-                      65-Acre Smart Technological Campus, Bengaluru
-                    </p>
-                  </div>
+            {/* Subtitle */}
+            <p className="text-base sm:text-xl text-slate-300 leading-relaxed font-light max-w-3xl mx-auto">
+              For over six decades, Chanakya Institute has prepared innovators in technology, scientific discovery, and societal governance. Powered by unified digital enterprise governance and 8 specialized faculties.
+            </p>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+              <button
+                onClick={() => onEnterPortal('principal')}
+                className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-institutional-600 hover:bg-institutional-500 active:bg-institutional-700 text-white text-sm sm:text-base font-bold transition-all duration-200 shadow-xl hover:shadow-institutional-500/25 hover:-translate-y-0.5"
+              >
+                <span>Launch ERP System</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <a
+                href="#admissions"
+                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm sm:text-base font-semibold transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <Sparkles className="w-4 h-4 text-amber-400" />
+                <span>Admissions 2026</span>
+              </a>
+
+              <a
+                href="#programs"
+                className="inline-flex items-center gap-2 px-5 py-4 text-slate-300 hover:text-white text-sm sm:text-base font-medium transition-colors"
+              >
+                <span>Explore Programs</span>
+                <ChevronDown className="w-4 h-4" />
+              </a>
+            </div>
+
+            {/* 4 Frosted Glass Stat Cards on Background */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 max-w-5xl mx-auto text-left">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Enrolled Scholars</span>
+                  <GraduationCap className="w-4 h-4 text-sky-400" />
                 </div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white">3,420+</p>
+                <p className="text-[11px] text-emerald-400 mt-0.5 font-medium">Across 8 Departments</p>
+              </div>
 
-                {/* Floating Glassmorphism Badge 1: Admissions Live Status */}
-                <div className="absolute -top-4 -left-4 sm:-left-6 p-3 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-lg flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950/80 text-emerald-600 flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                      <p className="text-xs font-bold text-slate-900 dark:text-white">Admissions Open</p>
-                    </div>
-                    <p className="text-[10px] text-slate-500">AY 2026–27 Counseling Active</p>
-                  </div>
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Career Placement</span>
+                  <Trophy className="w-4 h-4 text-amber-400" />
                 </div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white">96.8%</p>
+                <p className="text-[11px] text-amber-300 mt-0.5 font-medium">₹14.2 LPA Median CTC</p>
+              </div>
 
-                {/* Floating Glassmorphism Badge 2: NIRF & NAAC Rating */}
-                <div className="absolute -bottom-5 -right-3 sm:-right-5 p-3 rounded-xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-700 shadow-lg flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-amber-50 dark:bg-amber-950/80 text-amber-600 flex items-center justify-center shrink-0">
-                    <Trophy className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-slate-900 dark:text-white">NAAC Grade A++</p>
-                    <p className="text-[10px] text-slate-500">NIRF National Rank #12</p>
-                  </div>
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Highest Package</span>
+                  <TrendingUp className="w-4 h-4 text-emerald-400" />
                 </div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white">₹48.5 L</p>
+                <p className="text-[11px] text-slate-400 mt-0.5 font-medium">240+ Global Recruiters</p>
+              </div>
 
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Faculty Mentorship</span>
+                  <Users className="w-4 h-4 text-purple-400" />
+                </div>
+                <p className="text-2xl sm:text-3xl font-extrabold text-white">1:18</p>
+                <p className="text-[11px] text-sky-400 mt-0.5 font-medium">84% Ph.D. Researchers</p>
               </div>
             </div>
 
@@ -497,49 +464,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ── 5. Live Metric Statistics Counters ─────────────────────────────── */}
-      <section 
-        ref={statsReveal.ref}
-        className="py-14 bg-institutional-950 text-white border-y border-institutional-900"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            
-            <div className={`transition-all duration-500 ${statsReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-3xl sm:text-5xl font-bold font-sans tracking-tight text-white">
-                {cScholars.toLocaleString()}
-              </p>
-              <p className="text-xs sm:text-sm text-slate-400 mt-2 font-medium">Active Enrolled Scholars</p>
-              <p className="text-[11px] text-emerald-400 mt-0.5">8 Engineering Departments</p>
-            </div>
 
-            <div className={`transition-all duration-500 delay-75 ${statsReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-3xl sm:text-5xl font-bold font-sans tracking-tight text-white">
-                {cPlacement}%
-              </p>
-              <p className="text-xs sm:text-sm text-slate-400 mt-2 font-medium">Placement Success Rate</p>
-              <p className="text-[11px] text-amber-400 mt-0.5">₹14.2 LPA Median CTC</p>
-            </div>
-
-            <div className={`transition-all duration-500 delay-150 ${statsReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-3xl sm:text-5xl font-bold font-sans tracking-tight text-white">
-                {cFaculty}+
-              </p>
-              <p className="text-xs sm:text-sm text-slate-400 mt-2 font-medium">Full-Time Faculty Deans</p>
-              <p className="text-[11px] text-sky-400 mt-0.5">84% Hold Ph.D. Credentials</p>
-            </div>
-
-            <div className={`transition-all duration-500 delay-200 ${statsReveal.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              <p className="text-3xl sm:text-5xl font-bold font-sans tracking-tight text-white">
-                #{cRank}
-              </p>
-              <p className="text-xs sm:text-sm text-slate-400 mt-2 font-medium">NIRF National Rank</p>
-              <p className="text-[11px] text-amber-300 mt-0.5">Ministry of Education, Govt. of India</p>
-            </div>
-
-          </div>
-        </div>
-      </section>
 
       {/* ── 6. Academic Degree Programs & Curriculum ───────────────────────── */}
       <section 
