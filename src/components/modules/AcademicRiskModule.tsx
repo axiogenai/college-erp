@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { 
   AlertTriangle, ShieldAlert, UserCheck, Calendar, Filter, 
   Search, CheckCircle, Clock, BookOpen, AlertCircle, ArrowRight, 
-  Phone, Mail, FileText, Sparkles, User, HelpCircle, X, ChevronRight,
+  Phone, Mail, FileText, User, HelpCircle, X, ChevronRight,
   TrendingDown, TrendingUp, CheckCircle2, HeartHandshake, Calculator
 } from 'lucide-react';
 import { SoftCard } from '../common/SoftCard';
