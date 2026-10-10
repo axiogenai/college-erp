@@ -4,10 +4,10 @@ import {
   ShieldCheck, CheckCircle2, ChevronRight, FileText, Phone, 
   Mail, MapPin, ExternalLink, LogIn, Building2, 
   GraduationCap, Clock, HelpCircle, Layers, Compass,
-  Sparkles, TrendingUp, Star, Globe, Zap, BarChart3,
+  TrendingUp, Globe, Zap, BarChart3,
   ChevronDown, Menu, X, Play, Pause, Search,
   Download, ArrowUpRight, Cpu, Microscope, Library,
-  Trophy, Check
+  Trophy, Check, Star
 } from 'lucide-react';
 import { UserRole } from '../../types';
 import { useErpData } from '../../context/ErpDataContext';
@@ -235,8 +235,8 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
                 <span className="text-base sm:text-lg font-bold tracking-tight text-institutional-950 dark:text-white uppercase leading-none">
                   Chanakya Institute
                 </span>
-                <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-700">
-                  <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" /> NAAC A++ (Score 3.82)
+                <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-[#18181C] text-neutral-800 dark:text-[#EDEDEF] border border-neutral-200 dark:border-white/[0.08]">
+                  <Award className="w-3 h-3 text-[#C5A059]" /> NAAC A++ (Score 3.82)
                 </span>
               </div>
               <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium tracking-wider uppercase mt-0.5">
@@ -336,113 +336,123 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
       {/* ── 3. Ultra-Premium Full-Bleed Background Hero Section ─────── */}
       <section 
         id="hero"
-        className="relative min-h-[92vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white py-20 lg:py-28"
+        className="relative min-h-[560px] max-h-[720px] h-[calc(100vh-105px)] flex flex-col justify-between overflow-hidden bg-slate-950 text-white py-6 sm:py-8"
       >
-        {/* Full-Bleed Background Image */}
+        {/* Full-Bleed Background Image (Clear, Vivid, High-Resolution) */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=2000&q=85"
-            alt="Chanakya Institute Campus Quadrangle"
-            className="w-full h-full object-cover object-center transform scale-105 filter brightness-[0.38] contrast-[1.15]"
+            src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=2000&q=90"
+            alt="Chanakya Institute Collegiate Campus and Historic Quadrangle"
+            className="w-full h-full object-cover object-center filter brightness-[0.70] contrast-[1.05]"
           />
-          {/* Deep Cinematic Multi-Layer Gradient Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40" />
-          {/* Subtle Ambient Accent Glows */}
-          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-institutional-500/20 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-10 right-10 w-[400px] h-[300px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+          {/* Balanced Cinematic Scrim for Text Contrast without Blackout */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-slate-950/30" />
+          <div className="absolute inset-0 bg-radial-gradient from-transparent via-slate-950/30 to-slate-950/60 pointer-events-none" />
         </div>
 
-        {/* Foreground Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-4xl mx-auto text-center space-y-7">
+        {/* Top/Center Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex-1 flex flex-col justify-center items-center text-center">
+          <div className="max-w-3xl mx-auto space-y-4">
             
             {/* Top Accreditations Frosted Pill */}
-            <div className="inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-full bg-white/10 dark:bg-slate-900/70 backdrop-blur-md border border-white/15 text-slate-200 text-xs sm:text-[13px] font-semibold shadow-lg">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/70 backdrop-blur-md border border-white/20 text-slate-200 text-xs font-semibold shadow-md">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <span>Autonomous University</span>
               <span className="text-white/40">•</span>
-              <span className="text-amber-300 flex items-center gap-1"><Star className="w-3.5 h-3.5 fill-amber-300 text-amber-300" /> NAAC A++ (Score 3.82)</span>
+              <span className="text-amber-300 flex items-center gap-1 font-bold">
+                <Star className="w-3 h-3 fill-amber-300 text-amber-300" /> NAAC A++ (Score 3.82)
+              </span>
               <span className="text-white/40">•</span>
-              <span>NIRF All-India Rank #12</span>
+              <span className="text-white/90">NIRF National Rank #12</span>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
-              Pioneering <span className="bg-gradient-to-r from-sky-400 via-institutional-200 to-amber-300 bg-clip-text text-transparent">Knowledge</span>,<br className="hidden sm:inline" /> Shaping Global Leaders.
+            {/* Main Headline (Prestigious, Dignified, Screen-Balanced) */}
+            <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-bold tracking-tight text-white leading-[1.18] drop-shadow-md">
+              Where Intellectual Rigor Meets <span className="text-amber-300">Autonomous Excellence</span>.
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-xl text-slate-300 leading-relaxed font-light max-w-3xl mx-auto">
-              For over six decades, Chanakya Institute has prepared innovators in technology, scientific discovery, and societal governance. Powered by unified digital enterprise governance and 8 specialized faculties.
+            <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-normal max-w-2xl mx-auto drop-shadow-sm">
+              Established 1958. Preparing innovators in technology, scientific discovery, and societal governance across 8 specialized academic faculties and enterprise research centers.
             </p>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
               <button
                 onClick={() => onEnterPortal('principal')}
-                className="group inline-flex items-center gap-2.5 px-7 py-4 rounded-2xl bg-institutional-600 hover:bg-institutional-500 active:bg-institutional-700 text-white text-sm sm:text-base font-bold transition-all duration-200 shadow-xl hover:shadow-institutional-500/25 hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-institutional-600 hover:bg-institutional-500 active:bg-institutional-700 text-white text-xs sm:text-sm font-bold transition-all duration-150 shadow-lg hover:shadow-institutional-500/30 hover:-translate-y-0.5"
               >
+                <LogIn className="w-4 h-4" />
                 <span>Launch ERP System</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
               </button>
 
               <a
                 href="#admissions"
-                className="inline-flex items-center gap-2 px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white text-sm sm:text-base font-semibold transition-all duration-200 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800/80 backdrop-blur-md border border-white/20 text-white text-xs sm:text-sm font-semibold transition-all duration-150 shadow-md hover:-translate-y-0.5"
               >
-                <Sparkles className="w-4 h-4 text-amber-400" />
+                <GraduationCap className="w-4 h-4 text-amber-400" />
                 <span>Admissions 2026</span>
               </a>
 
               <a
                 href="#programs"
-                className="inline-flex items-center gap-2 px-5 py-4 text-slate-300 hover:text-white text-sm sm:text-base font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 px-4 py-3 text-slate-300 hover:text-white text-xs sm:text-sm font-medium transition-colors"
               >
                 <span>Explore Programs</span>
-                <ChevronDown className="w-4 h-4" />
+                <ChevronDown className="w-3.5 h-3.5" />
               </a>
             </div>
 
-            {/* 4 Frosted Glass Stat Cards on Background */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6 max-w-5xl mx-auto text-left">
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Enrolled Scholars</span>
-                  <GraduationCap className="w-4 h-4 text-sky-400" />
-                </div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">3,420+</p>
-                <p className="text-[11px] text-emerald-400 mt-0.5 font-medium">Across 8 Departments</p>
-              </div>
+          </div>
+        </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Career Placement</span>
-                  <Trophy className="w-4 h-4 text-amber-400" />
-                </div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">96.8%</p>
-                <p className="text-[11px] text-amber-300 mt-0.5 font-medium">₹14.2 LPA Median CTC</p>
+        {/* Bottom 4 Frosted Glass Metric Cards (Compact & Fits on Screen) */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-2">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Enrolled Scholars</p>
+                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">3,420+</p>
+                <p className="text-[10px] text-emerald-400 font-medium">8 Specialized Departments</p>
               </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Highest Package</span>
-                  <TrendingUp className="w-4 h-4 text-emerald-400" />
-                </div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">₹48.5 L</p>
-                <p className="text-[11px] text-slate-400 mt-0.5 font-medium">240+ Global Recruiters</p>
-              </div>
-
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-xl hover:border-white/20 transition-colors">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Faculty Mentorship</span>
-                  <Users className="w-4 h-4 text-purple-400" />
-                </div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">1:18</p>
-                <p className="text-[11px] text-sky-400 mt-0.5 font-medium">84% Ph.D. Researchers</p>
+              <div className="w-8 h-8 rounded-lg bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
+                <GraduationCap className="w-4 h-4" />
               </div>
             </div>
 
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Career Placement</p>
+                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">96.8%</p>
+                <p className="text-[10px] text-amber-300 font-medium">₹14.2 LPA Median CTC</p>
+              </div>
+              <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                <Trophy className="w-4 h-4" />
+              </div>
+            </div>
+
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Highest Package</p>
+                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">₹48.5 LPA</p>
+                <p className="text-[10px] text-slate-300 font-medium">240+ Global Recruiters</p>
+              </div>
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <TrendingUp className="w-4 h-4" />
+              </div>
+            </div>
+
+            <div className="p-3 sm:p-3.5 rounded-xl bg-slate-950/70 backdrop-blur-md border border-white/15 shadow-md flex items-center justify-between">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Faculty Mentorship</p>
+                <p className="text-xl sm:text-2xl font-bold text-white leading-tight mt-0.5">1:18 Ratio</p>
+                <p className="text-[10px] text-sky-400 font-medium">84% Ph.D. Researchers</p>
+              </div>
+              <div className="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
+                <Users className="w-4 h-4" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
