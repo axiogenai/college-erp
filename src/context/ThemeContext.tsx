@@ -14,7 +14,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [theme, setThemeState] = useState<Theme>(() => {
     const saved = localStorage.getItem('chanakya_theme');
     if (saved === 'dark' || saved === 'light') return saved;
-    return 'light'; // Default to clean institutional Light mode
+    return 'dark'; // Default to Luxury Dark mode
   });
 
   useEffect(() => {
