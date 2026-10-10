@@ -57,3 +57,31 @@
     border: none !important;
   }
 }
+
+/* ── Hero Text Smooth Staggered Entrance Animations ──────────────────────── */
+@keyframes heroFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-1 {
+  animation: heroFadeInUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-2 {
+  animation: heroFadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.animate-hero-3 {
+  animation: heroFadeInUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.animate-hero-4 {
+  animation: heroFadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
+}

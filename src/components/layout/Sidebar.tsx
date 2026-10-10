@@ -2,9 +2,10 @@ import React from 'react';
 import { 
   LayoutDashboard, Users, GraduationCap, Calendar, Clock, 
   Award, CreditCard, UserPlus, Bot, AlertTriangle, FileText, 
-  ShieldAlert, Activity, ChevronLeft, ChevronRight, School
+  ShieldAlert, Activity, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { UniversityCrest } from '../public/PublicLanding';
 
 export interface NavItem {
   id: string;
@@ -93,14 +94,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
           isCollapsed ? 'justify-center px-2' : 'justify-between px-4'
         }`}>
           {isCollapsed ? (
-            <div className="w-9 h-9 rounded-lg bg-institutional-600 flex items-center justify-center text-white font-bold text-base shadow-sm">
-              <School className="w-5 h-5 text-white" />
+            <div className="w-9 h-9 flex items-center justify-center shrink-0">
+              <UniversityCrest className="w-8 h-8" />
             </div>
           ) : (
             <>
               <div className="flex items-center gap-3 overflow-hidden">
-                <div className="w-9 h-9 rounded-lg bg-institutional-600 flex items-center justify-center text-white font-bold text-base shadow-sm shrink-0">
-                  <School className="w-5 h-5 text-white" />
+                <div className="w-9 h-9 flex items-center justify-center shrink-0">
+                  <UniversityCrest className="w-8 h-8" />
                 </div>
                 <div className="min-w-0">
                   <h1 className="text-sm font-bold tracking-tight text-slate-900 dark:text-white truncate">
