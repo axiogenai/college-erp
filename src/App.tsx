@@ -7,7 +7,7 @@ import { AppLayout } from './components/layout/AppLayout';
 import { UserRole } from './types';
 
 const MainController: React.FC = () => {
-  const [viewMode, setViewMode] = useState<'landing' | 'portal'>('portal');
+  const [viewMode, setViewMode] = useState<'landing' | 'portal'>('landing');
   const { switchPersona, login } = useAuth();
 
   const handleEnterPortal = (role?: UserRole) => {
