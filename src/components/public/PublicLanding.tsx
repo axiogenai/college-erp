@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import { 
   School, Award, BookOpen, Users, Calendar, ArrowRight, 
-  ShieldCheck, CheckCircle2, ChevronRight, ChevronLeft, FileText, Phone, 
+  ShieldCheck, CheckCircle2, ChevronRight, ChevronLeft, ChevronDown, FileText, Phone, 
   Mail, MapPin, ExternalLink, LogIn, Building2, 
   GraduationCap, Clock, HelpCircle, Layers, Compass,
   TrendingUp, Globe, Zap, BarChart3,
@@ -12,11 +12,34 @@ import {
 import { UserRole } from '../../types';
 import { useErpData } from '../../context/ErpDataContext';
 
+import { CollegeJourneyPage } from './pages/CollegeJourneyPage';
+import { LeadershipPage } from './pages/LeadershipPage';
+import { DepartmentsPage } from './pages/DepartmentsPage';
+import { ProgramsPage } from './pages/ProgramsPage';
+import { LabsPage } from './pages/LabsPage';
+import { PlacementsPage } from './pages/PlacementsPage';
+import { AdmissionsPage } from './pages/AdmissionsPage';
+import { GazettePage } from './pages/GazettePage';
+import { AccreditationPage } from './pages/AccreditationPage';
+
+export type PageViewType = 
+  | 'home' 
+  | 'journey' 
+  | 'leadership' 
+  | 'departments' 
+  | 'programs' 
+  | 'labs' 
+  | 'placements' 
+  | 'admissions' 
+  | 'gazette' 
+  | 'accreditation';
+
+
 interface PublicLandingProps {
   onEnterPortal: (role?: UserRole) => void;
 }
 
-// ── Intersection Observer Hook for Smooth Scroll Animations ─────────────────
+// ──── Intersection Observer Hook for Smooth Scroll Animations ──────────────────────────────────
 function useReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
@@ -33,7 +56,7 @@ function useReveal(threshold = 0.1) {
   return { ref, visible };
 }
 
-// ── Live Counter Animation Hook ─────────────────────────────────────────────
+// ──── Live Counter Animation Hook ──────────────────────────────────────────────────────────────────────────────────────────
 function useCounter(target: number, duration = 1600, started = false) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -50,8 +73,8 @@ function useCounter(target: number, duration = 1600, started = false) {
   return count;
 }
 
-// ── Degree Programs Catalog ──────────────────────────────────────────────────
-// ── Degree Programs Catalog (With Full Academic Curriculum) ──────────────────
+// ──── Degree Programs Catalog ────────────────────────────────────────────────────────────────────────────────────────────────────
+// ──── Degree Programs Catalog (With Full Academic Curriculum) ────────────────────────────────────
 const PROGRAMS = [
   {
     id: 'btech-cse',
@@ -356,7 +379,7 @@ const PROGRAMS = [
   }
 ];
 
-// ── Research Centers & Infrastructure Showcase ──────────────────────────────
+// ──── Research Centers & Infrastructure Showcase ────────────────────────────────────────────────────────────
 const FACILITIES = [
   {
     title: 'Supercomputing & AI Research Center',
@@ -388,7 +411,7 @@ const FACILITIES = [
   }
 ];
 
-// ── Corporate Hiring Partners ────────────────────────────────────────────────
+// ──── Corporate Hiring Partners ────────────────────────────────────────────────────────────────────────────────────────────────
 const RECRUITERS = [
   { name: 'Google', ctc: '48.5 LPA', role: 'Systems Software Engineer' },
   { name: 'Microsoft', ctc: '45.0 LPA', role: 'Cloud & AI Engineer' },
@@ -400,7 +423,7 @@ const RECRUITERS = [
   { name: 'Cisco Systems', ctc: '28.0 LPA', role: 'Network Security Architect' },
 ];
 
-// ── Official University Gazette Bulletins (Classic Rounding Ticker) ──────────
+// ──── Official University Gazette Bulletins (Classic Rounding Ticker) ────────────────────
 const UNIVERSITY_BULLETINS = [
   { tag: 'Admissions 2026', text: 'Merit Counseling Round II commences October 25. Online seat reservation active.', link: '#admissions' },
   { tag: 'National Standing', text: 'Ranked #12 Nationwide by NIRF 2025 • Re-accredited NAAC A++ with 3.82 CGPA.', link: '#programs' },
@@ -408,7 +431,7 @@ const UNIVERSITY_BULLETINS = [
   { tag: 'Autonomous Research', text: 'R&D Labs secure ₹24.8 Cr funding for High-Performance Computing & AI.', link: '#infrastructure' },
 ];
 
-// ── University Rotating Values for Animated Hero ───────────────────────────
+// ──── University Rotating Values for Animated Hero ──────────────────────────────────────────────────────
 const HERO_ROTATING_WORDS = [
   'Autonomous Excellence',
   'Scientific Discovery',
@@ -416,7 +439,7 @@ const HERO_ROTATING_WORDS = [
   'Engineering Leadership'
 ];
 
-// ── Official University Heraldic Seal & Crest ─────────────────────────────
+// ──── Official University Heraldic Seal & Crest ──────────────────────────────────────────────────────────
 export function UniversityCrest({ className = "w-11 h-11" }: { className?: string }) {
   return (
     <svg 
@@ -424,7 +447,7 @@ export function UniversityCrest({ className = "w-11 h-11" }: { className?: strin
       viewBox="0 0 64 64" 
       fill="none" 
       xmlns="http://www.w3.org/2000/svg" 
-      aria-label="Chanakya Institute University Crest"
+      aria-label="Axiogen Institute University Crest"
     >
       {/* Outer Solid Double Rings */}
       <circle cx="32" cy="32" r="30.5" stroke="#C5A059" strokeWidth="1.5" />
@@ -512,6 +535,20 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
   const { notices } = useErpData();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState<PageViewType>('home');
+  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
+  const [academicsDropdownOpen, setAcademicsDropdownOpen] = useState(false);
+  const [admissionsDropdownOpen, setAdmissionsDropdownOpen] = useState(false);
+
+  const navigateToPage = (page: PageViewType) => {
+    setCurrentPage(page);
+    setMobileMenuOpen(false);
+    setAboutDropdownOpen(false);
+    setAcademicsDropdownOpen(false);
+    setAdmissionsDropdownOpen(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const [programTab, setProgramTab] = useState<'all' | 'ug' | 'pg' | 'phd'>('all');
   const [bulletinIndex, setBulletinIndex] = useState(0);
   const [bulletinVisible, setBulletinVisible] = useState(true);
@@ -578,7 +615,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans selection:bg-institutional-700 selection:text-white transition-colors">
 
-      {/* ── 1. Classic Institutional Bulletin Ticker Bar ──────────────────── */}
+      {/* ──── 1. Classic Institutional Bulletin Ticker Bar ──────────────────────────────────────── */}
       <div className="bg-slate-950 text-slate-200 text-xs py-2 px-4 border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2.5">
           
@@ -664,9 +701,9 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
               <Phone className="w-3 h-3 text-amber-400" />
               <span>+91 80 2841 9000</span>
             </a>
-            <a href="mailto:admissions@chanakya.edu.in" className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors">
+            <a href="mailto:admissions@axiogen.edu.in" className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors">
               <Mail className="w-3 h-3 text-amber-400" />
-              <span>admissions@chanakya.edu.in</span>
+              <span>admissions@axiogen.edu.in</span>
             </a>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/90 text-[11px] font-medium shadow-sm">
               <Award className="w-3.5 h-3.5 text-amber-400" />
@@ -677,7 +714,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </div>
 
-      {/* ── 2. Glassmorphic Navigation Bar ──────────────────────────────── */}
+      {/* ──── 2. Glassmorphic Navigation Bar ──────────────────────────────────────────────────────────────── */}
       <header className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled
           ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-md border-b border-slate-200 dark:border-slate-800'
@@ -693,7 +730,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-sm sm:text-base font-bold tracking-tight text-institutional-950 dark:text-white uppercase leading-none">
-                  Chanakya Institute
+                  Axiogen Institute
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-[#18181C] text-neutral-800 dark:text-[#EDEDEF] border border-neutral-200 dark:border-white/[0.08]">
                   <Award className="w-3 h-3 text-[#C5A059]" /> NAAC A++ (Score 3.82)
@@ -740,7 +777,80 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         )}
       </header>
 
-      {/* ── 3. Ultra-Premium Collegiate Background Hero Section ─────── */}
+      
+      {/* ── Sub-Page Independent Views ─────────────────────────────────── */}
+      {currentPage === 'journey' && (
+        <CollegeJourneyPage 
+          onBackToHome={() => navigateToPage('home')}
+          onNavigateToLeadership={() => navigateToPage('leadership')}
+          onNavigateToDepartments={() => navigateToPage('departments')}
+          onEnterPortal={onEnterPortal as any}
+        />
+      )}
+
+      {currentPage === 'leadership' && (
+        <LeadershipPage 
+          onBackToHome={() => navigateToPage('home')}
+          onNavigateToJourney={() => navigateToPage('journey')}
+          onNavigateToDepartments={() => navigateToPage('departments')}
+        />
+      )}
+
+      {currentPage === 'departments' && (
+        <DepartmentsPage 
+          onBackToHome={() => navigateToPage('home')}
+          onNavigateToJourney={() => navigateToPage('journey')}
+          onNavigateToLeadership={() => navigateToPage('leadership')}
+        />
+      )}
+
+      {currentPage === 'programs' && (
+        <ProgramsPage 
+          onBackToHome={() => navigateToPage('home')}
+          onEnterPortal={onEnterPortal}
+          onNavigateToAdmissions={() => navigateToPage('admissions')}
+        />
+      )}
+
+      {currentPage === 'labs' && (
+        <LabsPage 
+          onBackToHome={() => navigateToPage('home')}
+          onNavigateToPrograms={() => navigateToPage('programs')}
+        />
+      )}
+
+      {currentPage === 'placements' && (
+        <PlacementsPage 
+          onBackToHome={() => navigateToPage('home')}
+          onNavigateToAdmissions={() => navigateToPage('admissions')}
+        />
+      )}
+
+      {currentPage === 'admissions' && (
+        <AdmissionsPage 
+          onBackToHome={() => navigateToPage('home')}
+          onNavigateToPrograms={() => navigateToPage('programs')}
+        />
+      )}
+
+      {currentPage === 'gazette' && (
+        <GazettePage 
+          onBackToHome={() => navigateToPage('home')}
+          notices={notices}
+        />
+      )}
+
+      {currentPage === 'accreditation' && (
+        <AccreditationPage 
+          onBackToHome={() => navigateToPage('home')}
+          onNavigateToJourney={() => navigateToPage('journey')}
+        />
+      )}
+
+      {/* ── Main Landing Page (All Sections 100% Intact & Untouched) ── */}
+      {currentPage === 'home' && (
+        <>
+          {/* ──── 3. Ultra-Premium Collegiate Background Hero Section ────────────── */}
       <section 
         id="hero"
         className="relative min-h-[380px] sm:min-h-[440px] md:min-h-[480px] h-[calc(100vh-6rem)] max-h-[660px] flex items-center justify-center overflow-hidden bg-slate-950 text-white px-4 py-4 sm:py-6"
@@ -749,7 +859,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=2000&q=90"
-            alt="Chanakya Institute Collegiate Campus Quadrangle"
+            alt="Axiogen Institute Collegiate Campus Quadrangle"
             className="w-full h-full object-cover object-center filter brightness-[0.70] contrast-[1.08]"
           />
           {/* Balanced Contrast Scrim for Flawless Readability Across Entire Viewport */}
@@ -811,7 +921,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ── 4. Government Accreditations & Recognitions Bar ────────────────── */}
+      {/* ──── 4. Government Accreditations & Recognitions Bar ──────────────────────────────────── */}
       <section className="py-6 bg-slate-100/80 dark:bg-slate-900/70 border-y border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-4">
@@ -830,7 +940,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
 
 
 
-      {/* ── 6. Academic Degree Programs & Curriculum ───────────────────────── */}
+      {/* ──── 6. Academic Degree Programs & Curriculum ────────────────────────────────────────────────── */}
       <section 
         id="programs"
         ref={programsReveal.ref}
@@ -929,7 +1039,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ── 7. Research Centers & World-Class Facilities ───────────────────── */}
+      {/* ──── 7. Research Centers & World-Class Facilities ────────────────────────────────────────── */}
       <section 
         id="infrastructure"
         ref={facilitiesReveal.ref}
@@ -984,7 +1094,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ── 8. Placement Excellence & Corporate Consortium ─────────────────── */}
+      {/* ──── 8. Placement Excellence & Corporate Consortium ────────────────────────────────────── */}
       <section 
         id="placements"
         ref={placementReveal.ref}
@@ -1066,7 +1176,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
       </div>
     </section>
 
-      {/* ── 9. Admissions 2026 Process & Application Roadmap ──────────────── */}
+      {/* ──── 9. Admissions 2026 Process & Application Roadmap ──────────────────────────────── */}
       <section 
         id="admissions"
         ref={admissionsReveal.ref}
@@ -1140,7 +1250,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
               </div>
               <div>
                 <p className="text-sm font-bold text-slate-900 dark:text-white">Dean of Admissions &amp; Counseling Secretariat</p>
-                <p className="text-xs text-slate-500">+91 80 2841 9000 • admissions@chanakya.edu.in • Office Hours: Mon–Sat 9:00 AM – 5:30 PM</p>
+                <p className="text-xs text-slate-500">+91 80 2841 9000 • admissions@axiogen.edu.in • Office Hours: Mon–Sat 9:00 AM – 5:30 PM</p>
               </div>
             </div>
             <a
@@ -1154,7 +1264,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ── 10. Official University Gazette & Circulars ────────────────────── */}
+      {/* ──── 10. Official University Gazette & Circulars ──────────────────────────────────────────── */}
       <section 
         id="notices"
         ref={noticesReveal.ref}
@@ -1210,7 +1320,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ── 11. Comprehensive Executive Institutional Footer ───────────────── */}
+      {/* ──── 11. Comprehensive Executive Institutional Footer ────────────────────────────────── */}
       <footer className="bg-institutional-950 text-slate-400 text-xs py-14 border-t border-institutional-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b border-institutional-900">
@@ -1219,7 +1329,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
             <div className="space-y-3">
               <div className="flex items-center gap-2.5">
                 <UniversityCrest className="w-7 h-7 shrink-0" />
-                <span className="font-bold text-white text-sm uppercase tracking-wide">Chanakya Institute</span>
+                <span className="font-bold text-white text-sm uppercase tracking-wide">Axiogen Institute</span>
               </div>
               <p className="text-[11px] text-slate-400 leading-relaxed">
                 Autonomous Premier Technical University • Approved by AICTE, Affiliated to State Technological Board.
@@ -1272,13 +1382,16 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500">
-            <p>© {new Date().getFullYear()} Chanakya Institute of Technology & Sciences. All statutory rights reserved.</p>
+            <p>© {new Date().getFullYear()} Axiogen Institute of Technology & Sciences. All statutory rights reserved.</p>
             <p className="font-mono">Enterprise ERP SIS Platform 2.4.0-Production</p>
           </div>
         </div>
       </footer>
 
-      {/* ── Curriculum & Syllabus Specification Modal ────────────────────── */}
+              </>
+      )}
+
+      {/* ──── Curriculum & Syllabus Specification Modal ──────────────────────────────────────────── */}
       {selectedProgram && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-sm"

@@ -23,7 +23,7 @@ export const AiAssistantModule: React.FC = () => {
     {
       query: 'What is the mandatory attendance requirement to appear for semester examinations?',
       answer: 'According to Ordinance 14.2 of the Academic Regulations, every undergraduate scholar must maintain a minimum of 75.0% aggregate attendance across all registered lecture and laboratory courses to qualify for the End-Semester Examination Hall Ticket. A relaxation up to 65.0% may be granted by the Academic Council solely on documented medical grounds or participation in approved inter-collegiate representations.',
-      citations: 'Chanakya University Academic Bylaws (2024 Revised), Section 14: Attendance & Hall Ticket Eligibility'
+      citations: 'Axiogen University Academic Bylaws (2024 Revised), Section 14: Attendance & Hall Ticket Eligibility'
     }
   ]);
 
@@ -202,7 +202,7 @@ export const AiAssistantModule: React.FC = () => {
                     <div className="space-y-1.5 flex-1">
                       <div className="flex items-center justify-between gap-2">
                         <span className="font-bold text-institutional-900 dark:text-institutional-200 text-xs">
-                          Chanakya Academic Intelligence
+                          Axiogen Academic Intelligence
                         </span>
                         <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
                           ✓ Verified Policy
