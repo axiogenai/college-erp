@@ -26,11 +26,11 @@ interface NodeInfo {
 }
 
 const INITIAL_NODES: NodeInfo[] = [
-  { id: 'node-1', name: 'srv-ingress-01.axiogen.edu', role: 'NGINX Ingress & TLS 1.3 Gateway', ip: '10.0.1.10', status: 'healthy', cpu: 14, memory: 34, disk: 22, uptime: '48 days' },
-  { id: 'node-2', name: 'srv-app-primary.axiogen.edu', role: 'React Core & Fastify API Cluster', ip: '10.0.1.20', status: 'healthy', cpu: 28, memory: 52, disk: 38, uptime: '24 days' },
-  { id: 'node-3', name: 'srv-db-master.axiogen.edu', role: 'PostgreSQL 16 Primary (Read/Write)', ip: '10.0.2.11', status: 'healthy', cpu: 19, memory: 68, disk: 44, uptime: '92 days' },
-  { id: 'node-4', name: 'srv-db-replica.axiogen.edu', role: 'PostgreSQL 16 Standby (Sync 0ms)', ip: '10.0.2.12', status: 'healthy', cpu: 11, memory: 65, disk: 44, uptime: '92 days' },
-  { id: 'node-5', name: 'srv-worker-01.axiogen.edu', role: 'Redis 7.2 & Celery Task Daemons', ip: '10.0.3.30', status: 'healthy', cpu: 22, memory: 41, disk: 19, uptime: '36 days' },
+  { id: 'node-1', name: 'srv-ingress-01.chanakya.edu', role: 'NGINX Ingress & TLS 1.3 Gateway', ip: '10.0.1.10', status: 'healthy', cpu: 14, memory: 34, disk: 22, uptime: '48 days' },
+  { id: 'node-2', name: 'srv-app-primary.chanakya.edu', role: 'React Core & Fastify API Cluster', ip: '10.0.1.20', status: 'healthy', cpu: 28, memory: 52, disk: 38, uptime: '24 days' },
+  { id: 'node-3', name: 'srv-db-master.chanakya.edu', role: 'PostgreSQL 16 Primary (Read/Write)', ip: '10.0.2.11', status: 'healthy', cpu: 19, memory: 68, disk: 44, uptime: '92 days' },
+  { id: 'node-4', name: 'srv-db-replica.chanakya.edu', role: 'PostgreSQL 16 Standby (Sync 0ms)', ip: '10.0.2.12', status: 'healthy', cpu: 11, memory: 65, disk: 44, uptime: '92 days' },
+  { id: 'node-5', name: 'srv-worker-01.chanakya.edu', role: 'Redis 7.2 & Celery Task Daemons', ip: '10.0.3.30', status: 'healthy', cpu: 22, memory: 41, disk: 19, uptime: '36 days' },
 ];
 
 export const SystemHealthModule: React.FC = () => {
@@ -529,7 +529,7 @@ export const SystemHealthModule: React.FC = () => {
               <p className="text-slate-400">[2026-10-09T17:45:00Z] [HEALTH] HTTP ping latency check: all 5 internal nodes responding in &lt; 2.4ms.</p>
               <p className="text-slate-400">[2026-10-09T17:30:00Z] [POSTGRES] Autovacuum on &apos;timetable_slots&apos; reclaimed 12 dead tuples.</p>
               <p className="text-cyan-400">[2026-10-09T17:00:00Z] [REDIS] Eviction cycle complete. Zero expired sessions retained.</p>
-              <p className="text-slate-400">[2026-10-09T16:15:00Z] [TLS] Let&apos;s Encrypt wildcard certificate verified (*.axiogen.edu, 64 days remaining).</p>
+              <p className="text-slate-400">[2026-10-09T16:15:00Z] [TLS] Let&apos;s Encrypt wildcard certificate verified (*.chanakya.edu, 64 days remaining).</p>
               <p className="text-amber-400">[2026-10-09T15:20:00Z] [AUTH] Elevated permission query by user-principal-01 authenticated via session token.</p>
               <p className="text-emerald-400">[2026-10-09T04:00:00Z] [SNAPSHOT] Automated daily snapshot verified and mirrored to secondary Frankfurt vault.</p>
             </div>

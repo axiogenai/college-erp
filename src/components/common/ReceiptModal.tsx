@@ -49,7 +49,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, pay
             </div>
             <div>
               <h2 className="text-lg sm:text-xl font-bold tracking-tight text-institutional-900 dark:text-institutional-100 font-serif uppercase">
-                Axiogen Institute of Technology & Sciences
+                Chanakya Institute of Technology & Sciences
               </h2>
               <p className="text-[11px] text-slate-500 font-medium">
                 Autonomous University • NAAC Accredited &lsquo;A++&rsquo; Grade • Approved by AICTE
@@ -57,7 +57,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, pay
             </div>
           </div>
           <p className="text-[11px] text-slate-400">
-            University Campus, Knowledge Corridor, Bengaluru – 560100 • Tel: +91 80 2841 9000 • finance@axiogen.edu.in
+            University Campus, Knowledge Corridor, Bengaluru – 560100 • Tel: +91 80 2841 9000 • finance@chanakya.edu.in
           </p>
           <div className="inline-block mt-2 px-3 py-0.5 rounded-full bg-institutional-50 text-institutional-800 dark:bg-institutional-950 dark:text-institutional-200 text-xs font-semibold tracking-wider uppercase border border-institutional-200">
             Official E-Treasury Receipt
@@ -163,7 +163,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, pay
           <div className="text-center sm:text-right">
             <div className="inline-block p-1 border border-dashed border-institutional-300 dark:border-institutional-700 rounded-lg mb-1">
               <span className="text-[10px] font-mono text-institutional-700 dark:text-institutional-300 font-semibold block px-2">
-                AXIOGEN TREASURY STAMP
+                CHANAKYA TREASURY STAMP
               </span>
             </div>
             <p className="font-serif font-bold text-slate-800 dark:text-slate-200">Mr. Rajeshwar Rao, CA</p>

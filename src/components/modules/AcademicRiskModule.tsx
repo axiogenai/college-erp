@@ -662,7 +662,7 @@ export const AcademicRiskModule: React.FC = () => {
                 Interactive UGC Attendance Recovery &amp; Condonation Calculator
               </h3>
               <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                Under Axiogen University Academic Ordinance 14.2, scholars must achieve an aggregate attendance of 75.0% to receive an End-Semester Examination Hall Ticket. Use this tool to calculate mathematically whether a scholar can recover or requires an official Medical Condonation petition before the Dean.
+                Under Chanakya University Academic Ordinance 14.2, scholars must achieve an aggregate attendance of 75.0% to receive an End-Semester Examination Hall Ticket. Use this tool to calculate mathematically whether a scholar can recover or requires an official Medical Condonation petition before the Dean.
               </p>
             </div>
 

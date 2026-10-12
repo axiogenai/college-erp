@@ -105,7 +105,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
                 <div className="min-w-0">
                   <h1 className="text-sm font-bold tracking-tight text-slate-900 dark:text-white truncate">
-                    AXIOGEN ERP
+                    CHANAKYA ERP
                   </h1>
                   <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wider truncate uppercase">
                     Enterprise SIS 2.0

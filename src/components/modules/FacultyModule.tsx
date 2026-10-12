@@ -276,7 +276,7 @@ export const FacultyModule: React.FC = () => {
             footer={
               <div className="flex items-center justify-between w-full">
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
-                  Axiogen ERP • Department of {selectedFacultyForView.department.split('&')[0].trim()}
+                  Chanakya ERP • Department of {selectedFacultyForView.department.split('&')[0].trim()}
                 </span>
                 <Button variant="primary" size="sm" onClick={() => setSelectedFacultyForView(null)}>
                   Close Dossier
@@ -451,7 +451,7 @@ export const FacultyModule: React.FC = () => {
               <input
                 type="email"
                 required
-                placeholder="faculty@axiogen.edu.in"
+                placeholder="faculty@chanakya.edu.in"
                 className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100"
                 value={newFaculty.email}
                 onChange={e => setNewFaculty({ ...newFaculty, email: e.target.value })}

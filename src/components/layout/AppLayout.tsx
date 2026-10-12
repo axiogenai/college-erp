@@ -82,7 +82,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ onNavigateLanding }) => {
   };
 
   return (
-    <div className="dark min-h-screen bg-slate-950 text-slate-100 flex transition-colors selection:bg-institutional-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex transition-colors selection:bg-institutional-500 selection:text-white">
       {/* Sidebar */}
       <Sidebar
         activeModule={activeModule}

@@ -231,7 +231,7 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onN
         {/* Footer shortcuts */}
         <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
           <span>Press <kbd className="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[10px]">Esc</kbd> to exit</span>
-          <span>Axiogen Institute Knowledge Index</span>
+          <span>Chanakya Institute Knowledge Index</span>
         </div>
       </div>
     </div>

@@ -115,7 +115,7 @@ export const StudentsModule: React.FC = () => {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `axiogen_students_registry_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute("download", `chanakya_students_registry_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -309,7 +309,7 @@ export const StudentsModule: React.FC = () => {
           footer={
             <div className="flex items-center justify-between w-full">
               <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
-                Axiogen ERP • Academic Registry Engine
+                Chanakya ERP • Academic Registry Engine
               </span>
               <div className="flex items-center gap-2">
                 <Button 
@@ -554,7 +554,7 @@ export const StudentsModule: React.FC = () => {
               <input
                 type="email"
                 required
-                placeholder="student@axiogen.edu.in"
+                placeholder="student@chanakya.edu.in"
                 className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100"
                 value={newStudent.email}
                 onChange={e => setNewStudent({ ...newStudent, email: e.target.value })}
