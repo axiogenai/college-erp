@@ -12,7 +12,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    localStorage.removeItem('chanakya_theme');
+    localStorage.removeItem('axiogen_theme');
     localStorage.removeItem('axiogen_theme');
     localStorage.removeItem('axiogen_dark_theme');
     localStorage.setItem('axiogen_theme_mode', 'light');
