@@ -157,54 +157,81 @@ export const StudentsModule: React.FC = () => {
       />
 
       {/* Filter and Search Bar */}
-      <SoftCard className="p-4">
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by student name, roll number (e.g. STU-2024-CS-042) or email..."
-              className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-            />
+      <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between rounded-t-xl">
+          <div className="flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-sky-300" />
+            <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+              Student Search &amp; Cohort Filters
+            </h3>
           </div>
+          <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            Active Query Engine
+          </span>
+        </div>
+        <div className="p-4">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="relative flex-1 w-full">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search by student name, roll number (e.g. STU-2024-CS-042) or email..."
+                className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
-            <Select
-              className="w-full sm:w-56"
-              value={selectedDept}
-              onChange={val => setSelectedDept(val)}
-              options={[
-                { value: 'all', label: 'All Departments' },
-                { value: 'Computer Science & Engineering', label: 'Computer Science & Engineering' },
-                { value: 'Artificial Intelligence & Data Science', label: 'AI & Data Science' },
-                { value: 'Electronics & Communication', label: 'Electronics & Communication' },
-                { value: 'Mechanical Engineering', label: 'Mechanical Engineering' },
-                { value: 'School of Management', label: 'School of Management' },
-              ]}
-            />
+            <div className="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
+              <Select
+                className="w-full sm:w-56"
+                value={selectedDept}
+                onChange={val => setSelectedDept(val)}
+                options={[
+                  { value: 'all', label: 'All Departments' },
+                  { value: 'Computer Science & Engineering', label: 'Computer Science & Engineering' },
+                  { value: 'Artificial Intelligence & Data Science', label: 'AI & Data Science' },
+                  { value: 'Electronics & Communication', label: 'Electronics & Communication' },
+                  { value: 'Mechanical Engineering', label: 'Mechanical Engineering' },
+                  { value: 'School of Management', label: 'School of Management' },
+                ]}
+              />
 
-            <Select
-              className="w-full sm:w-44"
-              value={selectedStatus}
-              onChange={val => setSelectedStatus(val)}
-              options={[
-                { value: 'all', label: 'All Statuses' },
-                { value: 'active', label: 'Active', dotColor: 'bg-emerald-500' },
-                { value: 'probation', label: 'Probation / Warning', dotColor: 'bg-rose-500' },
-                { value: 'graduated', label: 'Graduated', dotColor: 'bg-slate-400' },
-              ]}
-            />
+              <Select
+                className="w-full sm:w-44"
+                value={selectedStatus}
+                onChange={val => setSelectedStatus(val)}
+                options={[
+                  { value: 'all', label: 'All Statuses' },
+                  { value: 'active', label: 'Active', dotColor: 'bg-[#C5A059]' },
+                  { value: 'probation', label: 'Probation / Warning', dotColor: 'bg-rose-500' },
+                  { value: 'graduated', label: 'Graduated', dotColor: 'bg-neutral-400' },
+                ]}
+              />
+            </div>
           </div>
         </div>
       </SoftCard>
 
       {/* Students Data Table */}
-      <SoftCard className="overflow-hidden">
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-bold font-serif text-white">
+              Student Academic Registry ({filteredStudents.length} Scholars Enrolled)
+            </h3>
+            <p className="text-xs text-sky-200/80 mt-0.5">
+              Verified autonomous ERP academic dossier, statutory attendance standing, and fee clearance
+            </p>
+          </div>
+          <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+            AY 2026–27 Roll
+          </span>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-[11px] uppercase tracking-wider border-b border-institutional-200 dark:border-slate-700">
+            <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold text-[11px] uppercase tracking-wider border-b border-blue-500/25">
               <tr>
                 <th className="px-4 py-3 text-left">Student Name &amp; ID</th>
                 <th className="px-4 py-3 text-left">Department &amp; Program</th>
@@ -245,23 +272,35 @@ export const StudentsModule: React.FC = () => {
                     {student.cgpa.toFixed(2)}
                   </td>
                   <td className="px-3 py-3 text-center">
-                    <Badge
-                      variant={student.attendancePercentage >= 80 ? 'success' : student.attendancePercentage >= 75 ? 'warning' : 'danger'}
-                      size="sm"
-                      dot
-                    >
+                    <span className={`font-mono text-xs font-semibold tabular-nums ${
+                      student.attendancePercentage < 75 
+                        ? 'text-rose-600 dark:text-rose-400' 
+                        : 'text-slate-700 dark:text-slate-300'
+                    }`}>
                       {student.attendancePercentage}%
-                    </Badge>
+                    </span>
                   </td>
                   <td className="px-3 py-3 text-center">
-                    <Badge variant={student.feeStatus === 'paid' ? 'success' : student.feeStatus === 'partial' ? 'warning' : 'danger'} size="sm">
+                    <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium border ${
+                      student.feeStatus === 'paid'
+                        ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                        : student.feeStatus === 'partial'
+                        ? 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800/60'
+                        : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/60'
+                    }`}>
                       {student.feeStatus === 'paid' ? 'Paid' : student.feeStatus === 'partial' ? 'Partial' : 'Overdue'}
-                    </Badge>
+                    </span>
                   </td>
                   <td className="px-3 py-3 text-center">
-                    <Badge variant={student.status === 'active' ? 'primary' : student.status === 'probation' ? 'danger' : 'neutral'} size="sm">
+                    <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-medium border ${
+                      student.status === 'active'
+                        ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                        : student.status === 'probation'
+                        ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/60'
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'
+                    }`}>
                       {student.status === 'active' ? 'Active' : student.status === 'probation' ? 'Probation' : 'Graduated'}
-                    </Badge>
+                    </span>
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-1.5">
@@ -329,29 +368,29 @@ export const StudentsModule: React.FC = () => {
         >
           <div className="space-y-4 text-xs">
             {/* Executive Profile Card Header */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
+            <div className="p-4 rounded-xl bg-white dark:bg-[#121215] border border-neutral-200 dark:border-white/[0.08] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3.5">
                 <div className="relative">
                   <img
                     src={selectedStudentForView.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedStudentForView.fullName)}&background=0D2235&color=fff`}
                     alt={selectedStudentForView.fullName}
-                    className="w-16 h-16 rounded-xl object-cover ring-2 ring-slate-200 dark:ring-slate-700 shadow-sm shrink-0"
+                    className="w-14 h-14 rounded-full object-cover ring-2 ring-white dark:ring-[#121215] shadow-xs shrink-0"
                   />
-                  <span className={`absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full ring-2 ring-white dark:ring-slate-900 ${
-                    selectedStudentForView.status === 'active' ? 'bg-emerald-500' : 'bg-rose-500'
+                  <span className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ring-2 ring-white dark:ring-[#121215] ${
+                    selectedStudentForView.status === 'active' ? 'bg-[#C5A059]' : 'bg-rose-500'
                   }`} />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-bold font-sans tracking-tight text-slate-900 dark:text-slate-100">
+                    <h3 className="text-sm font-semibold tracking-tight text-neutral-900 dark:text-[#EDEDEF]">
                       {selectedStudentForView.fullName}
                     </h3>
                   </div>
-                  <p className="text-slate-600 dark:text-slate-300 font-medium mt-0.5">
+                  <p className="text-[11px] text-neutral-500 dark:text-[#A1A1AA] mt-0.5">
                     {selectedStudentForView.program}
                   </p>
-                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-500 mt-1.5">
-                    <span className="font-mono bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-700 dark:text-slate-300 font-semibold border border-slate-200 dark:border-slate-700">
+                  <div className="flex flex-wrap items-center gap-2 text-[10px] text-neutral-400 dark:text-[#71717A] mt-1.5">
+                    <span className="font-mono bg-neutral-100 dark:bg-[#18181C] px-2 py-0.5 rounded text-neutral-700 dark:text-[#EDEDEF] font-medium border border-neutral-200 dark:border-white/[0.08]">
                       {selectedStudentForView.enrollmentId}
                     </span>
                     <span>•</span>
@@ -363,13 +402,12 @@ export const StudentsModule: React.FC = () => {
               </div>
 
               <div className="sm:self-start">
-                <Badge 
-                  variant={selectedStudentForView.status === 'active' ? 'success' : 'danger'} 
-                  size="md"
-                  dot
-                >
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[10px] font-medium bg-neutral-100 dark:bg-[#18181C] text-neutral-800 dark:text-[#EDEDEF] border border-neutral-200 dark:border-white/[0.08]">
+                  <span className={`w-1.5 h-1.5 rounded-full ${
+                    selectedStudentForView.status === 'active' ? 'bg-[#C5A059]' : 'bg-rose-500'
+                  }`} />
                   {selectedStudentForView.status === 'active' ? 'Good Standing' : 'Academic Probation'}
-                </Badge>
+                </span>
               </div>
             </div>
 
@@ -391,7 +429,7 @@ export const StudentsModule: React.FC = () => {
             </div>
 
             {/* Unified 4-Metric Dossier Ribbon */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-slate-800 shadow-soft">
+            <div className="grid grid-cols-2 sm:grid-cols-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 divide-y sm:divide-y-0 sm:divide-x divide-slate-100 dark:divide-slate-800">
               <div className="p-3 text-center">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 block mb-1">
                   Cumulative CGPA
@@ -419,12 +457,13 @@ export const StudentsModule: React.FC = () => {
                 <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100 block">
                   {selectedStudentForView.attendancePercentage}%
                 </span>
-                <Badge
-                  variant={selectedStudentForView.attendancePercentage >= 80 ? 'success' : selectedStudentForView.attendancePercentage >= 75 ? 'warning' : 'danger'}
-                  size="xs"
-                >
+                <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium border ${
+                  selectedStudentForView.attendancePercentage >= 75
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                    : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/60'
+                }`}>
                   {selectedStudentForView.attendancePercentage >= 75 ? 'Compliant' : 'Shortage'}
-                </Badge>
+                </span>
               </div>
 
               <div className="p-3 text-center">
@@ -434,12 +473,13 @@ export const StudentsModule: React.FC = () => {
                 <span className="text-base font-bold font-mono text-slate-900 dark:text-slate-100 block">
                   INR {selectedStudentForView.feeBalance.toLocaleString()}
                 </span>
-                <Badge
-                  variant={selectedStudentForView.feeBalance === 0 ? 'success' : 'danger'}
-                  size="xs"
-                >
+                <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-medium border ${
+                  selectedStudentForView.feeBalance === 0
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700'
+                    : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800/60'
+                }`}>
                   {selectedStudentForView.feeBalance === 0 ? 'Zero Balance' : 'Due'}
-                </Badge>
+                </span>
               </div>
             </div>
 

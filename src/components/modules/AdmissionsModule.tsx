@@ -116,40 +116,67 @@ export const AdmissionsModule: React.FC = () => {
       )}
 
       {/* Filter and Search Bar */}
-      <SoftCard className="p-4">
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search candidate name, application ref (e.g. APP-2026-0819)..."
-              className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+      <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between rounded-t-xl">
+          <div className="flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-sky-300" />
+            <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+              Candidate Pipeline Filters &amp; Query
+            </h3>
+          </div>
+          <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            Phase II Intake
+          </span>
+        </div>
+        <div className="p-4">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="relative flex-1 w-full">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search candidate name, application ref (e.g. APP-2026-0819)..."
+                className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            <Select
+              className="w-full sm:w-56"
+              value={selectedStage}
+              onChange={val => setSelectedStage(val)}
+              options={[
+                { value: 'all', label: 'All Pipeline Stages' },
+                { value: 'enquiry', label: 'Enquiry Stage' },
+                { value: 'under_review', label: 'Under Review' },
+                { value: 'documents_verified', label: 'Documents Verified' },
+                { value: 'merit_listed', label: 'Merit Listed' },
+                { value: 'enrolled', label: 'Enrolled / Confirmed' },
+              ]}
             />
           </div>
-
-          <Select
-            className="w-full sm:w-56"
-            value={selectedStage}
-            onChange={val => setSelectedStage(val)}
-            options={[
-              { value: 'all', label: 'All Pipeline Stages' },
-              { value: 'enquiry', label: 'Enquiry Stage' },
-              { value: 'under_review', label: 'Under Review' },
-              { value: 'documents_verified', label: 'Documents Verified' },
-              { value: 'merit_listed', label: 'Merit Listed' },
-              { value: 'enrolled', label: 'Enrolled / Confirmed' },
-            ]}
-          />
         </div>
       </SoftCard>
 
       {/* Candidates Table */}
-      <SoftCard className="overflow-visible">
-        <div className="overflow-x-visible">
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-bold font-serif text-white">
+              Admissions Intake Pipeline ({filteredEnquiries.length} Registered Candidates)
+            </h3>
+            <p className="text-xs text-sky-200/80 mt-0.5">
+              Prospective scholar verification, qualifying examination merit scores, and stage counseling
+            </p>
+          </div>
+          <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+            Phase II Intake Active
+          </span>
+        </div>
+
+        <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold uppercase text-[10px] tracking-wider border-b border-institutional-200 dark:border-slate-700">
+            <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold uppercase text-[10px] tracking-wider border-b border-blue-500/25">
               <tr>
                 <th className="px-4 py-3 align-middle whitespace-nowrap">Application Ref</th>
                 <th className="px-4 py-3 align-middle whitespace-nowrap">Candidate Name</th>

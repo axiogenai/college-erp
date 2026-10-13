@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ErpDataProvider } from './context/ErpDataContext';
@@ -9,17 +9,6 @@ import { UserRole } from './types';
 const MainController: React.FC = () => {
   const [viewMode, setViewMode] = useState<'landing' | 'portal'>('landing');
   const { switchPersona, login } = useAuth();
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (viewMode === 'portal') {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
-    }
-  }, [viewMode]);
 
   const handleEnterPortal = (role?: UserRole) => {
     if (role) {

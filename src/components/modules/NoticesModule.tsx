@@ -59,7 +59,7 @@ export const NoticesModule: React.FC = () => {
       <PageHeader
         title="Official Senate Circulars, Notifications &amp; Gazette"
         subtitle="Institutional announcements, examination schedules, fee directives, and placements"
-        icon={<FileText className="w-5 h-5 text-institutional-600" />}
+        icon={<FileText className="w-5 h-5 text-[#0F2942] dark:text-sky-400" />}
         actions={
           canCreate && (
             <Button
@@ -85,32 +85,45 @@ export const NoticesModule: React.FC = () => {
       )}
 
       {/* Filter and Search Bar */}
-      <SoftCard className="p-4">
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search circular title, reference number (e.g. CITS/ACAD/2026/041)..."
-              className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+      <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between rounded-t-xl">
+          <div className="flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-sky-300" />
+            <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+              Notice Categorization &amp; Circular Search
+            </h3>
+          </div>
+          <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            Official Bulletins
+          </span>
+        </div>
+        <div className="p-4">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="relative flex-1 w-full">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search circular title, reference number (e.g. CITS/ACAD/2026/041)..."
+                className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            <Select
+              className="w-full sm:w-56"
+              value={selectedCat}
+              onChange={val => setSelectedCat(val)}
+              options={[
+                { value: 'all', label: 'All Categories' },
+                { value: 'Academic', label: 'Academic' },
+                { value: 'Examination', label: 'Examination' },
+                { value: 'Fee/Finance', label: 'Fee & Finance' },
+                { value: 'Placement', label: 'Placement' },
+                { value: 'Administrative', label: 'Administrative' },
+              ]}
             />
           </div>
-
-          <Select
-            className="w-full sm:w-56"
-            value={selectedCat}
-            onChange={val => setSelectedCat(val)}
-            options={[
-              { value: 'all', label: 'All Categories' },
-              { value: 'Academic', label: 'Academic' },
-              { value: 'Examination', label: 'Examination' },
-              { value: 'Fee/Finance', label: 'Fee & Finance' },
-              { value: 'Placement', label: 'Placement' },
-              { value: 'Administrative', label: 'Administrative' },
-            ]}
-          />
         </div>
       </SoftCard>
 
@@ -118,26 +131,30 @@ export const NoticesModule: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {filteredNotices.map(notice => (
           <SoftCard key={notice.id} hoverEffect className="overflow-hidden flex flex-col justify-between border border-slate-200 dark:border-slate-800">
-            {/* Soft Color Top Bar */}
-            <div className="px-5 py-3 bg-institutional-100 dark:bg-slate-800 border-b border-institutional-200 dark:border-slate-700 flex items-center justify-between">
-              <span className="font-mono text-xs font-bold text-institutional-700 dark:text-institutional-400">
+            {/* Dark Royal Oxford Navy Top Banner */}
+            <div className="px-5 py-3 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 flex items-center justify-between">
+              <span className="font-mono text-xs font-bold text-white tracking-wide">
                 {notice.referenceNumber}
               </span>
               <div className="flex items-center gap-1.5">
                 {notice.isAiAssisted && (
-                  <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-mono border border-slate-200 dark:border-slate-600">
-                    <FileText className="w-3 h-3 text-slate-400" /> Assisted
+                  <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-sky-200 font-mono border border-white/15">
+                    <FileText className="w-3 h-3 text-sky-300" /> Assisted
                   </span>
                 )}
-                <Badge
-                  variant={
-                    notice.priority === 'urgent' ? 'danger' :
-                    notice.priority === 'high' ? 'warning' : 'neutral'
-                  }
-                  size="sm"
-                >
-                  {notice.priority === 'urgent' ? 'Urgent' : notice.priority === 'high' ? 'High Priority' : 'General'}
-                </Badge>
+                {notice.priority === 'urgent' ? (
+                  <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-200 border border-rose-400/30 font-mono text-[10px] font-bold uppercase tracking-wider">
+                    Urgent
+                  </span>
+                ) : notice.priority === 'high' ? (
+                  <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-200 border border-amber-400/30 font-mono text-[10px] font-bold uppercase tracking-wider">
+                    High Priority
+                  </span>
+                ) : (
+                  <span className="px-2 py-0.5 rounded bg-white/10 text-white/85 border border-white/15 font-mono text-[10px] font-bold uppercase tracking-wider">
+                    General
+                  </span>
+                )}
               </div>
             </div>
 
@@ -212,10 +229,10 @@ export const NoticesModule: React.FC = () => {
                 value={newNotice.priority}
                 onChange={val => setNewNotice({ ...newNotice, priority: val as any })}
                 options={[
-                  { value: 'low', label: 'Low', dotColor: 'bg-slate-400' },
-                  { value: 'medium', label: 'Medium', dotColor: 'bg-sky-500' },
-                  { value: 'high', label: 'High', dotColor: 'bg-amber-500' },
-                  { value: 'urgent', label: 'Urgent', dotColor: 'bg-rose-500' },
+                  { value: 'low', label: 'Low Priority' },
+                  { value: 'medium', label: 'Medium Priority' },
+                  { value: 'high', label: 'High Priority' },
+                  { value: 'urgent', label: 'Urgent Directive' },
                 ]}
               />
             </div>

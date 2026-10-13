@@ -31,7 +31,7 @@ export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 }) => {
   return (
     <div
-      className={`px-5 py-3.5 bg-institutional-100 dark:bg-slate-800 border-b border-institutional-200 dark:border-slate-700 flex items-center justify-between shrink-0 ${className}`}
+      className={`px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between shrink-0 ${className}`}
       {...props}
     >
       {children}

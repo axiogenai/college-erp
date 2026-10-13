@@ -94,16 +94,20 @@ export const AccountantDashboard: React.FC<AccountantDashboardProps> = ({ onNavi
         <div className="lg:col-span-7 space-y-6">
           {/* Refund Approval Queue */}
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <RotateCcw className="w-4 h-4 text-amber-600" />
-                <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+                <RotateCcw className="w-4 h-4 text-sky-400" />
+                <h3 className="text-sm font-bold font-serif text-white">
                   Treasury Refund Requests
                 </h3>
               </div>
-              <Badge variant={pendingRefunds.length > 0 ? 'warning' : 'success'} size="sm">
+              <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${
+                pendingRefunds.length > 0 
+                  ? 'bg-amber-500/20 text-amber-200 border-amber-400/30' 
+                  : 'bg-white/10 text-white/85 border-white/15'
+              }`}>
                 {pendingRefunds.length} Pending Approval
-              </Badge>
+              </span>
             </div>
 
             <div className="p-5">
@@ -150,14 +154,14 @@ export const AccountantDashboard: React.FC<AccountantDashboardProps> = ({ onNavi
 
           {/* Overdue Fee Invoices */}
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
-              <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+              <h3 className="text-sm font-bold font-serif text-white">
                 Overdue Student Invoices
               </h3>
               <Button
                 variant="outline"
                 size="sm"
-                className="text-[11px] h-7"
+                className="text-[11px] h-7 border-white/20 text-white hover:bg-white/10"
                 onClick={() => onNavigate('finance')}
               >
                 Open Full Ledger
@@ -177,9 +181,13 @@ export const AccountantDashboard: React.FC<AccountantDashboardProps> = ({ onNavi
                         Balance Due: INR {inv.balanceAmount.toLocaleString()} • Due Date: {inv.dueDate}
                       </p>
                     </div>
-                    <Badge variant={inv.status === 'overdue' ? 'danger' : 'warning'} size="sm">
+                    <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${
+                      inv.status === 'overdue' 
+                        ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-400/30' 
+                        : 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-400/30'
+                    }`}>
                       {inv.status === 'overdue' ? 'Overdue' : 'Partial'}
-                    </Badge>
+                    </span>
                   </div>
                 ))}
               </div>
@@ -190,11 +198,13 @@ export const AccountantDashboard: React.FC<AccountantDashboardProps> = ({ onNavi
         {/* Right: Settled Transactions & Reconciliation Ledger */}
         <div className="lg:col-span-5 space-y-6">
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
-              <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+              <h3 className="text-sm font-bold font-serif text-white">
                 Recent Reconciled Receipts
               </h3>
-              <Badge variant="success" size="sm" dot>Gateway Synced</Badge>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-white/10 text-white/85 border border-white/15">
+                Gateway Synced
+              </span>
             </div>
 
             <div className="p-5">

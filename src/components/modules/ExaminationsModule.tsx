@@ -75,64 +75,90 @@ export const ExaminationsModule: React.FC = () => {
       )}
 
       {/* Select Exam Card */}
-      <SoftCard className="p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-3 w-full sm:w-auto">
-          <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 shrink-0">Select Exam Diet:</label>
-          <Select
-            className="w-full sm:w-80"
-            value={selectedExamId}
-            onChange={val => setSelectedExamId(val)}
-            options={examRecords.map(exam => ({
-              value: exam.id,
-              label: `${exam.examName} (${exam.subjectCode})`,
-              badge: exam.status === 'published' ? 'Published' : exam.status === 'under_review' ? 'Under Review' : 'Draft'
-            }))}
-          />
+      <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-t-xl">
+          <div>
+            <h3 className="text-sm font-bold font-serif text-white">
+              Examination Session &amp; Diet Parameters
+            </h3>
+            <p className="text-xs text-sky-200/80 mt-0.5">
+              Select course diet, moderation status, and continuous assessment gradebook
+            </p>
+          </div>
+          <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+            Publication: {currentExam.status === 'published' ? 'Officially Released' : currentExam.status === 'under_review' ? 'Under Review' : 'Draft Entry'}
+          </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-slate-400">Publication Status:</span>
-          <span className={`inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold ${
-            currentExam.status === 'published'
-              ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
-              : currentExam.status === 'under_review'
-              ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300'
-              : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
-          }`}>
-            {currentExam.status === 'published' ? '✓ Officially Published' : currentExam.status === 'under_review' ? '⏳ Under Review by COE' : 'Draft'}
-          </span>
+        <div className="p-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 shrink-0">Select Exam Diet:</label>
+            <Select
+              className="w-full sm:w-80"
+              value={selectedExamId}
+              onChange={val => setSelectedExamId(val)}
+              options={examRecords.map(exam => ({
+                value: exam.id,
+                label: `${exam.examName} (${exam.subjectCode})`,
+                badge: exam.status === 'published' ? 'Published' : exam.status === 'under_review' ? 'Under Review' : 'Draft'
+              }))}
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-slate-400">COE Standing:</span>
+            <span className={`inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold ${
+              currentExam.status === 'published'
+                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
+                : currentExam.status === 'under_review'
+                ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300'
+                : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+            }`}>
+              {currentExam.status === 'published' ? '✓ Officially Published' : currentExam.status === 'under_review' ? '⏳ Under Review by COE' : 'Draft'}
+            </span>
+          </div>
         </div>
       </SoftCard>
 
       {/* Grading Scale Reference Card */}
-      <SoftCard className="p-4 bg-slate-50/50 dark:bg-slate-800/30">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[11px] font-mono">
-            UGC / AICTE 10-Point Relative Grading System:
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+          <h4 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+            Statutory Relative Grading Matrix (UGC / AICTE 10-Point System)
+          </h4>
+          <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            Ordinance 12.4 Standard
           </span>
-          <div className="flex items-center gap-2 font-mono text-[11px]">
-            <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">O: 90+ (10 GP)</span>
-            <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">A+: 80–89 (9 GP)</span>
-            <span className="px-2 py-0.5 rounded bg-sky-50 text-sky-700">A: 70–79 (8 GP)</span>
-            <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-700">B+: 60–69 (7 GP)</span>
-            <span className="px-2 py-0.5 rounded bg-rose-50 text-rose-700 font-bold">F: &lt;40 (Fail)</span>
+        </div>
+        <div className="p-4 bg-slate-50/50 dark:bg-slate-800/30">
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+            <span className="font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider text-[11px] font-mono">
+              Grade Point Scale Distribution:
+            </span>
+            <div className="flex flex-wrap items-center gap-2 font-mono text-[11px]">
+              <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">O: 90+ (10 GP)</span>
+              <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700">A+: 80–89 (9 GP)</span>
+              <span className="px-2 py-0.5 rounded bg-sky-50 text-sky-700">A: 70–79 (8 GP)</span>
+              <span className="px-2 py-0.5 rounded bg-amber-50 text-amber-700">B+: 60–69 (7 GP)</span>
+              <span className="px-2 py-0.5 rounded bg-rose-50 text-rose-700 font-bold">F: &lt;40 (Fail)</span>
+            </div>
           </div>
         </div>
       </SoftCard>
 
       {/* Marks Registry Table */}
       <SoftCard className="overflow-hidden">
-        <div className="px-5 py-3.5 bg-institutional-100 dark:bg-slate-800 border-b border-institutional-200 dark:border-slate-700 flex items-center justify-between">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+            <h3 className="text-sm font-bold font-serif text-white">
               Evaluated Student Gradebook ({currentExam.subjectName})
             </h3>
-            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-sky-200/80 mt-0.5">
               Subject Code: {currentExam.subjectCode} • Academic Year: {currentExam.academicYear} • Term: Sem {currentExam.semester}
             </p>
           </div>
           {currentExam.publishedBy && (
-            <span className="text-[11px] text-slate-600 dark:text-slate-400 font-mono">
+            <span className="text-[11px] text-sky-200/90 font-mono">
               Authorized By: {currentExam.publishedBy}
             </span>
           )}
@@ -140,7 +166,7 @@ export const ExaminationsModule: React.FC = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold uppercase text-[10px] tracking-wider border-b border-institutional-200 dark:border-slate-700">
+            <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold uppercase text-[10px] tracking-wider border-b border-blue-500/25">
               <tr>
                 <th className="px-4 py-3 align-middle whitespace-nowrap">Roll Number</th>
                 <th className="px-4 py-3 align-middle whitespace-nowrap">Scholar Name</th>

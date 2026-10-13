@@ -29,7 +29,7 @@ export const AuditLogsModule: React.FC = () => {
       <PageHeader
         title="Security Compliance &amp; Immutable System Audit Trail"
         subtitle="Institutional governance telemetry, role-authenticated action logs, and DevOps cluster vitals"
-        icon={<ShieldAlert className="w-5 h-5 text-institutional-600" />}
+        icon={<ShieldAlert className="w-5 h-5 text-[#0F2942] dark:text-sky-400" />}
       />
 
       {/* DevOps System Health KPIs */}
@@ -65,42 +65,69 @@ export const AuditLogsModule: React.FC = () => {
       </div>
 
       {/* Audit Log Filters */}
-      <SoftCard className="p-4">
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by action, user name, or operational details..."
-              className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+      <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between rounded-t-xl">
+          <div className="flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-sky-300" />
+            <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+              Security Audit Trail Filters
+            </h3>
+          </div>
+          <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            Event Log Query
+          </span>
+        </div>
+        <div className="p-4">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="relative flex-1 w-full">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search by action, user name, or operational details..."
+                className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            <Select
+              className="w-full sm:w-56"
+              value={selectedModule}
+              onChange={val => setSelectedModule(val)}
+              options={[
+                { value: 'all', label: 'All Subsystems' },
+                { value: 'Students', label: 'Students Registry' },
+                { value: 'Examinations', label: 'Examinations & Grades' },
+                { value: 'Finance', label: 'Treasury & Finance' },
+                { value: 'Attendance', label: 'Attendance Ledger' },
+                { value: 'Timetable', label: 'Timetable Scheduler' },
+                { value: 'AI', label: 'AI Intelligence Tools' },
+                { value: 'Auth', label: 'Security & Auth' },
+              ]}
             />
           </div>
-
-          <Select
-            className="w-full sm:w-56"
-            value={selectedModule}
-            onChange={val => setSelectedModule(val)}
-            options={[
-              { value: 'all', label: 'All Subsystems' },
-              { value: 'Students', label: 'Students Registry' },
-              { value: 'Examinations', label: 'Examinations & Grades' },
-              { value: 'Finance', label: 'Treasury & Finance' },
-              { value: 'Attendance', label: 'Attendance Ledger' },
-              { value: 'Timetable', label: 'Timetable Scheduler' },
-              { value: 'AI', label: 'AI Intelligence Tools' },
-              { value: 'Auth', label: 'Security & Auth' },
-            ]}
-          />
         </div>
       </SoftCard>
 
       {/* Audit Trail Table */}
-      <SoftCard className="overflow-hidden">
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-bold font-serif text-white">
+              Security Audit Trail &amp; Governance Ledger ({filteredLogs.length} Events Logged)
+            </h3>
+            <p className="text-xs text-sky-200/80 mt-0.5">
+              Role-authenticated operations, cryptographic signatures, and statutory system verification
+            </p>
+          </div>
+          <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+            SHA-256 Tamper-Proof
+          </span>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold uppercase text-[10px] tracking-wider border-b border-institutional-200 dark:border-slate-700">
+            <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold uppercase text-[10px] tracking-wider border-b border-blue-500/25">
               <tr>
                 <th className="px-4 py-3 align-middle whitespace-nowrap">Timestamp (UTC)</th>
                 <th className="px-4 py-3 align-middle whitespace-nowrap">Actor &amp; Role</th>

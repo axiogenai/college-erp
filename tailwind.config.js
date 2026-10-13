@@ -22,19 +22,19 @@ export default {
           900: '#121215', // Pure Luxury Onyx (no blue tint)
           950: '#0A0A0C', // Pure Luxury Obsidian Canvas (no navy tint)
         },
-        // Refined subdued status replacing neon greens
+        // Authentic Rich Forest Emerald & Pine Palette (matching luxury beUI Pro)
         emerald: {
           50: '#F0FDF4',
           100: '#DCFCE7',
           200: '#BBF7D0',
-          300: '#86EFAC',
-          400: '#4ADE80',
-          500: '#C5A059', // Champagne Gold indicator
-          600: '#1E3A2F', // Restrained Dark Sage
-          700: '#14261C',
-          800: '#0F1D15',
-          900: '#0A140E',
-          950: '#050A07',
+          300: '#6EE7B7',
+          400: '#34D399',
+          500: '#10B981',
+          600: '#059669',
+          700: '#047857',
+          800: '#065F46',
+          900: '#064E3B',
+          950: '#022C22',
         },
         luxury: {
           bg: '#0A0A0C',
@@ -45,35 +45,35 @@ export default {
           text: '#EDEDEF',
           muted: '#A1A1AA',
           faint: '#71717A',
-          gold: '#C5A059',
-          goldHover: '#B38F48',
-          goldLight: '#E8D5B5',
-          goldMuted: 'rgba(197, 160, 89, 0.15)',
+          wine: '#7A1C28',
+          wineHover: '#641620',
+          wineLight: '#E7788A',
+          wineMuted: 'rgba(122, 28, 40, 0.15)',
         },
         institutional: {
-          50: '#F9F8F6',
-          100: '#F2EFE9',
-          200: '#E4DFD5',
-          300: '#D1C8B8',
-          400: '#B8A992',
-          500: '#9E8C73',
-          600: '#7F6F59',
-          700: '#625544',
-          800: '#483E32',
-          900: '#2E2720',
-          950: '#1A1612',
+          50: '#FDF2F8',
+          100: '#FCE7F3',
+          200: '#FBCFE8',
+          300: '#F9A8D4',
+          400: '#F472B6',
+          500: '#DB2777',
+          600: '#B8236B', // Soft Classic Royal Mulberry
+          700: '#98197F', // Velvety Royal Plum
+          800: '#701A75', // Deep Regal Wine
+          900: '#581C87',
+          950: '#3B0764',
         },
-        classicGold: {
-          50: '#FCFBF7',
-          100: '#F7F3E9',
-          200: '#EFE7D2',
-          300: '#E2D3B1',
-          400: '#D5BE8F',
-          500: '#C5A059',
-          600: '#A88342',
-          700: '#85642F',
-          800: '#644A22',
-          900: '#473318',
+        classicWine: {
+          50: '#FDF2F4',
+          100: '#FCE7EA',
+          200: '#F9D0D6',
+          300: '#F3AAB5',
+          400: '#E7788A',
+          500: '#B8283D',
+          600: '#7A1C28',
+          700: '#641620',
+          800: '#501119',
+          900: '#3D0D13',
         }
       },
       fontFamily: {
@@ -81,11 +81,12 @@ export default {
         sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'luxury': '0 1px 2px rgba(0, 0, 0, 0.5), 0 8px 24px -4px rgba(0, 0, 0, 0.6)',
-        'luxury-subtle': '0 1px 3px rgba(0, 0, 0, 0.4)',
-        'soft': '0 1px 3px rgba(0, 0, 0, 0.4)',
-        'soft-md': '0 4px 16px -2px rgba(0, 0, 0, 0.5)',
-        'soft-lg': '0 10px 25px -4px rgba(0, 0, 0, 0.6)',
+        'specular': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.08)',
+        'luxury': 'inset 0 1px 0 0 rgba(255, 255, 255, 0.06)',
+        'luxury-subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.4)',
+        'soft': '0 1px 3px 0 rgba(0, 0, 0, 0.3)',
+        'soft-md': '0 4px 6px -1px rgba(0, 0, 0, 0.3)',
+        'soft-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.4)',
       }
     },
   },

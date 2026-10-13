@@ -12,22 +12,23 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<Theme>(() => {
-    localStorage.removeItem('axiogen_theme');
-    localStorage.removeItem('axiogen_theme');
-    localStorage.removeItem('axiogen_dark_theme');
-    localStorage.setItem('axiogen_theme_mode', 'light');
-    return 'light'; // Clean White Collegiate Theme
+    const saved = localStorage.getItem('axiogen_theme');
+    if (saved === 'dark' || saved === 'light') return saved;
+    return 'dark'; // Default to Luxury Dark mode
   });
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.remove('dark');
-    root.classList.add('light');
-    localStorage.setItem('axiogen_theme_mode', 'light');
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('axiogen_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setThemeState('light');
+    setThemeState(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   const setTheme = (newTheme: Theme) => {

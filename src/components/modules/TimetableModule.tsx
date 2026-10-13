@@ -181,69 +181,89 @@ export const TimetableModule: React.FC = () => {
       )}
 
       {/* Batch selector & subject legend card */}
-      <SoftCard className="p-4 space-y-3">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2 flex-wrap">
-            <Filter className="w-4 h-4 text-slate-400" />
-            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Active Academic Cohort:</span>
-            <Select
-              className="w-64"
-              value={selectedBatch}
-              onChange={val => setSelectedBatch(val)}
-              options={[
-                { value: 'B.Tech CSE - 2024 Sec A', label: 'B.Tech CSE - 2024 Sec A (Semester 5)' },
-                { value: 'B.Tech AI - 2024 Sec A', label: 'B.Tech AI - 2024 Sec A (Semester 5)' },
-                { value: 'B.Tech ECE - 2024 Sec A', label: 'B.Tech ECE - 2024 Sec A (Semester 5)' },
-              ]}
-            />
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-bold font-serif text-white">
+              Academic Timetable Parameters &amp; Course Legend
+            </h3>
+            <p className="text-xs text-sky-200/80 mt-0.5">
+              Select department cohort, view faculty allocations, and verify conflict-free scheduling
+            </p>
           </div>
-
-          {/* Executive Live System Status Badge */}
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-2xs select-none">
-            <div className="flex items-center justify-center w-5 h-5 rounded-md bg-institutional-100 dark:bg-institutional-950/80 text-institutional-600 dark:text-institutional-400">
-              <ShieldCheck className="w-3.5 h-3.5" />
-            </div>
-            <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-              Clash Detection Guard
-            </span>
-            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-white/10 border border-white/20 select-none w-fit">
+            <span className="text-[11px] font-mono text-sky-100 font-semibold">Clash Detection Guard:</span>
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-emerald-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               ONLINE
             </span>
           </div>
         </div>
 
-        {/* Quick Subject Color Legend */}
-        <div className="flex flex-wrap items-center gap-2 pt-2.5 border-t border-slate-100 dark:border-slate-800 text-[11px]">
-          <span className="text-slate-400 dark:text-slate-500 font-semibold text-[10px] uppercase tracking-wider">
-            Subject Legend:
-          </span>
-          {Object.entries(SUBJECT_THEMES).map(([code, t]) => (
-            <span 
-              key={code} 
-              className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md font-mono text-[10px] font-bold ${t.badgeBg} border shadow-2xs`}
-              title={t.name}
-            >
-              <span className={`w-1.5 h-1.5 rounded-full ${t.dotBg}`} />
-              {code}: {t.name.split(' ')[0]}
+        <div className="p-5 space-y-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2 flex-wrap">
+              <Filter className="w-4 h-4 text-slate-400" />
+              <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">Active Academic Cohort:</span>
+              <Select
+                className="w-64"
+                value={selectedBatch}
+                onChange={val => setSelectedBatch(val)}
+                options={[
+                  { value: 'B.Tech CSE - 2024 Sec A', label: 'B.Tech CSE - 2024 Sec A (Semester 5)' },
+                  { value: 'B.Tech AI - 2024 Sec A', label: 'B.Tech AI - 2024 Sec A (Semester 5)' },
+                  { value: 'B.Tech ECE - 2024 Sec A', label: 'B.Tech ECE - 2024 Sec A (Semester 5)' },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Quick Subject Color Legend */}
+          <div className="flex flex-wrap items-center gap-2 pt-2.5 border-t border-slate-100 dark:border-slate-800 text-[11px]">
+            <span className="text-slate-400 dark:text-slate-500 font-semibold text-[10px] uppercase tracking-wider">
+              Subject Legend:
             </span>
-          ))}
+            {Object.entries(SUBJECT_THEMES).map(([code, t]) => (
+              <span 
+                key={code} 
+                className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md font-mono text-[10px] font-bold ${t.badgeBg} border shadow-2xs`}
+                title={t.name}
+              >
+                <span className={`w-1.5 h-1.5 rounded-full ${t.dotBg}`} />
+                {code}: {t.name.split(' ')[0]}
+              </span>
+            ))}
+          </div>
         </div>
       </SoftCard>
 
       {/* Timetable Weekly Matrix Table */}
       <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-bold font-serif text-white">
+              Weekly Lecture Schedule Matrix ({selectedBatch})
+            </h3>
+            <p className="text-xs text-sky-200/80 mt-0.5">
+              Monday through Friday • 6 Periods Daily • Conflict-Free Allocations
+            </p>
+          </div>
+          <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20">
+            Fall Term 2026
+          </span>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full table-fixed text-left text-xs border-collapse min-w-[760px] lg:min-w-0">
             <thead>
-              <tr className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold border-b border-institutional-200 dark:border-slate-700">
-                <th className="p-2 w-[10%] min-w-[65px] text-center font-mono uppercase text-[10px]">Day</th>
+              <tr className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold border-b border-blue-500/25">
+                <th className="p-2 w-[10%] min-w-[65px] text-center font-mono uppercase text-[10px] text-white">Day</th>
                 {periods.map(p => (
-                  <th key={p} className="p-2 text-center border-l border-slate-200 dark:border-slate-700/80 w-[15%] min-w-[110px]">
-                    <span className="inline-block px-1.5 py-0.5 rounded bg-white/80 dark:bg-slate-900/80 text-slate-800 dark:text-slate-200 text-xs font-bold font-sans shadow-2xs">
+                  <th key={p} className="p-2 text-center border-l border-blue-400/20 w-[15%] min-w-[110px]">
+                    <span className="inline-block px-1.5 py-0.5 rounded bg-white/15 text-white text-xs font-bold font-sans shadow-2xs border border-white/15">
                       Period {p}
                     </span>
-                    <span className="block font-normal text-[10px] text-slate-400 font-mono mt-0.5 whitespace-nowrap">
+                    <span className="block font-normal text-[10px] text-sky-200/80 font-mono mt-0.5 whitespace-nowrap">
                       {periodTimes[p].start.replace(':00', '')} – {periodTimes[p].end.replace(':00', '')}
                     </span>
                   </th>

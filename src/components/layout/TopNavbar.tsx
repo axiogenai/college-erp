@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { 
   Menu, Search, Bell, Sun, Moon, Check, 
   ExternalLink, LogOut, ChevronDown, Shield, GraduationCap, 
@@ -30,6 +30,30 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
+  const roleMenuRef = useRef<HTMLDivElement>(null);
+  const notifRef = useRef<HTMLDivElement>(null);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (roleMenuRef.current && !roleMenuRef.current.contains(target)) {
+        setIsRoleMenuOpen(false);
+      }
+      if (notifRef.current && !notifRef.current.contains(target)) {
+        setIsNotifOpen(false);
+      }
+      if (profileMenuRef.current && !profileMenuRef.current.contains(target)) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const rolesList: { id: UserRole; label: string; desc: string; icon: React.ReactNode }[] = [
     { id: 'principal', label: 'Dr. Ramachandran (Principal)', desc: 'Executive Director & Oversight', icon: <Shield className="w-4 h-4 text-institutional-600" /> },
     { id: 'faculty', label: 'Dr. Meera Nambiar (Faculty)', desc: 'Dean of Academic Affairs & Prof.', icon: <User className="w-4 h-4 text-slate-500" /> },
@@ -44,12 +68,17 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors px-4 sm:px-6 flex items-center justify-between">
+    <header className="sticky top-0 z-40 h-16 bg-gradient-to-r from-[#064E3B] via-[#075949] to-[#022C22] text-white rounded-l-2xl border-l border-white/15 dark:border-white/15 border-b border-emerald-500/20 shadow-[inset_1px_0_0_0_rgba(255,255,255,0.12),inset_0_1px_0_0_rgba(255,255,255,0.18),0_4px_12px_-2px_rgba(0,0,0,0.15)] px-4 sm:px-6 flex items-center justify-between transition-colors relative overflow-visible">
+      {/* Soft Luxury Micro-Pattern Texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(#ffffff0f_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none rounded-l-2xl overflow-hidden" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.06] via-transparent to-black/[0.10] pointer-events-none rounded-l-2xl overflow-hidden" />
+
       {/* Left section: mobile hamburger & search shortcut */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 relative z-10">
         <button
           onClick={onOpenMobileSidebar}
-          className="lg:hidden p-2 rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800"
+          className="lg:hidden p-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 transition-colors"
+          aria-label="Open mobile navigation"
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -57,44 +86,44 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
         {/* Global Search Button */}
         <button
           onClick={onOpenSearch}
-          className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200/70 dark:hover:bg-slate-700/60 text-slate-500 dark:text-slate-400 text-xs transition-colors border border-slate-200 dark:border-slate-700 w-48 sm:w-64"
+          className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-black/20 hover:bg-black/30 text-white text-xs transition-all border border-white/15 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] w-48 sm:w-64"
         >
-          <Search className="w-3.5 h-3.5 text-slate-400" />
-          <span className="truncate">Search records...</span>
-          <kbd className="hidden sm:inline-block ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">
+          <Search className="w-3.5 h-3.5 text-emerald-300/80" />
+          <span className="truncate text-white/90">Search records...</span>
+          <kbd className="hidden sm:inline-block ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-black/40 border border-white/15 text-emerald-200/90">
             Ctrl+K
           </kbd>
         </button>
 
         {/* Academic Term Badge */}
-        <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-xs font-medium">
-          <span className="w-1.5 h-1.5 rounded-full bg-institutional-600" />
+        <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 text-white border border-white/15 text-xs font-medium">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           <span>AY 2026–27 • Fall Term</span>
         </div>
       </div>
 
       {/* Right section: Persona switcher, notifications, theme, public portal link */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 relative z-10">
         {/* Switch Persona Dropdown */}
-        <div className="relative">
+        <div className="relative" ref={roleMenuRef}>
           <button
             onClick={() => {
               setIsRoleMenuOpen(!isRoleMenuOpen);
               setIsNotifOpen(false);
               setIsProfileMenuOpen(false);
             }}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 transition-colors text-xs text-slate-800 dark:text-slate-200"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/15 bg-white/10 hover:bg-white/15 transition-colors text-xs text-white"
             title="Switch Persona to audit role-specific dashboards & permissions"
           >
-            <span className="hidden sm:inline text-slate-500 dark:text-slate-400">Viewing as:</span>
-            <span className="font-semibold capitalize">
+            <span className="hidden sm:inline text-emerald-200/80">Viewing as:</span>
+            <span className="font-semibold capitalize text-white">
               {role}
             </span>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+            <ChevronDown className="w-3.5 h-3.5 text-white/70" />
           </button>
 
           {isRoleMenuOpen && (
-            <div className="absolute right-0 mt-2 w-72 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft-lg p-2 z-50">
+            <div className="absolute right-0 top-full mt-2 w-72 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft-lg p-2 z-50 text-slate-900 dark:text-slate-100">
               <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 text-[10px] font-semibold uppercase tracking-wider text-slate-400 font-mono">
                 Switch Role Persona
               </div>
@@ -105,7 +134,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
                     onClick={() => handleRoleChange(r.id)}
                     className={`w-full text-left p-2.5 rounded-lg flex items-start gap-2.5 transition-colors ${
                       role === r.id 
-                        ? 'bg-institutional-50 dark:bg-institutional-950/60 border border-institutional-200 dark:border-institutional-800 text-institutional-900 dark:text-institutional-100' 
+                        ? 'bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-950 dark:text-emerald-100' 
                         : 'hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
                     }`}
                   >
@@ -115,7 +144,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between">
                         <p className="text-xs font-semibold truncate">{r.label}</p>
-                        {role === r.id && <Check className="w-3.5 h-3.5 text-institutional-600 shrink-0 ml-1" />}
+                        {role === r.id && <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 ml-1" />}
                       </div>
                       <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">{r.desc}</p>
                     </div>
@@ -129,34 +158,34 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
         {/* Public Portal shortcut */}
         <button
           onClick={onNavigateLanding}
-          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 transition-colors"
+          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs text-white/90 hover:text-white rounded-lg border border-white/15 bg-white/10 hover:bg-white/15 transition-colors"
         >
-          <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+          <ExternalLink className="w-3.5 h-3.5 text-emerald-300/80" />
           <span>Public Portal</span>
         </button>
 
         {/* Notifications */}
-        <div className="relative">
+        <div className="relative" ref={notifRef}>
           <button
             onClick={() => {
               setIsNotifOpen(!isNotifOpen);
               setIsRoleMenuOpen(false);
               setIsProfileMenuOpen(false);
             }}
-            className="p-2 rounded-lg text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 relative transition-colors"
+            className="p-2 rounded-lg text-white/90 hover:text-white hover:bg-white/10 relative transition-colors"
             title="Institutional Notices"
           >
             <Bell className="w-4 h-4" />
             {notices.length > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-institutional-600 rounded-full" />
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-400 rounded-full ring-2 ring-[#075949]" />
             )}
           </button>
 
           {isNotifOpen && (
-            <div className="absolute right-0 mt-2 w-80 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft-lg p-3 z-50">
+            <div className="absolute right-0 top-full mt-2 w-80 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft-lg p-3 z-50 text-slate-900 dark:text-slate-100">
               <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800 mb-2">
-                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 uppercase tracking-wider font-mono">Circulars & Notices</span>
-                <span className="text-[10px] text-institutional-600 dark:text-institutional-400 font-medium">{notices.length} Active</span>
+                <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 uppercase tracking-wider font-mono">Circulars &amp; Notices</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono font-medium">{notices.length} Active</span>
               </div>
               <div className="space-y-2 max-h-64 overflow-y-auto">
                 {notices.slice(0, 4).map(notice => (
@@ -169,7 +198,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
                     className="w-full p-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/60 text-left border border-slate-100 dark:border-slate-800 transition-colors block"
                   >
                     <div className="flex items-center justify-between text-[10px] text-slate-500 mb-1">
-                      <span className="uppercase font-mono font-semibold text-institutional-600 dark:text-institutional-400">{notice.category}</span>
+                      <span className="uppercase font-mono font-semibold text-[#0F2942] dark:text-sky-300">{notice.category}</span>
                       <span>{notice.publishDate}</span>
                     </div>
                     <p className="text-xs font-medium text-slate-800 dark:text-slate-200 truncate">{notice.title}</p>
@@ -183,42 +212,42 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700/60 text-slate-700 dark:text-slate-300 transition-colors text-xs font-medium"
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-white/15 bg-white/10 hover:bg-white/15 text-white transition-colors text-xs font-medium"
           title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
         >
           {theme === 'dark' ? (
             <>
-              <Sun className="w-3.5 h-3.5 text-amber-500" />
+              <Sun className="w-3.5 h-3.5 text-amber-300" />
               <span className="hidden sm:inline">Dark</span>
             </>
           ) : (
             <>
-              <Moon className="w-3.5 h-3.5 text-slate-600" />
+              <Moon className="w-3.5 h-3.5 text-emerald-100" />
               <span className="hidden sm:inline">Light</span>
             </>
           )}
         </button>
 
         {/* Profile User Dropdown */}
-        <div className="relative">
+        <div className="relative" ref={profileMenuRef}>
           <button
             onClick={() => {
               setIsProfileMenuOpen(!isProfileMenuOpen);
               setIsRoleMenuOpen(false);
               setIsNotifOpen(false);
             }}
-            className="flex items-center gap-2 p-1 pl-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="flex items-center gap-2 p-1.5 pl-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 transition-colors"
           >
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
-              className="w-7 h-7 rounded-full object-cover ring-1 ring-slate-300 dark:ring-slate-700"
+              className="w-7 h-7 rounded-full object-cover ring-1 ring-white/30"
             />
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden sm:block" />
+            <ChevronDown className="w-3.5 h-3.5 text-white/80" />
           </button>
 
           {isProfileMenuOpen && (
-            <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft-lg p-2 z-50">
+            <div className="absolute right-0 top-full mt-2 w-56 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-soft-lg p-2 z-50 text-slate-900 dark:text-slate-100">
               <div className="p-2 border-b border-slate-100 dark:border-slate-800 mb-1">
                 <p className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">{currentUser.name}</p>
                 <p className="text-[11px] text-slate-500 truncate">{currentUser.email}</p>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Activity, Server, Database, HardDrive, Cpu, Clock, 
-  CheckCircle, AlertTriangle, RefreshCw, ShieldCheck, Zap, 
+  CheckCircle, RefreshCw, ShieldCheck, Zap, 
   Terminal, Play, ArrowUpRight, Lock, RotateCcw, AlertOctagon, 
-  Download, FileCheck, Layers, Wifi, Power
+  Download, FileCheck, Layers, Wifi, Power, Search, Pause, Copy, Check, Filter, Trash2
 } from 'lucide-react';
 import { SoftCard } from '../common/SoftCard';
 import { StatCard } from '../common/StatCard';
@@ -24,6 +24,90 @@ interface NodeInfo {
   disk: number;
   uptime: string;
 }
+
+export interface EventLog {
+  id: string;
+  timestamp: string;
+  timeDisplay: string;
+  subsystem: 'CRON' | 'HEALTH' | 'POSTGRES' | 'REDIS' | 'TLS' | 'AUTH' | 'SNAPSHOT';
+  level: 'INFO' | 'OK' | 'AUDIT' | 'WARN';
+  message: string;
+  details?: string;
+  metrics?: string;
+}
+
+const INITIAL_LOGS: EventLog[] = [
+  {
+    id: 'log-01',
+    timestamp: '2026-10-09T18:00:00.241Z',
+    timeDisplay: '18:00:00.241',
+    subsystem: 'CRON',
+    level: 'OK',
+    message: 'Attendance Daily Roll-up Daemon completed successfully.',
+    metrics: '1,480 student records aggregated',
+    details: 'Batch CSE-2024, AI-2024, ECE-2024 reconciled with UGC audit ledger'
+  },
+  {
+    id: 'log-02',
+    timestamp: '2026-10-09T17:45:12.809Z',
+    timeDisplay: '17:45:12.809',
+    subsystem: 'HEALTH',
+    level: 'OK',
+    message: 'HTTP internal ping mesh latency check verified.',
+    metrics: 'All 5 cluster nodes responding in < 2.4ms',
+    details: 'Ingress node 10.0.1.10 p99 jitter: 0.18ms'
+  },
+  {
+    id: 'log-03',
+    timestamp: '2026-10-09T17:30:05.114Z',
+    timeDisplay: '17:30:05.114',
+    subsystem: 'POSTGRES',
+    level: 'INFO',
+    message: "Autovacuum worker completed on table 'timetable_slots'.",
+    metrics: '12 dead tuples reclaimed, index size 4.2 MB',
+    details: 'Transaction wraparound age 1,840,290 / 200,000,000'
+  },
+  {
+    id: 'log-04',
+    timestamp: '2026-10-09T17:00:44.920Z',
+    timeDisplay: '17:00:44.920',
+    subsystem: 'REDIS',
+    level: 'INFO',
+    message: 'Key eviction sweep cycle completed.',
+    metrics: 'Zero expired JWT session tokens retained',
+    details: 'Memory reclaimed: 14.8 MB • Active keys: 42,891'
+  },
+  {
+    id: 'log-05',
+    timestamp: '2026-10-09T16:15:30.002Z',
+    timeDisplay: '16:15:30.002',
+    subsystem: 'TLS',
+    level: 'OK',
+    message: "Let's Encrypt wildcard certificate integrity verified (*.axiogen.edu).",
+    metrics: '64 days remaining before renewal',
+    details: 'OCSP stapling active • Cipher: TLS_AES_256_GCM_SHA384'
+  },
+  {
+    id: 'log-06',
+    timestamp: '2026-10-09T15:20:19.450Z',
+    timeDisplay: '15:20:19.450',
+    subsystem: 'AUTH',
+    level: 'AUDIT',
+    message: 'Elevated authorization query by user-principal-01.',
+    metrics: 'Authenticated via biometric session token',
+    details: 'Policy check: Role [CAMPUS_DIRECTOR] granted access to Financial Audit'
+  },
+  {
+    id: 'log-07',
+    timestamp: '2026-10-09T04:00:00.088Z',
+    timeDisplay: '04:00:00.088',
+    subsystem: 'SNAPSHOT',
+    level: 'OK',
+    message: 'Automated daily cryptographic snapshot verified and mirrored.',
+    metrics: 'Secondary Frankfurt vault synchronized',
+    details: 'SHA-256 Checksum: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
+  }
+];
 
 const INITIAL_NODES: NodeInfo[] = [
   { id: 'node-1', name: 'srv-ingress-01.axiogen.edu', role: 'NGINX Ingress & TLS 1.3 Gateway', ip: '10.0.1.10', status: 'healthy', cpu: 14, memory: 34, disk: 22, uptime: '48 days' },
@@ -127,12 +211,69 @@ export const SystemHealthModule: React.FC = () => {
     setSelectedNodeToRestart(null);
   };
 
+  // Console Stream State & Actions
+  const [consoleLogs, setConsoleLogs] = useState<EventLog[]>(INITIAL_LOGS);
+  const [logSearchQuery, setLogSearchQuery] = useState('');
+  const [selectedSubsystem, setSelectedSubsystem] = useState<string>('ALL');
+  const [isStreamPaused, setIsStreamPaused] = useState(false);
+  const [copiedLogId, setCopiedLogId] = useState<string | null>(null);
+
+  const handleCopyLog = (log: EventLog) => {
+    const text = `[${log.timestamp}] [${log.subsystem}] [${log.level}] ${log.message} ${log.metrics ? `(${log.metrics})` : ''}`;
+    navigator.clipboard?.writeText(text);
+    setCopiedLogId(log.id);
+    showToast(`Copied ${log.subsystem} event to clipboard`);
+    setTimeout(() => setCopiedLogId(null), 2000);
+  };
+
+  const handleCopyAllLogs = () => {
+    const text = filteredLogs.map(l => `[${l.timestamp}] [${l.subsystem}] [${l.level}] ${l.message} ${l.metrics ? `(${l.metrics})` : ''}`).join('\n');
+    navigator.clipboard?.writeText(text);
+    showToast(`Copied ${filteredLogs.length} event logs to clipboard`);
+  };
+
+  const handleClearLogs = () => {
+    setConsoleLogs([]);
+    showToast('Event stream buffer cleared');
+  };
+
+  const handleResetLogs = () => {
+    setConsoleLogs(INITIAL_LOGS);
+    showToast('Default event telemetry restored');
+  };
+
+  const handleTestPing = () => {
+    const now = new Date();
+    const newPingLog: EventLog = {
+      id: `log-${Date.now()}`,
+      timestamp: now.toISOString(),
+      timeDisplay: now.toISOString().split('T')[1].slice(0, 12),
+      subsystem: 'HEALTH',
+      level: 'OK',
+      message: 'Synthetic telemetry mesh health ping executed across all 5 nodes.',
+      metrics: 'RTT 1.62ms • Zero packet drop',
+      details: 'Health heartbeat ACK confirmed by ap-south-1 worker node'
+    };
+    setConsoleLogs(prev => [newPingLog, ...prev]);
+    showToast('Live telemetry ping executed (1.62ms RTT)');
+  };
+
+  const filteredLogs = consoleLogs.filter(log => {
+    const matchesSubsystem = selectedSubsystem === 'ALL' || log.subsystem === selectedSubsystem;
+    const matchesQuery = !logSearchQuery || 
+      log.message.toLowerCase().includes(logSearchQuery.toLowerCase()) ||
+      log.subsystem.toLowerCase().includes(logSearchQuery.toLowerCase()) ||
+      (log.metrics && log.metrics.toLowerCase().includes(logSearchQuery.toLowerCase())) ||
+      (log.details && log.details.toLowerCase().includes(logSearchQuery.toLowerCase()));
+    return matchesSubsystem && matchesQuery;
+  });
+
   return (
     <div className="space-y-6">
       <PageHeader
         title="Enterprise Infrastructure & DevOps Telemetry"
-        subtitle="High-availability cluster health, PostgreSQL connection pools, Redis in-memory cache vitals, background daemon daemons & disaster recovery snapshots"
-        icon={<Activity className="w-5 h-5 text-institutional-600" />}
+        subtitle="High-availability cluster health, PostgreSQL connection pools, Redis in-memory cache vitals, background daemon daemons &amp; disaster recovery snapshots"
+        icon={<Activity className="w-5 h-5 text-[#0F2942] dark:text-sky-400" />}
         actions={
           <div className="flex items-center gap-2">
             <Button
@@ -175,32 +316,29 @@ export const SystemHealthModule: React.FC = () => {
       )}
 
       {/* High-Availability Cluster Status Banner */}
-      <SoftCard className="p-4 bg-institutional-50/70 dark:bg-institutional-950/50 border-institutional-200 dark:border-institutional-800">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="relative flex items-center justify-center">
-              <span className="w-3 h-3 rounded-full bg-emerald-500 animate-ping absolute" />
-              <span className="w-3 h-3 rounded-full bg-emerald-500 relative" />
-            </div>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-900 dark:text-slate-100 font-serif">
+                <span className="font-bold text-white font-serif text-sm">
                   All Systems Operational &amp; Synchronized
                 </span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200 border border-emerald-200 dark:border-emerald-800">
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-emerald-300 border border-white/20">
                   99.99% 30-Day SLA
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 mt-0.5 font-mono">
+              <p className="text-[11px] text-sky-200/80 mt-0.5 font-mono">
                 Cluster Region: ap-south-1 (Mumbai Private VPC) • Total Memory: 64 GB • Read Replicas: 2 Nodes Synchronized (0ms Lag)
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <div className="text-right text-[11px] font-mono text-slate-500 mr-2">
+            <div className="text-right text-[11px] font-mono text-sky-200/80 mr-2">
               <span>Last Snapshot: </span>
-              <strong className="text-slate-700 dark:text-slate-200 block text-[10px]">
+              <strong className="text-white block text-[10px]">
                 {systemHealth.lastBackupTime.split('(')[0]}
               </strong>
             </div>
@@ -212,7 +350,7 @@ export const SystemHealthModule: React.FC = () => {
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors flex items-center gap-1.5 ${
                 systemHealth.maintenanceMode
                   ? 'bg-amber-500 text-white border-amber-600'
-                  : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50'
+                  : 'bg-white/10 hover:bg-white/15 text-white border-white/20'
               }`}
             >
               <Power className="w-3.5 h-3.5" />
@@ -268,7 +406,7 @@ export const SystemHealthModule: React.FC = () => {
           onClick={() => setActiveTab('topology')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'topology'
-              ? 'border-institutional-600 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -279,7 +417,7 @@ export const SystemHealthModule: React.FC = () => {
           onClick={() => setActiveTab('backups')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'backups'
-              ? 'border-institutional-600 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -290,7 +428,7 @@ export const SystemHealthModule: React.FC = () => {
           onClick={() => setActiveTab('console')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'console'
-              ? 'border-institutional-600 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -302,10 +440,24 @@ export const SystemHealthModule: React.FC = () => {
       {/* Tab 1: Cluster Nodes Topology */}
       {activeTab === 'topology' && (
         <div className="space-y-4">
-          <SoftCard className="overflow-hidden">
+          <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-bold font-serif text-white">
+                  Active Infrastructure Node Topology (5 Production Clusters Online)
+                </h3>
+                <p className="text-xs text-sky-200/80 mt-0.5">
+                  High-availability ingress, API instances, replicated databases, and queue daemons
+                </p>
+              </div>
+              <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+                TLS 1.3 Strict
+              </span>
+            </div>
+
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-institutional-50/70 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 font-semibold uppercase text-[10px] tracking-wider border-b border-institutional-200 dark:border-slate-700">
+                <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold uppercase text-[10px] tracking-wider border-b border-blue-500/25">
                   <tr>
                     <th className="px-4 py-3">Server Node</th>
                     <th className="px-4 py-3">Cluster Role</th>
@@ -381,13 +533,13 @@ export const SystemHealthModule: React.FC = () => {
       {/* Tab 2: Disaster Recovery & Snapshots */}
       {activeTab === 'backups' && (
         <div className="space-y-4">
-          <SoftCard className="p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+                <h3 className="text-sm font-bold font-serif text-white">
                   Disaster Recovery &amp; Cryptographic Snapshot Registry
                 </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
+                <p className="text-xs text-sky-200/80 mt-0.5">
                   Automated and manual snapshots stored across geo-redundant encrypted cold vaults.
                 </p>
               </div>
@@ -401,6 +553,8 @@ export const SystemHealthModule: React.FC = () => {
                 Create Instant Snapshot
               </Button>
             </div>
+
+            <div className="p-6">
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs">
               <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
@@ -441,7 +595,7 @@ export const SystemHealthModule: React.FC = () => {
               </h4>
               <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden text-xs">
                 <table className="w-full text-left">
-                  <thead className="bg-slate-50 dark:bg-slate-800 text-[10px] font-semibold uppercase text-slate-500 border-b border-slate-200 dark:border-slate-700">
+                  <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white text-[10px] font-semibold uppercase tracking-wider border-b border-blue-500/25">
                     <tr>
                       <th className="px-4 py-2.5 align-middle">Snapshot Identifier</th>
                       <th className="px-4 py-2.5 align-middle">Type</th>
@@ -498,98 +652,390 @@ export const SystemHealthModule: React.FC = () => {
                 </table>
               </div>
             </div>
-          </SoftCard>
-        </div>
+          </div>
+        </SoftCard>
+      </div>
       )}
 
       {/* Tab 3: DevOps Live Console & Audit */}
       {activeTab === 'console' && (
         <div className="space-y-4">
-          <SoftCard className="p-4 bg-slate-950 text-slate-100 font-mono text-xs rounded-2xl border-slate-800">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3 text-[11px]">
-              <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-emerald-400" />
-                <span className="font-bold text-slate-200">DevOps Cluster Event Stream</span>
-                <span className="px-1.5 py-0.5 rounded text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-800">
-                  LIVE SOCKET
-                </span>
+          <div className="rounded-2xl border border-slate-200/90 dark:border-white/[0.08] bg-white dark:bg-[#121215] shadow-xs overflow-hidden">
+            {/* Oxford Navy Institutional Chrome Bar */}
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-black/30 border border-white/10 shrink-0">
+                  <span className="w-2 h-2 rounded-full bg-rose-500/80" />
+                  <span className="w-2 h-2 rounded-full bg-amber-500/80" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Terminal className="w-4 h-4 text-[#C5A059] shrink-0" />
+                    <h3 className="text-sm font-semibold tracking-tight text-white font-sans truncate">
+                      DevOps Cluster Event Stream &amp; Production Telemetry
+                    </h3>
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/40 text-emerald-300 border border-emerald-500/30">
+                      <span className={`w-1.5 h-1.5 rounded-full ${isStreamPaused ? 'bg-amber-400' : 'bg-emerald-400 animate-pulse'}`} />
+                      {isStreamPaused ? 'Stream Paused' : 'Live Socket'}
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-sky-200/80 font-mono mt-0.5 truncate">
+                    axiogen-prod-cluster-01 • wss://telemetry.axiogen.edu:8443/v1/stream
+                  </p>
+                </div>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-slate-400 hover:text-white h-7 text-[10px]"
-                onClick={() => showToast('Diagnostics bundle exported as JSON')}
-              >
-                Export Diagnostics
-              </Button>
+
+              <div className="flex items-center gap-2 flex-wrap shrink-0">
+                <button
+                  onClick={() => setIsStreamPaused(!isStreamPaused)}
+                  className={`h-7 px-2.5 rounded-lg text-[10px] font-mono font-semibold border flex items-center gap-1.5 transition-all ${
+                    isStreamPaused
+                      ? 'bg-amber-500/20 text-amber-200 border-amber-400/40 hover:bg-amber-500/30'
+                      : 'bg-white/10 text-white/90 border-white/15 hover:bg-white/15'
+                  }`}
+                  title={isStreamPaused ? 'Resume live event stream' : 'Pause stream ingestion'}
+                >
+                  {isStreamPaused ? <Play className="w-3 h-3" /> : <Pause className="w-3 h-3" />}
+                  <span>{isStreamPaused ? 'Resume' : 'Pause'}</span>
+                </button>
+                <button
+                  onClick={handleTestPing}
+                  className="h-7 px-2.5 rounded-lg text-[10px] font-mono font-semibold bg-white/10 text-white/90 border border-white/15 hover:bg-white/15 flex items-center gap-1.5 transition-all"
+                  title="Send synthetic health ping"
+                >
+                  <Zap className="w-3 h-3 text-[#C5A059]" />
+                  <span>Test Ping</span>
+                </button>
+                <button
+                  onClick={() => showToast('Diagnostics bundle exported as JSON (SHA-256 signed)')}
+                  className="h-7 px-2.5 rounded-lg text-[10px] font-mono font-semibold bg-white/15 hover:bg-white/20 text-white border border-white/20 flex items-center gap-1.5 transition-all shadow-2xs"
+                >
+                  <Download className="w-3 h-3 text-sky-300" />
+                  <span>Export JSON</span>
+                </button>
+              </div>
             </div>
 
-            <div className="space-y-1.5 max-h-96 overflow-y-auto p-2 text-[11px] leading-relaxed text-slate-300">
-              <p className="text-emerald-400">[2026-10-09T18:00:00Z] [CRON] Attendance Daily Roll-up Daemon completed successfully. 1,480 student records aggregated.</p>
-              <p className="text-slate-400">[2026-10-09T17:45:00Z] [HEALTH] HTTP ping latency check: all 5 internal nodes responding in &lt; 2.4ms.</p>
-              <p className="text-slate-400">[2026-10-09T17:30:00Z] [POSTGRES] Autovacuum on &apos;timetable_slots&apos; reclaimed 12 dead tuples.</p>
-              <p className="text-cyan-400">[2026-10-09T17:00:00Z] [REDIS] Eviction cycle complete. Zero expired sessions retained.</p>
-              <p className="text-slate-400">[2026-10-09T16:15:00Z] [TLS] Let&apos;s Encrypt wildcard certificate verified (*.axiogen.edu, 64 days remaining).</p>
-              <p className="text-amber-400">[2026-10-09T15:20:00Z] [AUTH] Elevated permission query by user-principal-01 authenticated via session token.</p>
-              <p className="text-emerald-400">[2026-10-09T04:00:00Z] [SNAPSHOT] Automated daily snapshot verified and mirrored to secondary Frankfurt vault.</p>
+            {/* Telemetry Hardware HUD Strip */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-100 dark:divide-slate-800 bg-slate-50/70 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800 text-xs">
+              <div className="p-3 pl-5 space-y-0.5">
+                <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider font-semibold">Socket Ingestion</span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-xs">124 msg/sec</span>
+                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold">0 drops</span>
+                </div>
+              </div>
+              <div className="p-3 pl-5 space-y-0.5">
+                <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider font-semibold">Peer Mesh Latency</span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-xs">1.8 ms</span>
+                  <span className="text-[10px] font-mono text-slate-400">p99: 3.2ms</span>
+                </div>
+              </div>
+              <div className="p-3 pl-5 space-y-0.5">
+                <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider font-semibold">Buffer Memory</span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-mono font-bold text-slate-900 dark:text-slate-100 text-xs">18.4% Allocated</span>
+                  <span className="text-[10px] font-mono text-slate-400">3.2 / 16 MB</span>
+                </div>
+              </div>
+              <div className="p-3 pl-5 space-y-0.5">
+                <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider font-semibold">Active Subsystems</span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs">7 / 7 Online</span>
+                  <span className="text-[10px] font-mono text-slate-400">TLS 1.3 Strict</span>
+                </div>
+              </div>
             </div>
-          </SoftCard>
+
+            {/* Filter & Search Bar */}
+            <div className="p-3 px-5 bg-white dark:bg-[#121215] border-b border-slate-200/80 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              {/* Subsystem Pills */}
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[10px] font-mono uppercase text-slate-400 font-semibold mr-1">Filter:</span>
+                {['ALL', 'CRON', 'HEALTH', 'POSTGRES', 'REDIS', 'TLS', 'AUTH', 'SNAPSHOT'].map(sys => {
+                  const isActive = selectedSubsystem === sys;
+                  return (
+                    <button
+                      key={sys}
+                      onClick={() => setSelectedSubsystem(sys)}
+                      className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase transition-all ${
+                        isActive
+                          ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xs'
+                          : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      }`}
+                    >
+                      {sys}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Search & Actions */}
+              <div className="flex items-center gap-2">
+                <div className="relative">
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={logSearchQuery}
+                    onChange={e => setLogSearchQuery(e.target.value)}
+                    placeholder="Search events..."
+                    className="pl-8 pr-3 py-1 text-xs font-mono bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100 w-40"
+                  />
+                </div>
+                <button
+                  onClick={handleCopyAllLogs}
+                  className="h-7 px-2.5 rounded-lg text-[10px] font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center gap-1"
+                  title="Copy all logs"
+                >
+                  <Copy className="w-3 h-3" />
+                  <span className="hidden sm:inline">Copy</span>
+                </button>
+                {consoleLogs.length === 0 ? (
+                  <button
+                    onClick={handleResetLogs}
+                    className="h-7 px-2.5 rounded-lg text-[10px] font-mono font-semibold bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 hover:bg-blue-100"
+                  >
+                    Reset
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleClearLogs}
+                    className="h-7 px-2 rounded-lg text-[10px] font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 border border-slate-200/80 dark:border-slate-700"
+                    title="Clear buffer"
+                  >
+                    <Trash2 className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Obsidian Console Body */}
+            <div className="bg-[#090C12] text-slate-200 font-mono text-xs p-4 sm:p-5 max-h-[440px] overflow-y-auto space-y-1.5 selection:bg-blue-500/30">
+              {filteredLogs.length === 0 ? (
+                <div className="py-12 text-center text-slate-500 font-mono text-xs">
+                  <Terminal className="w-8 h-8 mx-auto text-slate-700 mb-2" />
+                  <p>No telemetry events match query &apos;{logSearchQuery || selectedSubsystem}&apos;</p>
+                  <button 
+                    onClick={() => { setLogSearchQuery(''); setSelectedSubsystem('ALL'); }} 
+                    className="mt-2 text-sky-400 underline hover:text-sky-300 text-xs"
+                  >
+                    Reset filters
+                  </button>
+                </div>
+              ) : (
+                filteredLogs.map((log, index) => {
+                  const isCopied = copiedLogId === log.id;
+                  return (
+                    <div
+                      key={log.id}
+                      className="group relative p-2.5 rounded-lg bg-slate-900/60 hover:bg-slate-800/80 border border-slate-800/80 hover:border-slate-700/80 transition-all flex flex-col sm:flex-row sm:items-start gap-2.5 text-[11.5px] leading-relaxed"
+                    >
+                      {/* Line Number & Time */}
+                      <div className="flex items-center gap-2 shrink-0 select-none text-[10.5px]">
+                        <span className="text-slate-600 w-5 text-right font-mono">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="text-slate-400 tabular-nums font-mono">
+                          [{log.timeDisplay}]
+                        </span>
+                      </div>
+
+                      {/* Subsystem & Level Badges */}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold font-mono tracking-wider ${
+                          log.subsystem === 'CRON' ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' :
+                          log.subsystem === 'HEALTH' ? 'bg-sky-500/15 text-sky-400 border border-sky-500/30' :
+                          log.subsystem === 'POSTGRES' ? 'bg-indigo-500/15 text-indigo-400 border border-indigo-500/30' :
+                          log.subsystem === 'REDIS' ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30' :
+                          log.subsystem === 'TLS' ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
+                          log.subsystem === 'AUTH' ? 'bg-[#C5A059]/15 text-[#C5A059] border border-[#C5A059]/30' :
+                          'bg-teal-500/15 text-teal-400 border border-teal-500/30'
+                        }`}>
+                          {log.subsystem}
+                        </span>
+                        <span className="px-1 py-0.2 rounded text-[8.5px] font-mono text-slate-400 bg-slate-800 border border-slate-700">
+                          {log.level}
+                        </span>
+                      </div>
+
+                      {/* Content & Highlighting */}
+                      <div className="flex-1 min-w-0">
+                        <div className="text-slate-100 font-medium">
+                          {log.message}
+                        </div>
+                        {log.metrics && (
+                          <div className="text-[#C5A059] font-mono text-[10.5px] mt-0.5">
+                            ↳ {log.metrics}
+                          </div>
+                        )}
+                        {log.details && (
+                          <div className="text-slate-500 text-[10px] font-mono mt-0.5 truncate">
+                            {log.details}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Copy Action */}
+                      <button
+                        onClick={() => handleCopyLog(log)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white shrink-0 self-start"
+                        title="Copy entry"
+                      >
+                        {isCopied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      </button>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Terminal Console Footer */}
+            <div className="px-5 py-2.5 bg-slate-900 border-t border-slate-800 text-[10px] font-mono text-slate-400 flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span>Socket: CONNECTED (0% Packet Drop)</span>
+                <span className="text-slate-600">•</span>
+                <span>TLS 1.3 AES-256-GCM</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span>Showing {filteredLogs.length} of {consoleLogs.length} events</span>
+                <span className="text-slate-600">•</span>
+                <span className="text-slate-300 font-semibold">UGC Statutory Audit Retention: 365 Days</span>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
       {/* Backup Modal Progress */}
       {isBackupModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-800 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <HardDrive className="w-5 h-5 text-institutional-600" />
-                <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100">
-                  {isBackingUp ? 'Creating Cryptographic Snapshot...' : 'Snapshot Complete'}
-                </h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in">
+          <div className="bg-white dark:bg-[#141417] rounded-2xl max-w-xl w-full shadow-2xl border border-neutral-200 dark:border-white/[0.08] overflow-hidden space-y-0">
+            {/* Modal Header: Oxford Navy Bar */}
+            <div className="px-6 py-4 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-[#C5A059] shrink-0">
+                  <HardDrive className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold tracking-tight text-white font-sans">
+                    {isBackingUp ? 'Creating Cryptographic Snapshot...' : 'Cryptographic Snapshot Verified'}
+                  </h3>
+                  <p className="text-[10px] text-sky-200/80 font-mono mt-0.5">
+                    UGC Statutory Disaster Vault Replication • AES-256-GCM
+                  </p>
+                </div>
               </div>
               {!isBackingUp && (
                 <button 
                   onClick={() => setIsBackupModalOpen(false)}
-                  className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg"
+                  className="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white/80 hover:text-white flex items-center justify-center text-xs transition-colors"
                 >
                   ✕
                 </button>
               )}
             </div>
 
-            {/* Stepper */}
-            <div className="grid grid-cols-4 gap-2 text-center text-[10px] font-mono">
-              <div className={`p-2 rounded-lg border ${backupStep >= 1 ? 'bg-institutional-50 border-institutional-300 text-institutional-700 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                1. Checkpoint
-              </div>
-              <div className={`p-2 rounded-lg border ${backupStep >= 2 ? 'bg-institutional-50 border-institutional-300 text-institutional-700 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                2. Encrypt
-              </div>
-              <div className={`p-2 rounded-lg border ${backupStep >= 3 ? 'bg-institutional-50 border-institutional-300 text-institutional-700 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                3. Mirror S3
-              </div>
-              <div className={`p-2 rounded-lg border ${backupStep >= 4 ? 'bg-emerald-50 border-emerald-300 text-emerald-700 font-bold' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
-                4. Verified
+            {/* Precision Stepper */}
+            <div className="px-6 pt-5 pb-2">
+              <div className="grid grid-cols-4 gap-2">
+                {[
+                  { step: 1, title: '1. Checkpoint', desc: 'PostgreSQL WAL' },
+                  { step: 2, title: '2. Encrypt', desc: 'AES-256-GCM' },
+                  { step: 3, title: '3. Mirror S3', desc: 'Frankfurt Vault' },
+                  { step: 4, title: '4. Verified', desc: 'SHA-256 Match' }
+                ].map(s => {
+                  const isDone = backupStep > s.step || (!isBackingUp && backupStep === 4);
+                  const isCurrent = backupStep === s.step && isBackingUp;
+                  return (
+                    <div 
+                      key={s.step} 
+                      className={`p-2.5 rounded-xl border transition-all text-center ${
+                        isDone
+                          ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-800 dark:text-emerald-300'
+                          : isCurrent
+                          ? 'bg-blue-50 dark:bg-blue-950/60 border-blue-300 dark:border-blue-700 text-blue-900 dark:text-blue-200 ring-1 ring-blue-400/30'
+                          : 'bg-slate-50 dark:bg-slate-900/40 border-slate-200/80 dark:border-slate-800 text-slate-400'
+                      }`}
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        {isDone && <Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />}
+                        {isCurrent && <span className="w-1.5 h-1.5 rounded-full bg-blue-600 dark:bg-blue-400 animate-ping" />}
+                        <span className="font-mono text-[11px] font-bold block">{s.title}</span>
+                      </div>
+                      <span className="text-[9.5px] font-mono text-slate-500 dark:text-slate-400 block mt-0.5">{s.desc}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Terminal Log */}
-            <div className="bg-slate-950 text-slate-200 font-mono text-[11px] p-3 rounded-xl max-h-48 overflow-y-auto space-y-1">
-              {backupLogs.map((log, idx) => (
-                <p key={idx}>{log}</p>
-              ))}
+            {/* Obsidian Terminal Box */}
+            <div className="px-6 py-3">
+              <div className="rounded-xl overflow-hidden border border-slate-800 bg-[#090C12] shadow-inner">
+                <div className="px-3 py-1.5 bg-slate-900/90 border-b border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-rose-500/70" />
+                    <span className="w-2 h-2 rounded-full bg-amber-500/70" />
+                    <span className="w-2 h-2 rounded-full bg-emerald-500/70" />
+                    <span className="ml-1 text-slate-300 font-medium">daemon-worker-01: /proc/sys/dr-backup.log</span>
+                  </div>
+                  <span className="text-[#C5A059] font-mono text-[9px] uppercase tracking-wider">TLS 1.3 Safe</span>
+                </div>
+                <div className="p-3 max-h-48 overflow-y-auto space-y-1 font-mono text-[11px] leading-relaxed text-slate-300 select-text">
+                  {backupLogs.map((log, idx) => (
+                    <div key={idx} className="flex items-start gap-2">
+                      <span className="text-slate-600 select-none text-[10px]">{String(idx + 1).padStart(2, '0')}</span>
+                      <span className={log.includes('[SUCCESS]') ? 'text-emerald-400 font-bold' : log.includes('[CRYPTO]') ? 'text-purple-300' : log.includes('[S3]') ? 'text-sky-300' : 'text-slate-300'}>
+                        {log}
+                      </span>
+                    </div>
+                  ))}
+                  {isBackingUp && (
+                    <div className="flex items-center gap-2 text-blue-400 animate-pulse text-[11px] mt-1">
+                      <span className="text-slate-600 select-none text-[10px]">..</span>
+                      <span>Streaming cryptographic blocks...</span>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
-            <div className="pt-2 flex justify-end">
-              <Button
-                variant="primary"
-                size="sm"
-                disabled={isBackingUp}
-                onClick={() => setIsBackupModalOpen(false)}
-              >
-                {isBackingUp ? 'Processing...' : 'Close & Return to Dashboard'}
-              </Button>
+            {/* Modal Footer */}
+            <div className="px-6 py-3.5 bg-slate-50/80 dark:bg-slate-900/80 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2 font-mono text-[11px]">
+                {isBackingUp ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#C5A059]" />
+                    <span className="text-slate-600 dark:text-slate-300">Replicating to Frankfurt Cold Vault...</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                    <span className="text-emerald-700 dark:text-emerald-300 font-semibold">Integrity Verified (SHA-256 Match)</span>
+                  </>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                {isBackingUp ? (
+                  <div className="px-4 py-1.5 rounded-lg bg-slate-200/80 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-xs font-mono font-medium cursor-not-allowed flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
+                    <span>Processing...</span>
+                  </div>
+                ) : (
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    className="text-xs font-semibold px-4"
+                    onClick={() => setIsBackupModalOpen(false)}
+                  >
+                    Close &amp; Return to Dashboard
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>

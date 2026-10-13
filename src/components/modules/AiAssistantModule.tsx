@@ -105,7 +105,7 @@ export const AiAssistantModule: React.FC = () => {
       <PageHeader
         title="Enterprise AI &amp; Academic Intelligence Suite"
         subtitle="Policy knowledge retrieval, early risk detection radar, and human-verified administrative drafts"
-        icon={<Bot className="w-5 h-5 text-institutional-600" />}
+        icon={<Bot className="w-5 h-5 text-[#0F2942] dark:text-sky-400" />}
       />
 
       {feedback && (
@@ -119,17 +119,22 @@ export const AiAssistantModule: React.FC = () => {
       )}
 
       {/* Compliance / Safety Callout */}
-      <SoftCard className="p-3 bg-institutional-50/60 dark:bg-institutional-950/40 border-institutional-200 dark:border-institutional-800 text-xs">
-        <div className="flex items-start gap-2.5">
-          <ShieldCheck className="w-4 h-4 text-institutional-700 dark:text-institutional-300 shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <h4 className="font-bold text-institutional-900 dark:text-institutional-100 font-serif text-xs">
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-sky-300" />
+            <h3 className="text-sm font-semibold tracking-tight text-white font-serif">
               Enterprise Governance &amp; AI Privacy Boundary
-            </h4>
-            <p className="text-slate-600 dark:text-slate-300 text-[11px] mt-0.5 leading-relaxed">
-              All AI capabilities operate under strict institutional confidentiality: outputs are grounded in verified university statutes, student data is filtered by active role authorization, and all consequential actions require executive human sign-off.
-            </p>
+            </h3>
           </div>
+          <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-white/10 text-white border border-white/20">
+            Statutory Compliance Boundary
+          </span>
+        </div>
+        <div className="p-4 bg-slate-50/40 dark:bg-slate-900/40 text-xs">
+          <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
+            All AI capabilities operate under strict institutional confidentiality: outputs are grounded in verified university statutes, student data is filtered by active role authorization, and all consequential actions require executive human sign-off.
+          </p>
         </div>
       </SoftCard>
 
@@ -139,7 +144,7 @@ export const AiAssistantModule: React.FC = () => {
           onClick={() => setActiveTab('policy')}
           className={`pb-2.5 px-3 text-xs font-semibold border-b-2 transition-colors ${
             activeTab === 'policy'
-              ? 'border-institutional-700 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -149,7 +154,7 @@ export const AiAssistantModule: React.FC = () => {
           onClick={() => setActiveTab('risk')}
           className={`pb-2.5 px-3 text-xs font-semibold border-b-2 transition-colors ${
             activeTab === 'risk'
-              ? 'border-institutional-700 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -159,7 +164,7 @@ export const AiAssistantModule: React.FC = () => {
           onClick={() => setActiveTab('notice-drafter')}
           className={`pb-2.5 px-3 text-xs font-semibold border-b-2 transition-colors ${
             activeTab === 'notice-drafter'
-              ? 'border-institutional-700 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -170,20 +175,22 @@ export const AiAssistantModule: React.FC = () => {
       {/* Tab 1: Policy Assistant */}
       {activeTab === 'policy' && (
         <div className="space-y-3">
-          <SoftCard className="p-4">
-            <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-800 mb-3">
+          <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div>
-                <h3 className="text-xs font-bold font-serif text-slate-900 dark:text-slate-100">
-                  Ask Institutional Regulations, Bylaws &amp; Calendars
+                <h3 className="text-sm font-bold font-serif text-white">
+                  Institutional Regulations, Bylaws &amp; Calendars Engine
                 </h3>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-xs text-sky-200/80 mt-0.5">
                   Instant retrieval from official ordinances, examination rules, and statutes
                 </p>
               </div>
-              <span className="inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold bg-institutional-100 text-institutional-700 dark:bg-institutional-900/50 dark:text-institutional-300">
+              <span className="inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold bg-white/10 text-white border border-white/20 font-mono">
                 AI Knowledge Engine
               </span>
             </div>
+
+            <div className="p-5">
 
             {/* Q&A Chat Logs */}
             <div className="space-y-2.5 max-h-96 overflow-y-auto mb-3 p-1">
@@ -197,15 +204,15 @@ export const AiAssistantModule: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-2.5 bg-institutional-50/70 dark:bg-institutional-950/60 p-3 rounded-lg border border-institutional-200/80 dark:border-institutional-800">
-                    <Bot className="w-3.5 h-3.5 text-institutional-600 dark:text-institutional-400 shrink-0 mt-0.5" />
+                  <div className="flex items-start gap-2.5 bg-blue-50/40 dark:bg-slate-800/60 p-3 rounded-lg border border-blue-200/50 dark:border-blue-900/40">
+                    <Bot className="w-3.5 h-3.5 text-[#0F2942] dark:text-sky-400 shrink-0 mt-0.5" />
                     <div className="space-y-1.5 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="font-bold text-institutional-900 dark:text-institutional-200 text-xs">
+                        <span className="font-bold text-slate-900 dark:text-slate-100 text-xs">
                           Axiogen Academic Intelligence
                         </span>
                         <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
-                          ✓ Verified Policy
+                          Verified Policy
                         </span>
                       </div>
                       <p className="text-slate-800 dark:text-slate-200 text-xs leading-relaxed">
@@ -231,35 +238,37 @@ export const AiAssistantModule: React.FC = () => {
               />
               <button
                 type="submit"
-                className="whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-semibold bg-institutional-600 hover:bg-institutional-700 text-white transition-colors flex items-center gap-1.5"
+                className="whitespace-nowrap px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-[#5B1389] via-[#450D6F] to-[#350757] hover:from-[#6A17A0] hover:via-[#501082] hover:to-[#3E0966] text-white border border-purple-400/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_2px_8px_rgba(69,13,111,0.35)] transition-all active:scale-[0.985] flex items-center gap-1.5"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Query</span>
               </button>
             </form>
-          </SoftCard>
-        </div>
+          </div>
+        </SoftCard>
+      </div>
       )}
 
       {/* Tab 2: Academic Risk Radar */}
       {activeTab === 'risk' && (
         <div className="space-y-3">
-          <SoftCard className="p-4">
-            <div className="flex items-center justify-between pb-2.5 border-b border-slate-100 dark:border-slate-800 mb-3">
+          <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div>
-                <h3 className="text-xs font-bold font-serif text-slate-900 dark:text-slate-100">
+                <h3 className="text-sm font-bold font-serif text-white">
                   Early Academic-Risk Diagnostic Dossier
                 </h3>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-xs text-sky-200/80 mt-0.5">
                   Transparent multi-factor scoring (Attendance &lt; 75% + Assessment drops). Non-punitive counseling pipeline.
                 </p>
               </div>
-              <span className="inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300">
+              <span className="inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold bg-rose-500/20 text-rose-200 border border-rose-400/30 font-mono">
                 ⚠ {criticalStudents.length} Students At Risk
               </span>
             </div>
 
-            <div className="space-y-3">
+            <div className="p-5">
+              <div className="space-y-3">
               {criticalStudents.map(student => (
                 <div key={student.id} className="p-3.5 rounded-lg border border-rose-200/80 dark:border-rose-900/50 bg-rose-50/30 dark:bg-rose-950/20 text-xs">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 pb-2 border-b border-rose-200/60 dark:border-rose-900/40">
@@ -306,13 +315,14 @@ export const AiAssistantModule: React.FC = () => {
                     </span>
                     <button
                       type="button"
-                      className="whitespace-nowrap px-2.5 py-1 rounded text-[11px] font-semibold bg-institutional-600 hover:bg-institutional-700 text-white transition-colors"
+                      className="whitespace-nowrap px-3 py-1 rounded-lg text-[11px] font-semibold bg-gradient-to-r from-[#5B1389] via-[#450D6F] to-[#350757] hover:from-[#6A17A0] hover:via-[#501082] hover:to-[#3E0966] text-white border border-purple-400/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_2px_8px_rgba(69,13,111,0.35)] transition-all active:scale-[0.985]"
                     >
                       Issue Counseling Summons
                     </button>
                   </div>
                 </div>
               ))}
+              </div>
             </div>
           </SoftCard>
         </div>
@@ -321,17 +331,22 @@ export const AiAssistantModule: React.FC = () => {
       {/* Tab 3: Senate Notice Drafter */}
       {activeTab === 'notice-drafter' && (
         <div className="space-y-3">
-          <SoftCard className="p-4">
-            <div className="pb-2.5 border-b border-slate-100 dark:border-slate-800 mb-3">
-              <h3 className="text-xs font-bold font-serif text-slate-900 dark:text-slate-100">
-                AI-Assisted Administrative Circular Drafting
-              </h3>
-              <p className="text-[11px] text-slate-500">
-                Rapid regulatory and syndicate notice generation with mandatory executive approval
-              </p>
+          <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold font-serif text-white">
+                  AI-Assisted Administrative Circular Drafting
+                </h3>
+                <p className="text-xs text-sky-200/80 mt-0.5">
+                  Rapid regulatory and syndicate notice generation with mandatory executive approval
+                </p>
+              </div>
+              <span className="inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold bg-white/10 text-white border border-white/20 font-mono">
+                Executive Verification
+              </span>
             </div>
 
-            <div className="space-y-3 text-xs">
+            <div className="p-5 space-y-3 text-xs">
               <div>
                 <label className="block font-semibold mb-1 text-slate-700 dark:text-slate-300">
                   Circular Directive Theme / Subject *
@@ -366,7 +381,7 @@ export const AiAssistantModule: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleGenerateNoticeDraft}
-                  className="whitespace-nowrap px-3 py-1.5 rounded-lg text-xs font-semibold bg-institutional-600 hover:bg-institutional-700 text-white transition-colors flex items-center gap-1.5"
+                  className="whitespace-nowrap px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-[#5B1389] via-[#450D6F] to-[#350757] hover:from-[#6A17A0] hover:via-[#501082] hover:to-[#3E0966] text-white border border-purple-400/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_2px_8px_rgba(69,13,111,0.35)] transition-all active:scale-[0.985] flex items-center gap-1.5"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>Generate Professional Gazette Draft</span>
@@ -376,16 +391,16 @@ export const AiAssistantModule: React.FC = () => {
 
             {/* Generated Draft with Required Human Sign-Off */}
             {generatedDraft && (
-              <div className="mt-4 p-3.5 rounded-lg border border-institutional-300 dark:border-institutional-700 bg-institutional-50/50 dark:bg-institutional-950/40 space-y-2.5 text-xs animate-in fade-in">
-                <div className="flex items-center justify-between pb-2 border-b border-institutional-200 dark:border-institutional-800">
+              <div className="mt-4 p-3.5 rounded-lg border border-blue-500/25 bg-blue-50/30 dark:bg-slate-800/50 space-y-2.5 text-xs animate-in fade-in">
+                <div className="flex items-center justify-between pb-2 border-b border-blue-200/60 dark:border-slate-700">
                   <div className="flex items-center gap-2">
                     <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold bg-sky-100 text-sky-700 dark:bg-sky-900/50 dark:text-sky-300">
-                      ✦ AI Generated Draft
+                      Generated Draft
                     </span>
                     <span className="font-bold text-slate-900 dark:text-slate-100 text-xs">{generatedDraft.title}</span>
                   </div>
                   <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300">
-                    ⏳ Requires Sign-off
+                    Pending Approval
                   </span>
                 </div>
 

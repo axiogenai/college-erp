@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Users, Search, Filter, Plus, Mail, Phone, 
-  BookOpen, Award, Clock, CheckCircle, GraduationCap, Eye, MapPin, Calendar, Building2 
+  BookOpen, Award, Clock, CheckCircle, GraduationCap, Eye, MapPin, Calendar, 
+  Building2, Building, Code2, Brain, Cpu, Cog 
 } from 'lucide-react';
 import { SoftCard } from '../common/SoftCard';
 import { Button } from '../common/Button';
@@ -13,37 +14,88 @@ import { useErpData } from '../../context/ErpDataContext';
 import { useAuth } from '../../context/AuthContext';
 import { Faculty } from '../../types';
 
-const FACULTY_CARD_THEMES = [
+const getDepartmentIcon = (department: string, className = "w-3.5 h-3.5 text-white shrink-0") => {
+  const d = department.toLowerCase();
+  if (d.includes('computer') || d.includes('software')) {
+    return <Code2 className={className} />;
+  }
+  if (d.includes('intelligence') || d.includes('data') || d.includes('ai')) {
+    return <Brain className={className} />;
+  }
+  if (d.includes('electronic') || d.includes('communication')) {
+    return <Cpu className={className} />;
+  }
+  if (d.includes('mechanical')) {
+    return <Cog className={className} />;
+  }
+  return <Building className={className} />;
+};
+
+const FACULTY_CARD_PALETTES = [
   {
-    banner: 'from-blue-600 via-indigo-600 to-blue-700',
-    accentText: 'text-blue-600 dark:text-blue-400',
-    dotColor: 'bg-blue-500',
+    gradient: 'from-[#831843] via-[#9D174D] to-[#500724]',
+    border: 'border-pink-500/30',
+    idText: 'text-pink-100',
+    hoverBorder: 'hover:border-pink-600/50',
+    statusDot: 'bg-pink-400',
+    buttonBg: 'bg-[#831843] hover:bg-[#9D174D] text-white'
   },
   {
-    banner: 'from-emerald-600 via-teal-600 to-emerald-700',
-    accentText: 'text-emerald-600 dark:text-emerald-400',
-    dotColor: 'bg-emerald-500',
+    gradient: 'from-[#1E3A8A] via-[#1D4ED8] to-[#0F172A]',
+    border: 'border-blue-500/30',
+    idText: 'text-blue-100',
+    hoverBorder: 'hover:border-blue-600/50',
+    statusDot: 'bg-blue-400',
+    buttonBg: 'bg-[#1E3A8A] hover:bg-[#1D4ED8] text-white'
   },
   {
-    banner: 'from-purple-600 via-violet-600 to-indigo-700',
-    accentText: 'text-purple-600 dark:text-purple-400',
-    dotColor: 'bg-purple-500',
+    gradient: 'from-[#7F1D1D] via-[#991B1B] to-[#450A0A]',
+    border: 'border-rose-500/30',
+    idText: 'text-rose-100',
+    hoverBorder: 'hover:border-rose-600/50',
+    statusDot: 'bg-rose-400',
+    buttonBg: 'bg-[#7F1D1D] hover:bg-[#991B1B] text-white'
   },
   {
-    banner: 'from-amber-600 via-orange-600 to-amber-700',
-    accentText: 'text-amber-600 dark:text-amber-400',
-    dotColor: 'bg-amber-500',
+    gradient: 'from-[#78350F] via-[#92400E] to-[#451A03]',
+    border: 'border-amber-500/30',
+    idText: 'text-amber-100',
+    hoverBorder: 'hover:border-amber-600/50',
+    statusDot: 'bg-amber-400',
+    buttonBg: 'bg-[#78350F] hover:bg-[#92400E] text-white'
   },
   {
-    banner: 'from-rose-600 via-pink-600 to-rose-700',
-    accentText: 'text-rose-600 dark:text-rose-400',
-    dotColor: 'bg-rose-500',
+    gradient: 'from-[#3B0764] via-[#581C87] to-[#1E1B4B]',
+    border: 'border-purple-500/30',
+    idText: 'text-purple-100',
+    hoverBorder: 'hover:border-purple-600/50',
+    statusDot: 'bg-purple-400',
+    buttonBg: 'bg-[#3B0764] hover:bg-[#581C87] text-white'
   },
   {
-    banner: 'from-cyan-600 via-sky-600 to-blue-600',
-    accentText: 'text-cyan-600 dark:text-cyan-400',
-    dotColor: 'bg-cyan-500',
+    gradient: 'from-[#451A03] via-[#5C2406] to-[#2B0E02]',
+    border: 'border-orange-500/30',
+    idText: 'text-orange-100',
+    hoverBorder: 'hover:border-orange-600/50',
+    statusDot: 'bg-orange-400',
+    buttonBg: 'bg-[#451A03] hover:bg-[#5C2406] text-white'
   },
+  {
+    gradient: 'from-[#312E81] via-[#3730A3] to-[#1E1B4B]',
+    border: 'border-indigo-500/30',
+    idText: 'text-indigo-100',
+    hoverBorder: 'hover:border-indigo-600/50',
+    statusDot: 'bg-indigo-400',
+    buttonBg: 'bg-[#312E81] hover:bg-[#3730A3] text-white'
+  },
+  {
+    gradient: 'from-[#1E293B] via-[#334155] to-[#0F172A]',
+    border: 'border-slate-500/30',
+    idText: 'text-slate-100',
+    hoverBorder: 'hover:border-slate-600/50',
+    statusDot: 'bg-slate-400',
+    buttonBg: 'bg-[#1E293B] hover:bg-[#334155] text-white'
+  }
 ];
 
 export const FacultyModule: React.FC = () => {
@@ -120,144 +172,154 @@ export const FacultyModule: React.FC = () => {
       )}
 
       {/* Filter and Search Bar */}
-      <SoftCard className="p-4">
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          <div className="relative flex-1 w-full">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by faculty name, employee ID, or research specialization..."
-              className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
+      <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between rounded-t-xl">
+          <div className="flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-sky-300" />
+            <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+              Faculty Directory Filters &amp; Specialization Query
+            </h3>
+          </div>
+          <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            Academic Roster
+          </span>
+        </div>
+        <div className="p-4">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <div className="relative flex-1 w-full">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search by faculty name, employee ID, or research specialization..."
+                className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-slate-500 text-slate-800 dark:text-slate-100"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            <Select
+              className="w-full sm:w-56"
+              value={selectedDept}
+              onChange={val => setSelectedDept(val)}
+              options={[
+                { value: 'all', label: 'All Departments' },
+                { value: 'Computer Science & Engineering', label: 'Computer Science & Engineering' },
+                { value: 'Artificial Intelligence & Data Science', label: 'AI & Data Science' },
+                { value: 'Electronics & Communication', label: 'Electronics & Communication' },
+                { value: 'Mechanical Engineering', label: 'Mechanical Engineering' },
+              ]}
             />
           </div>
-
-          <Select
-            className="w-full sm:w-56"
-            value={selectedDept}
-            onChange={val => setSelectedDept(val)}
-            options={[
-              { value: 'all', label: 'All Departments' },
-              { value: 'Computer Science & Engineering', label: 'Computer Science & Engineering' },
-              { value: 'Artificial Intelligence & Data Science', label: 'AI & Data Science' },
-              { value: 'Electronics & Communication', label: 'Electronics & Communication' },
-              { value: 'Mechanical Engineering', label: 'Mechanical Engineering' },
-            ]}
-          />
         </div>
       </SoftCard>
 
-      {/* Faculty Cards Grid - Each employee card has its own unique distinct collegiate color banner */}
+      {/* Faculty Cards Grid - Executive Luxury Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filteredFaculty.map((fac, index) => {
-          const theme = FACULTY_CARD_THEMES[index % FACULTY_CARD_THEMES.length];
+        {filteredFaculty.map((fac, idx) => {
+          const palette = FACULTY_CARD_PALETTES[idx % FACULTY_CARD_PALETTES.length];
           return (
             <SoftCard 
               key={fac.id} 
               hoverEffect 
               onClick={() => setSelectedFacultyForView(fac)}
-              className="overflow-hidden border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-xl shadow-soft hover:shadow-soft-md transition-all cursor-pointer flex flex-col justify-between group"
+              className={`overflow-hidden border border-neutral-200 dark:border-white/[0.08] bg-white dark:bg-[#121215] rounded-xl transition-all duration-150 ${palette.hoverBorder} cursor-pointer flex flex-col justify-between group shadow-xs`}
             >
               <div>
-                {/* Top Header Banner - Unique color banner for each faculty member */}
-                <div className={`h-14 bg-gradient-to-r ${theme.banner} px-4 py-2.5 flex items-center justify-between relative`}>
+                {/* Top Header Strip: Distinct color per card */}
+                <div className={`h-11 bg-gradient-to-r ${palette.gradient} text-white px-4 py-2 flex items-center justify-between border-b ${palette.border} relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:10px_10px] pointer-events-none" />
                   {/* Left: Employee ID Tag */}
-                  <span className="inline-flex items-center justify-center h-6 px-2.5 rounded text-[10px] font-mono font-medium text-slate-800 dark:text-slate-100 bg-white/95 dark:bg-slate-900/90 border border-white/30 dark:border-white/10 shadow-xs leading-none">
+                  <span className={`text-[10px] font-mono tracking-wider ${palette.idText} relative z-10`}>
                     {fac.employeeId}
                   </span>
 
                   {/* Right: Active Status Badge */}
-                  <span className="inline-flex items-center justify-center gap-1.5 h-6 px-2.5 rounded text-[10px] font-medium text-slate-800 dark:text-slate-100 bg-white/95 dark:bg-slate-900/90 border border-white/30 dark:border-white/10 shadow-xs leading-none select-none">
-                    <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-emerald-500" />
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-white/95 relative z-10 select-none">
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                      fac.status === 'active' ? palette.statusDot : 'bg-neutral-300'
+                    }`} />
                     <span>{fac.status === 'active' ? 'Active' : 'On Leave'}</span>
                   </span>
                 </div>
 
-                {/* Centered Overlapping Profile Avatar */}
-                <div className="relative -mt-7 flex justify-center">
-                  <div className="relative">
-                    <img
-                      src={fac.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(fac.fullName)}&background=1E4E79&color=fff`}
-                      alt={fac.fullName}
-                      className="w-14 h-14 rounded-full object-cover ring-2 ring-white dark:ring-slate-900 shadow-sm bg-white shrink-0 group-hover:scale-105 transition-transform"
-                    />
-                    <span 
-                      className={`absolute bottom-0.5 right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-white dark:ring-slate-900 ${
-                        fac.status === 'active' ? 'bg-emerald-500' : 'bg-slate-400'
-                      }`}
-                    />
-                  </div>
-                </div>
-
-                {/* Card Body - Slim, Compact, Perfectly Structured with generous px-5 padding */}
-                <div className="px-5 pt-2 pb-3.5 space-y-3">
-                  {/* Faculty Name & Academic Title */}
-                  <div className="text-center space-y-0.5">
-                    <h4 className="text-base font-bold text-slate-900 dark:text-white font-sans tracking-tight truncate" title={fac.fullName}>
-                      {fac.fullName}
-                    </h4>
-                    <p className={`text-xs font-semibold ${theme.accentText} truncate`}>
-                      {fac.designation}
-                    </p>
-                  </div>
-
-                  {/* Full Department Name Badge */}
-                  <div className="flex justify-center">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold text-center leading-snug shadow-sm">
-                      <Building2 className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" />
-                      <span>{fac.department}</span>
-                    </div>
-                  </div>
-
-                  {/* Qualification & Domain Box */}
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 text-center space-y-1">
-                    <div className="flex items-center justify-center gap-1.5 text-slate-800 dark:text-slate-200 font-semibold text-xs">
-                      <GraduationCap className="w-3.5 h-3.5 text-institutional-600 dark:text-institutional-400 shrink-0" />
-                      <span className="truncate">{fac.qualification}</span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                      <span className="font-semibold text-slate-700 dark:text-slate-300">Domain:</span> {fac.specialization}
-                    </p>
-                  </div>
-
-                  {/* Teaching Workload & Assigned Subjects */}
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                        Assigned Papers ({fac.assignedSubjects.length})
-                      </span>
-                      <span className="flex items-center gap-1 font-mono text-[11px] text-slate-600 dark:text-slate-400 font-semibold">
-                        <Clock className="w-3 h-3 text-slate-400" />
-                        {fac.weeklyHours} Hrs/Wk
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5 justify-center">
-                      {fac.assignedSubjects.map(subCode => (
-                        <span 
-                          key={subCode} 
-                          className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80"
-                        >
-                          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${theme.dotColor}`} />
-                          <span>{subCode}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+              {/* Profile Avatar */}
+              <div className="relative -mt-6 flex justify-center">
+                <div className="relative">
+                  <img
+                    src={fac.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(fac.fullName)}&background=1E4E79&color=fff`}
+                    alt={fac.fullName}
+                    className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-[#121215] shadow-xs bg-white shrink-0 group-hover:scale-105 transition-transform"
+                  />
                 </div>
               </div>
 
-              {/* Bottom Contact Strip */}
-              <div className="px-5 py-2.5 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px]">
-                <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400 min-w-0">
-                  <Mail className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span className="truncate max-w-[130px]" title={fac.email}>{fac.email}</span>
+              {/* Card Body */}
+              <div className="px-5 pt-2 pb-3.5 space-y-3">
+                {/* Faculty Name & Title */}
+                <div className="text-center space-y-0.5">
+                  <h4 className="text-sm font-semibold text-neutral-900 dark:text-[#EDEDEF] tracking-tight truncate" title={fac.fullName}>
+                    {fac.fullName}
+                  </h4>
+                  <p className="text-[11px] text-neutral-500 dark:text-[#A1A1AA] truncate">
+                    {fac.designation}
+                  </p>
                 </div>
-                <span className={`text-[10px] font-semibold ${theme.accentText} group-hover:translate-x-0.5 transition-transform shrink-0`}>
-                  View Dossier →
-                </span>
+
+                {/* Department Chip */}
+                <div className="flex justify-center">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-neutral-100 dark:bg-[#18181C] border border-neutral-200 dark:border-white/[0.08] text-neutral-700 dark:text-[#EDEDEF] text-[10px] font-medium leading-snug">
+                    {getDepartmentIcon(fac.department, "w-3 h-3 text-[#C5A059] shrink-0")}
+                    <span>{fac.department}</span>
+                  </div>
+                </div>
+
+                {/* Qualification & Domain Box */}
+                <div className="p-2.5 rounded-lg bg-neutral-50 dark:bg-[#161619] border border-neutral-200 dark:border-white/[0.06] text-center space-y-1">
+                  <div className="flex items-center justify-center gap-1.5 text-neutral-800 dark:text-[#EDEDEF] font-medium text-[11px]">
+                    <GraduationCap className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
+                    <span className="truncate">{fac.qualification}</span>
+                  </div>
+                  <p className="text-[10px] text-neutral-400 dark:text-[#71717A] truncate">
+                    Domain: {fac.specialization}
+                  </p>
+                </div>
+
+                {/* Teaching Workload & Assigned Subjects */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-[10px] font-medium uppercase tracking-wider text-neutral-400 dark:text-[#71717A]">
+                      Papers ({fac.assignedSubjects.length})
+                    </span>
+                    <span className="flex items-center gap-1 font-mono text-[10px] text-neutral-500 dark:text-[#A1A1AA]">
+                      <Clock className="w-3 h-3 text-neutral-400" />
+                      {fac.weeklyHours} Hrs/Wk
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 justify-center">
+                    {fac.assignedSubjects.map(subCode => (
+                      <span 
+                        key={subCode} 
+                        className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-neutral-100 dark:bg-[#18181C] text-neutral-700 dark:text-[#EDEDEF] border border-neutral-200 dark:border-white/[0.08]"
+                      >
+                        {subCode}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </SoftCard>
+            </div>
+
+            {/* Bottom Contact Strip */}
+            <div className="px-5 py-2.5 bg-neutral-50 dark:bg-[#141417] border-t border-neutral-200 dark:border-white/[0.06] flex items-center justify-between text-[11px]">
+              <div className="flex items-center gap-1.5 text-neutral-500 dark:text-[#71717A] min-w-0">
+                <Mail className="w-3.5 h-3.5 text-[#71717A] shrink-0" />
+                <span className="truncate max-w-[130px]" title={fac.email}>{fac.email}</span>
+              </div>
+              <span className="text-[11px] font-medium text-[#C5A059] group-hover:translate-x-0.5 transition-transform shrink-0">
+                View Dossier →
+              </span>
+            </div>
+          </SoftCard>
           );
         })}
       </div>
@@ -265,71 +327,110 @@ export const FacultyModule: React.FC = () => {
       {/* View Faculty Profile Modal */}
       {selectedFacultyForView && (() => {
         const selectedIndex = faculty.findIndex(f => f.id === selectedFacultyForView.id);
-        const modalTheme = FACULTY_CARD_THEMES[selectedIndex >= 0 ? selectedIndex % FACULTY_CARD_THEMES.length : 0];
+        const selectedPalette = FACULTY_CARD_PALETTES[(selectedIndex >= 0 ? selectedIndex : 0) % FACULTY_CARD_PALETTES.length];
         return (
           <Modal
             isOpen={!!selectedFacultyForView}
             onClose={() => setSelectedFacultyForView(null)}
             title={`Faculty Profile: ${selectedFacultyForView.fullName}`}
             subtitle={`Verified Academic Staff • Employee ID: ${selectedFacultyForView.employeeId}`}
-            maxWidth="2xl"
+            maxWidth="3xl"
             footer={
               <div className="flex items-center justify-between w-full">
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                   Axiogen ERP • Department of {selectedFacultyForView.department.split('&')[0].trim()}
                 </span>
-                <Button variant="primary" size="sm" onClick={() => setSelectedFacultyForView(null)}>
+                <button
+                  className={`px-4 py-1.5 rounded-lg text-xs font-semibold shadow-xs transition-colors ${selectedPalette.buttonBg}`}
+                  onClick={() => setSelectedFacultyForView(null)}
+                >
                   Close Dossier
-                </Button>
+                </button>
               </div>
             }
           >
             <div className="space-y-4 text-xs">
-              {/* Header Profile Card with matching unique collegiate banner & properly positioned avatar */}
-              <div className="rounded-xl border border-slate-200 dark:border-slate-700/80 overflow-hidden bg-white dark:bg-slate-800/60 shadow-sm">
-                <div className={`h-24 bg-gradient-to-r ${modalTheme.banner} px-6 py-4 flex items-center justify-end gap-2.5`}>
+              {/* Header Profile Card - Matches Selected Faculty Palette */}
+              <div className={`rounded-xl border ${selectedPalette.border} overflow-hidden bg-white dark:bg-[#121215] shadow-xs`}>
+                <div className={`h-12 bg-gradient-to-r ${selectedPalette.gradient} text-white px-6 py-2.5 flex items-center justify-between border-b ${selectedPalette.border} relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-[radial-gradient(#ffffff0d_1px,transparent_1px)] [background-size:10px_10px] pointer-events-none" />
                   {/* Employee ID Tag */}
-                  <span className="inline-flex items-center justify-center h-7 px-3 rounded text-xs font-mono font-bold text-slate-800 dark:text-slate-100 bg-white/95 dark:bg-slate-900/90 border border-white/30 dark:border-white/10 shadow-xs leading-none">
+                  <span className={`text-[11px] font-mono tracking-wider ${selectedPalette.idText} relative z-10`}>
                     {selectedFacultyForView.employeeId}
                   </span>
 
-                  {/* Department Tag */}
-                  <span className="inline-flex items-center justify-center h-7 px-3 rounded text-xs font-bold text-slate-800 dark:text-slate-100 bg-white/95 dark:bg-slate-900/90 border border-white/30 dark:border-white/10 shadow-xs leading-none">
-                    {selectedFacultyForView.department}
-                  </span>
-
                   {/* Active Status Tag */}
-                  <span className="inline-flex items-center justify-center gap-1.5 h-7 px-3 rounded text-xs font-bold text-slate-800 dark:text-slate-100 bg-white/95 dark:bg-slate-900/90 border border-white/30 dark:border-white/10 shadow-xs leading-none select-none">
-                    <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-emerald-500" />
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-white/95 relative z-10 select-none">
+                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                      selectedFacultyForView.status === 'active' ? selectedPalette.statusDot : 'bg-neutral-300'
+                    }`} />
                     <span>{selectedFacultyForView.status === 'active' ? 'Active Faculty' : 'On Leave'}</span>
                   </span>
                 </div>
 
                 {/* Profile Details Row */}
-                <div className="px-6 pb-5 pt-0">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                      {/* Avatar shifted up to overlap banner */}
-                      <div className="-mt-12 shrink-0">
-                        <img
-                          src={selectedFacultyForView.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedFacultyForView.fullName)}&background=1E4E79&color=fff`}
-                          alt={selectedFacultyForView.fullName}
-                          className="w-24 h-24 rounded-full object-cover ring-4 ring-white dark:ring-slate-900 shadow-lg bg-white"
-                        />
-                      </div>
-                      <div className="pt-2 sm:pt-3">
-                        <h3 className="text-xl sm:text-2xl font-bold font-sans text-slate-900 dark:text-white tracking-tight">
-                          {selectedFacultyForView.fullName}
-                        </h3>
-                        <p className={`text-xs sm:text-sm font-semibold ${modalTheme.accentText} mt-0.5`}>
-                          {selectedFacultyForView.designation}
-                        </p>
-                      </div>
+                <div className="px-6 pb-4 pt-0">
+                  <div className="flex items-start sm:items-end gap-3.5 min-w-0">
+                    {/* Avatar */}
+                    <div className="-mt-6 shrink-0">
+                      <img
+                        src={selectedFacultyForView.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedFacultyForView.fullName)}&background=1E4E79&color=fff`}
+                        alt={selectedFacultyForView.fullName}
+                        className="w-14 h-14 rounded-full object-cover ring-2 ring-white dark:ring-[#121215] shadow-xs bg-white shrink-0"
+                      />
                     </div>
+                    <div className="min-w-0 flex-1 pt-2 sm:pt-0">
+                      <h3 className="text-sm font-semibold text-neutral-900 dark:text-[#EDEDEF] tracking-tight leading-snug">
+                        {selectedFacultyForView.fullName}
+                      </h3>
+                      <p className="text-[11px] text-neutral-500 dark:text-[#A1A1AA] mt-0.5">
+                        {selectedFacultyForView.designation}
+                      </p>
+                      
+                      {/* Slim 3D Ribbon Style Labels (matching reference) */}
+                      <div className="flex items-center gap-2 mt-2 max-w-full overflow-x-auto no-scrollbar whitespace-nowrap py-0.5">
+                        {/* Department Ribbon Badge */}
+                        <div className="inline-flex items-center h-5.5 shrink-0 max-w-[240px] sm:max-w-[300px] select-none shadow-2xs group" title={`Department: ${selectedFacultyForView.department}`}>
+                          {/* Dark End Cap: Dynamic Matching Department Symbol */}
+                          <div className="h-full w-6 flex items-center justify-center bg-slate-900 dark:bg-black text-white rounded-l-md border-y border-l border-slate-800/80 shrink-0">
+                            {getDepartmentIcon(selectedFacultyForView.department, "w-3.5 h-3.5 text-white shrink-0")}
+                          </div>
 
-                    <div className="text-xs font-medium text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-800 px-3.5 py-2 rounded-lg border border-slate-200/80 dark:border-slate-700/80 self-start sm:self-center flex items-center gap-2 shadow-xs">
-                      <GraduationCap className="w-4 h-4 text-institutional-600 dark:text-institutional-400" />
-                      <span>{selectedFacultyForView.qualification}</span>
+                          {/* Ribbon Body with Angled Tail */}
+                          <div 
+                            className="h-full flex items-center pl-2.5 pr-4 text-white text-[10px] sm:text-[10.5px] font-semibold bg-gradient-to-r from-[#B8236B] via-[#98197F] to-[#701A75] border-y border-white/15 relative overflow-hidden"
+                            style={{
+                              clipPath: 'polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%)'
+                            }}
+                          >
+                            <div className="absolute right-0 top-0 bottom-0 w-2.5 bg-gradient-to-l from-purple-950/70 to-transparent pointer-events-none" />
+                            <span className="truncate pr-1">
+                              {selectedFacultyForView.department}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Degree Ribbon Badge */}
+                        <div className="inline-flex items-center h-5.5 shrink-0 max-w-[240px] sm:max-w-[320px] select-none shadow-2xs group" title={`Degree: ${selectedFacultyForView.qualification}`}>
+                          {/* Dark End Cap: ONLY Matching Symbol */}
+                          <div className="h-full w-6 flex items-center justify-center bg-slate-900 dark:bg-black text-white rounded-l-md border-y border-l border-slate-800/80 shrink-0">
+                            <GraduationCap className="w-3.5 h-3.5 text-white shrink-0" />
+                          </div>
+
+                          {/* Ribbon Body with Angled Tail */}
+                          <div 
+                            className="h-full flex items-center pl-2.5 pr-4 text-white text-[10px] sm:text-[10.5px] font-semibold bg-gradient-to-r from-[#8E1B73] via-[#751877] to-[#551670] border-y border-white/15 relative overflow-hidden"
+                            style={{
+                              clipPath: 'polygon(0 0, 100% 0, calc(100% - 8px) 100%, 0 100%)'
+                            }}
+                          >
+                            <div className="absolute right-0 top-0 bottom-0 w-2.5 bg-gradient-to-l from-indigo-950/70 to-transparent pointer-events-none" />
+                            <span className="truncate pr-1">
+                              {selectedFacultyForView.qualification}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -408,8 +509,8 @@ export const FacultyModule: React.FC = () => {
             </div>
           </div>
         </Modal>
-      );
-    })()}
+        );
+      })()}
 
       {/* Register Faculty Modal */}
       <Modal

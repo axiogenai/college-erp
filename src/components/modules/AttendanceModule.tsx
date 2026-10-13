@@ -131,89 +131,91 @@ export const AttendanceModule: React.FC = () => {
       )}
 
       {/* Session Parameters Selector */}
-      <SoftCard className="p-6">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-5">
+      <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-t-xl">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-serif">
+            <h3 className="text-sm font-bold text-white font-serif">
               Session Parameters
             </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
+            <p className="text-xs text-sky-200/80 mt-0.5">
               Select course offering, lecture schedule, and target cohort
             </p>
           </div>
-          <span className="text-xs font-mono text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2.5 py-1 rounded-md border border-slate-200 dark:border-slate-700">
+          <span className="text-xs font-mono text-sky-100 bg-white/10 px-2.5 py-1 rounded-md border border-white/15 w-fit">
             Instructor: {currentUser.name}
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Course / Subject</label>
-            <Select
-              className="w-full"
-              value={selectedSubjectCode}
-              onChange={val => setSelectedSubjectCode(val)}
-              options={subjects.map(s => ({
-                value: s.code,
-                label: `${s.code}: ${s.name}`
-              }))}
-            />
-          </div>
+        <div className="p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Course / Subject</label>
+              <Select
+                className="w-full"
+                value={selectedSubjectCode}
+                onChange={val => setSelectedSubjectCode(val)}
+                options={subjects.map(s => ({
+                  value: s.code,
+                  label: `${s.code}: ${s.name}`
+                }))}
+              />
+            </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Session Date</label>
-            <input
-              type="date"
-              className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-institutional-500 text-xs"
-              value={selectedDate}
-              onChange={e => setSelectedDate(e.target.value)}
-            />
-          </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Session Date</label>
+              <input
+                type="date"
+                className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-institutional-500 text-xs"
+                value={selectedDate}
+                onChange={e => setSelectedDate(e.target.value)}
+              />
+            </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Period Slot</label>
-            <Select
-              className="w-full"
-              value={selectedPeriod.toString()}
-              onChange={val => setSelectedPeriod(parseInt(val))}
-              options={[
-                { value: '1', label: 'Period 1 (09:00 AM - 09:55 AM)' },
-                { value: '2', label: 'Period 2 (10:00 AM - 10:55 AM)' },
-                { value: '3', label: 'Period 3 (11:15 AM - 12:10 PM)' },
-                { value: '4', label: 'Period 4 (01:15 PM - 02:10 PM)' },
-                { value: '5', label: 'Period 5 (02:15 PM - 03:10 PM)' },
-              ]}
-            />
-          </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Period Slot</label>
+              <Select
+                className="w-full"
+                value={selectedPeriod.toString()}
+                onChange={val => setSelectedPeriod(parseInt(val))}
+                options={[
+                  { value: '1', label: 'Period 1 (09:00 AM - 09:55 AM)' },
+                  { value: '2', label: 'Period 2 (10:00 AM - 10:55 AM)' },
+                  { value: '3', label: 'Period 3 (11:15 AM - 12:10 PM)' },
+                  { value: '4', label: 'Period 4 (01:15 PM - 02:10 PM)' },
+                  { value: '5', label: 'Period 5 (02:15 PM - 03:10 PM)' },
+                ]}
+              />
+            </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Target Cohort / Batch</label>
-            <Select
-              className="w-full"
-              value={selectedBatch}
-              onChange={val => setSelectedBatch(val)}
-              options={[
-                { value: 'B.Tech CSE - 2024 Sec A', label: 'B.Tech CSE - 2024 Sec A' },
-                { value: 'B.Tech AI - 2024 Sec A', label: 'B.Tech AI - 2024 Sec A' },
-              ]}
-            />
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Target Cohort / Batch</label>
+              <Select
+                className="w-full"
+                value={selectedBatch}
+                onChange={val => setSelectedBatch(val)}
+                options={[
+                  { value: 'B.Tech CSE - 2024 Sec A', label: 'B.Tech CSE - 2024 Sec A' },
+                  { value: 'B.Tech AI - 2024 Sec A', label: 'B.Tech AI - 2024 Sec A' },
+                ]}
+              />
+            </div>
           </div>
         </div>
       </SoftCard>
 
       {/* Attendance Marking Roster */}
       <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
-        <div className="px-6 py-4 bg-slate-50/80 dark:bg-slate-850 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="px-6 py-4 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2.5">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 font-serif">
+              <h3 className="text-sm font-bold text-white font-serif">
                 Attendance Registry ({targetStudents.length} Scholars)
               </h3>
-              <span className="text-[10.5px] font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 px-2.5 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 shadow-2xs">
-                <strong className="text-emerald-600 dark:text-emerald-400">{presentCount}</strong> Present • <strong className="text-rose-600 dark:text-rose-400">{absentCount}</strong> Absent
+              <span className="text-[10px] font-mono text-white/90 bg-white/10 px-2.5 py-0.5 rounded border border-white/15">
+                <strong className="text-white font-bold">{presentCount}</strong> Present • <strong className="text-white/80 font-bold">{absentCount}</strong> Absent
               </span>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            <p className="text-xs text-sky-200/80 mt-0.5">
               Mark session statuses. Dynamic statutory compliance updates automatically.
             </p>
           </div>
@@ -223,19 +225,19 @@ export const AttendanceModule: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleMarkAll('present')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 shadow-2xs transition-all active:scale-95"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-[#5B1389] via-[#450D6F] to-[#350757] hover:from-[#6A17A0] hover:via-[#501082] hover:to-[#3E0966] text-white border border-purple-400/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_2px_8px_rgba(69,13,111,0.35)] transition-all active:scale-[0.985]"
                 title="Mark all scholars present for this session"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-purple-200" />
                 <span>Mark All Present</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleMarkAll('absent')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-50 dark:bg-rose-950/50 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 hover:bg-rose-100 dark:hover:bg-rose-900/60 shadow-2xs transition-all active:scale-95"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-white/10 hover:bg-white/15 text-white/90 border border-white/20 transition-all active:scale-[0.985]"
                 title="Mark all scholars absent for this session"
               >
-                <XCircle className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400" />
+                <XCircle className="w-3.5 h-3.5 text-slate-300" />
                 <span>Mark All Absent</span>
               </button>
             </div>
@@ -244,7 +246,7 @@ export const AttendanceModule: React.FC = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-100/70 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 uppercase text-[11px] font-semibold tracking-wider border-b border-slate-200 dark:border-slate-700/80">
+            <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white uppercase text-[11px] font-semibold tracking-wider border-b border-blue-500/25">
               <tr>
                 <th className="px-4 py-3">Roll Number</th>
                 <th className="px-4 py-3">Scholar Details</th>
@@ -273,24 +275,24 @@ export const AttendanceModule: React.FC = () => {
                       </span>
                     </td>
                     <td className="px-4 py-3.5 text-center">
-                      <span className={`inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold ${
+                      <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider border ${
                         isShortage
-                          ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300'
-                          : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
+                          ? 'bg-rose-500/15 text-rose-700 dark:text-rose-300 border-rose-400/25'
+                          : 'bg-slate-500/10 text-slate-700 dark:text-slate-300 border-slate-400/25'
                       }`}>
                         {isShortage ? 'Shortage' : 'Eligible'}
                       </span>
                     </td>
                     <td className="px-4 py-3.5 text-right">
                       {canMark ? (
-                        <div className="inline-flex rounded-xl border border-slate-200/90 dark:border-slate-700/80 p-0.5 bg-slate-100/90 dark:bg-slate-800/90 shadow-2xs gap-0.5">
+                        <div className="inline-flex rounded-lg border border-slate-200/90 dark:border-slate-700/80 p-0.5 bg-slate-100/90 dark:bg-slate-800/90 shadow-2xs gap-0.5">
                           <button
                             type="button"
                             onClick={() => toggleStudentStatus(stu.id, 'present')}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                            className={`px-2.5 py-1 rounded text-xs font-medium transition-all flex items-center gap-1.5 ${
                               currentStatus === 'present'
-                                ? 'bg-emerald-600 text-white shadow-xs'
-                                : 'text-slate-600 hover:text-emerald-700 dark:text-slate-400 dark:hover:text-emerald-300'
+                                ? 'bg-[#0F2942] dark:bg-[#1B3F66] text-white shadow-xs'
+                                : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
                             }`}
                             title="Mark Present"
                           >
@@ -300,9 +302,9 @@ export const AttendanceModule: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => toggleStudentStatus(stu.id, 'absent')}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                            className={`px-2.5 py-1 rounded text-xs font-medium transition-all flex items-center gap-1.5 ${
                               currentStatus === 'absent'
-                                ? 'bg-rose-600 text-white shadow-xs'
+                                ? 'bg-rose-700 text-white shadow-xs'
                                 : 'text-slate-600 hover:text-rose-700 dark:text-slate-400 dark:hover:text-rose-300'
                             }`}
                             title="Mark Absent"
@@ -313,9 +315,9 @@ export const AttendanceModule: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => toggleStudentStatus(stu.id, 'late')}
-                            className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                            className={`px-2.5 py-1 rounded text-xs font-medium transition-all flex items-center gap-1.5 ${
                               currentStatus === 'late'
-                                ? 'bg-amber-600 text-white shadow-xs'
+                                ? 'bg-amber-700 text-white shadow-xs'
                                 : 'text-slate-600 hover:text-amber-700 dark:text-slate-400 dark:hover:text-amber-300'
                             }`}
                             title="Mark Late"
@@ -355,17 +357,23 @@ export const AttendanceModule: React.FC = () => {
       </SoftCard>
 
       {/* Recent Attendance Session Logs */}
-      <SoftCard className="p-6">
-        <div className="pb-3 border-b border-slate-100 dark:border-slate-800">
-          <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-wide font-serif">
-            Recent Institutional Session Logs
-          </h3>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Archived verified attendance roll calls
-          </p>
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+          <div>
+            <h3 className="text-sm font-bold text-white font-serif">
+              Recent Institutional Session Logs
+            </h3>
+            <p className="text-xs text-sky-200/80 mt-0.5">
+              Archived verified attendance roll calls
+            </p>
+          </div>
+          <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20">
+            Archived Roll Calls
+          </span>
         </div>
 
-        <div className="divide-y divide-slate-100 dark:divide-slate-800 mt-1 text-xs">
+        <div className="p-6">
+          <div className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
           {attendanceSessions.slice(0, 5).map(sess => (
             <div key={sess.id} className="py-3.5 flex items-center justify-between">
               <div>
@@ -387,6 +395,7 @@ export const AttendanceModule: React.FC = () => {
               </div>
             </div>
           ))}
+          </div>
         </div>
       </SoftCard>
     </div>

@@ -1,7 +1,7 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   School, Award, BookOpen, Users, Calendar, ArrowRight, 
-  ShieldCheck, CheckCircle2, ChevronRight, ChevronLeft, ChevronDown, FileText, Phone, 
+  ShieldCheck, CheckCircle2, ChevronRight, ChevronLeft, FileText, Phone, 
   Mail, MapPin, ExternalLink, LogIn, Building2, 
   GraduationCap, Clock, HelpCircle, Layers, Compass,
   TrendingUp, Globe, Zap, BarChart3,
@@ -12,34 +12,11 @@ import {
 import { UserRole } from '../../types';
 import { useErpData } from '../../context/ErpDataContext';
 
-import { CollegeJourneyPage } from './pages/CollegeJourneyPage';
-import { LeadershipPage } from './pages/LeadershipPage';
-import { DepartmentsPage } from './pages/DepartmentsPage';
-import { ProgramsPage } from './pages/ProgramsPage';
-import { LabsPage } from './pages/LabsPage';
-import { PlacementsPage } from './pages/PlacementsPage';
-import { AdmissionsPage } from './pages/AdmissionsPage';
-import { GazettePage } from './pages/GazettePage';
-import { AccreditationPage } from './pages/AccreditationPage';
-
-export type PageViewType = 
-  | 'home' 
-  | 'journey' 
-  | 'leadership' 
-  | 'departments' 
-  | 'programs' 
-  | 'labs' 
-  | 'placements' 
-  | 'admissions' 
-  | 'gazette' 
-  | 'accreditation';
-
-
 interface PublicLandingProps {
   onEnterPortal: (role?: UserRole) => void;
 }
 
-// ──── Intersection Observer Hook for Smooth Scroll Animations ──────────────────────────────────
+// ── Intersection Observer Hook for Smooth Scroll Animations ─────────────────
 function useReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
@@ -56,7 +33,7 @@ function useReveal(threshold = 0.1) {
   return { ref, visible };
 }
 
-// ──── Live Counter Animation Hook ──────────────────────────────────────────────────────────────────────────────────────────
+// ── Live Counter Animation Hook ─────────────────────────────────────────────
 function useCounter(target: number, duration = 1600, started = false) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -73,8 +50,8 @@ function useCounter(target: number, duration = 1600, started = false) {
   return count;
 }
 
-// ──── Degree Programs Catalog ────────────────────────────────────────────────────────────────────────────────────────────────────
-// ──── Degree Programs Catalog (With Full Academic Curriculum) ────────────────────────────────────
+// ── Degree Programs Catalog ──────────────────────────────────────────────────
+// ── Degree Programs Catalog (With Full Academic Curriculum) ──────────────────
 const PROGRAMS = [
   {
     id: 'btech-cse',
@@ -379,7 +356,7 @@ const PROGRAMS = [
   }
 ];
 
-// ──── Research Centers & Infrastructure Showcase ────────────────────────────────────────────────────────────
+// ── Research Centers & Infrastructure Showcase ──────────────────────────────
 const FACILITIES = [
   {
     title: 'Supercomputing & AI Research Center',
@@ -411,7 +388,7 @@ const FACILITIES = [
   }
 ];
 
-// ──── Corporate Hiring Partners ────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Corporate Hiring Partners ────────────────────────────────────────────────
 const RECRUITERS = [
   { name: 'Google', ctc: '48.5 LPA', role: 'Systems Software Engineer' },
   { name: 'Microsoft', ctc: '45.0 LPA', role: 'Cloud & AI Engineer' },
@@ -423,7 +400,7 @@ const RECRUITERS = [
   { name: 'Cisco Systems', ctc: '28.0 LPA', role: 'Network Security Architect' },
 ];
 
-// ──── Official University Gazette Bulletins (Classic Rounding Ticker) ────────────────────
+// ── Official University Gazette Bulletins (Classic Rounding Ticker) ──────────
 const UNIVERSITY_BULLETINS = [
   { tag: 'Admissions 2026', text: 'Merit Counseling Round II commences October 25. Online seat reservation active.', link: '#admissions' },
   { tag: 'National Standing', text: 'Ranked #12 Nationwide by NIRF 2025 • Re-accredited NAAC A++ with 3.82 CGPA.', link: '#programs' },
@@ -431,7 +408,7 @@ const UNIVERSITY_BULLETINS = [
   { tag: 'Autonomous Research', text: 'R&D Labs secure ₹24.8 Cr funding for High-Performance Computing & AI.', link: '#infrastructure' },
 ];
 
-// ──── University Rotating Values for Animated Hero ──────────────────────────────────────────────────────
+// ── University Rotating Values for Animated Hero ───────────────────────────
 const HERO_ROTATING_WORDS = [
   'Autonomous Excellence',
   'Scientific Discovery',
@@ -439,7 +416,7 @@ const HERO_ROTATING_WORDS = [
   'Engineering Leadership'
 ];
 
-// ──── Official University Heraldic Seal & Crest ──────────────────────────────────────────────────────────
+// ── Official University Heraldic Seal & Crest ─────────────────────────────
 export function UniversityCrest({ className = "w-11 h-11" }: { className?: string }) {
   return (
     <svg 
@@ -535,20 +512,6 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
   const { notices } = useErpData();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<PageViewType>('home');
-  const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
-  const [academicsDropdownOpen, setAcademicsDropdownOpen] = useState(false);
-  const [admissionsDropdownOpen, setAdmissionsDropdownOpen] = useState(false);
-
-  const navigateToPage = (page: PageViewType) => {
-    setCurrentPage(page);
-    setMobileMenuOpen(false);
-    setAboutDropdownOpen(false);
-    setAcademicsDropdownOpen(false);
-    setAdmissionsDropdownOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const [programTab, setProgramTab] = useState<'all' | 'ug' | 'pg' | 'phd'>('all');
   const [bulletinIndex, setBulletinIndex] = useState(0);
   const [bulletinVisible, setBulletinVisible] = useState(true);
@@ -615,7 +578,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans selection:bg-institutional-700 selection:text-white transition-colors">
 
-      {/* ──── 1. Classic Institutional Bulletin Ticker Bar ──────────────────────────────────────── */}
+      {/* ── 1. Classic Institutional Bulletin Ticker Bar ──────────────────── */}
       <div className="bg-slate-950 text-slate-200 text-xs py-2 px-4 border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2.5">
           
@@ -714,7 +677,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </div>
 
-      {/* ──── 2. Glassmorphic Navigation Bar ──────────────────────────────────────────────────────────────── */}
+      {/* ── 2. Glassmorphic Navigation Bar ──────────────────────────────── */}
       <header className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled
           ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-md border-b border-slate-200 dark:border-slate-800'
@@ -777,80 +740,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         )}
       </header>
 
-      
-      {/* ── Sub-Page Independent Views ─────────────────────────────────── */}
-      {currentPage === 'journey' && (
-        <CollegeJourneyPage 
-          onBackToHome={() => navigateToPage('home')}
-          onNavigateToLeadership={() => navigateToPage('leadership')}
-          onNavigateToDepartments={() => navigateToPage('departments')}
-          onEnterPortal={onEnterPortal as any}
-        />
-      )}
-
-      {currentPage === 'leadership' && (
-        <LeadershipPage 
-          onBackToHome={() => navigateToPage('home')}
-          onNavigateToJourney={() => navigateToPage('journey')}
-          onNavigateToDepartments={() => navigateToPage('departments')}
-        />
-      )}
-
-      {currentPage === 'departments' && (
-        <DepartmentsPage 
-          onBackToHome={() => navigateToPage('home')}
-          onNavigateToJourney={() => navigateToPage('journey')}
-          onNavigateToLeadership={() => navigateToPage('leadership')}
-        />
-      )}
-
-      {currentPage === 'programs' && (
-        <ProgramsPage 
-          onBackToHome={() => navigateToPage('home')}
-          onEnterPortal={onEnterPortal}
-          onNavigateToAdmissions={() => navigateToPage('admissions')}
-        />
-      )}
-
-      {currentPage === 'labs' && (
-        <LabsPage 
-          onBackToHome={() => navigateToPage('home')}
-          onNavigateToPrograms={() => navigateToPage('programs')}
-        />
-      )}
-
-      {currentPage === 'placements' && (
-        <PlacementsPage 
-          onBackToHome={() => navigateToPage('home')}
-          onNavigateToAdmissions={() => navigateToPage('admissions')}
-        />
-      )}
-
-      {currentPage === 'admissions' && (
-        <AdmissionsPage 
-          onBackToHome={() => navigateToPage('home')}
-          onNavigateToPrograms={() => navigateToPage('programs')}
-        />
-      )}
-
-      {currentPage === 'gazette' && (
-        <GazettePage 
-          onBackToHome={() => navigateToPage('home')}
-          notices={notices}
-        />
-      )}
-
-      {currentPage === 'accreditation' && (
-        <AccreditationPage 
-          onBackToHome={() => navigateToPage('home')}
-          onNavigateToJourney={() => navigateToPage('journey')}
-        />
-      )}
-
-      {/* ── Main Landing Page (All Sections 100% Intact & Untouched) ── */}
-      {currentPage === 'home' && (
-        <>
-          {/* ──── 3. Ultra-Premium Collegiate Background Hero Section ────────────── */}
+      {/* ── 3. Ultra-Premium Collegiate Background Hero Section ─────── */}
       <section 
         id="hero"
         className="relative min-h-[380px] sm:min-h-[440px] md:min-h-[480px] h-[calc(100vh-6rem)] max-h-[660px] flex items-center justify-center overflow-hidden bg-slate-950 text-white px-4 py-4 sm:py-6"
@@ -921,7 +811,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ──── 4. Government Accreditations & Recognitions Bar ──────────────────────────────────── */}
+      {/* ── 4. Government Accreditations & Recognitions Bar ────────────────── */}
       <section className="py-6 bg-slate-100/80 dark:bg-slate-900/70 border-y border-slate-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-4">
@@ -940,7 +830,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
 
 
 
-      {/* ──── 6. Academic Degree Programs & Curriculum ────────────────────────────────────────────────── */}
+      {/* ── 6. Academic Degree Programs & Curriculum ───────────────────────── */}
       <section 
         id="programs"
         ref={programsReveal.ref}
@@ -1039,7 +929,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ──── 7. Research Centers & World-Class Facilities ────────────────────────────────────────── */}
+      {/* ── 7. Research Centers & World-Class Facilities ───────────────────── */}
       <section 
         id="infrastructure"
         ref={facilitiesReveal.ref}
@@ -1094,7 +984,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ──── 8. Placement Excellence & Corporate Consortium ────────────────────────────────────── */}
+      {/* ── 8. Placement Excellence & Corporate Consortium ─────────────────── */}
       <section 
         id="placements"
         ref={placementReveal.ref}
@@ -1176,7 +1066,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
       </div>
     </section>
 
-      {/* ──── 9. Admissions 2026 Process & Application Roadmap ──────────────────────────────── */}
+      {/* ── 9. Admissions 2026 Process & Application Roadmap ──────────────── */}
       <section 
         id="admissions"
         ref={admissionsReveal.ref}
@@ -1264,7 +1154,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ──── 10. Official University Gazette & Circulars ──────────────────────────────────────────── */}
+      {/* ── 10. Official University Gazette & Circulars ────────────────────── */}
       <section 
         id="notices"
         ref={noticesReveal.ref}
@@ -1320,7 +1210,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </section>
 
-      {/* ──── 11. Comprehensive Executive Institutional Footer ────────────────────────────────── */}
+      {/* ── 11. Comprehensive Executive Institutional Footer ───────────────── */}
       <footer className="bg-institutional-950 text-slate-400 text-xs py-14 border-t border-institutional-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b border-institutional-900">
@@ -1388,10 +1278,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
         </div>
       </footer>
 
-              </>
-      )}
-
-      {/* ──── Curriculum & Syllabus Specification Modal ──────────────────────────────────────────── */}
+      {/* ── Curriculum & Syllabus Specification Modal ────────────────────── */}
       {selectedProgram && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-sm"

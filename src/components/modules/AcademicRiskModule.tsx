@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { 
-  AlertTriangle, ShieldAlert, UserCheck, Calendar, Filter, 
-  Search, CheckCircle, Clock, BookOpen, AlertCircle, ArrowRight, 
+  Activity, ShieldAlert, UserCheck, Calendar, Filter, 
+  Search, CheckCircle, Clock, BookOpen, ArrowRight, 
   Phone, Mail, FileText, User, HelpCircle, X, ChevronRight,
   TrendingDown, TrendingUp, CheckCircle2, HeartHandshake, Calculator
 } from 'lucide-react';
@@ -183,7 +183,7 @@ export const AcademicRiskModule: React.FC = () => {
       <PageHeader
         title="Academic Risk Radar & Early Warning Detection"
         subtitle="Autonomous multi-factor student telemetry, UGC 75% attendance triggers, grade decay indicators & non-punitive intervention workflows"
-        icon={<AlertTriangle className="w-5 h-5 text-amber-600" />}
+        icon={<Activity className="w-5 h-5 text-[#C5A059]" />}
         actions={
           <div className="flex items-center gap-2">
             <Button
@@ -214,12 +214,12 @@ export const AcademicRiskModule: React.FC = () => {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200 dark:border-emerald-800 flex items-center justify-between text-xs animate-in fade-in">
+        <div className="p-3.5 rounded-xl bg-white dark:bg-[#141417] border border-neutral-200 dark:border-white/[0.08] text-neutral-800 dark:text-[#EDEDEF] flex items-center justify-between text-xs shadow-sm">
           <div className="flex items-center gap-2 font-medium">
-            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+            <CheckCircle className="w-4 h-4 text-[#C5A059] shrink-0" />
             <span>{toastMessage}</span>
           </div>
-          <button onClick={() => setToastMessage(null)} className="font-bold ml-4">✕</button>
+          <button onClick={() => setToastMessage(null)} className="font-bold ml-4 text-neutral-400 hover:text-neutral-200">✕</button>
         </div>
       )}
 
@@ -232,7 +232,7 @@ export const AcademicRiskModule: React.FC = () => {
           trendLabel="attendance < 75%"
           subtitle="Mandatory Dean / Academic Council Review"
           colorScheme="rose"
-          icon={<AlertTriangle className="w-5 h-5" />}
+          icon={<Activity className="w-5 h-5" />}
         />
         <StatCard
           title="Moderate Watchlist"
@@ -241,7 +241,7 @@ export const AcademicRiskModule: React.FC = () => {
           trendLabel="75% – 80% attendance"
           subtitle="Borderline UGC Threshold Scholars"
           colorScheme="gold"
-          icon={<AlertCircle className="w-5 h-5" />}
+          icon={<Clock className="w-5 h-5" />}
         />
         <StatCard
           title="Scholars in Good Standing"
@@ -269,18 +269,18 @@ export const AcademicRiskModule: React.FC = () => {
           onClick={() => setActiveTab('radar')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'radar'
-              ? 'border-institutional-600 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
-          <AlertTriangle className="w-3.5 h-3.5" />
+          <Activity className="w-3.5 h-3.5" />
           <span>Scholars Risk Radar ({students.length})</span>
         </button>
         <button
           onClick={() => setActiveTab('interventions')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'interventions'
-              ? 'border-institutional-600 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -291,7 +291,7 @@ export const AcademicRiskModule: React.FC = () => {
           onClick={() => setActiveTab('simulator')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors flex items-center gap-1.5 ${
             activeTab === 'simulator'
-              ? 'border-institutional-600 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -304,52 +304,65 @@ export const AcademicRiskModule: React.FC = () => {
       {activeTab === 'radar' && (
         <div className="space-y-4">
           {/* Filters Bar */}
-          <SoftCard className="p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <div className="relative">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Search scholar name, roll no, or department..."
-                  className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
+          <SoftCard className="border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between rounded-t-xl">
+              <div className="flex items-center gap-2">
+                <Search className="w-3.5 h-3.5 text-sky-300" />
+                <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+                  Academic Risk Radar &amp; Severity Cohort Filters
+                </h3>
+              </div>
+              <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+                Statutory Scoring Engine
+              </span>
+            </div>
+            <div className="p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div className="relative">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Search scholar name, roll no, or department..."
+                    className="w-full pl-9 pr-4 py-2 text-xs bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-1 focus:ring-institutional-500 text-slate-800 dark:text-slate-100"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                  />
+                </div>
+
+                <Select
+                  value={selectedSeverity}
+                  onChange={val => setSelectedSeverity(val)}
+                  options={[
+                    { value: 'all', label: 'All Severity Cohorts' },
+                    { value: 'critical', label: 'Critical Risk Only (<75% Att.)' },
+                    { value: 'moderate', label: 'Moderate Watchlist (75-80%)' },
+                    { value: 'safe', label: 'Good Standing (>80%)' }
+                  ]}
+                />
+
+                <Select
+                  value={selectedDept}
+                  onChange={val => setSelectedDept(val)}
+                  options={[
+                    { value: 'all', label: 'All Departments' },
+                    { value: 'Computer Science', label: 'Computer Science & Eng.' },
+                    { value: 'Artificial Intelligence', label: 'AI & Data Science' },
+                    { value: 'Electronics', label: 'Electronics & Comm.' },
+                    { value: 'Mechanical', label: 'Mechanical Engineering' },
+                    { value: 'Management', label: 'School of Management' }
+                  ]}
+                />
+
+                <Select
+                  value={sortBy}
+                  onChange={val => setSortBy(val as any)}
+                  options={[
+                    { value: 'risk', label: 'Sort: Highest Risk Score' },
+                    { value: 'attendance', label: 'Sort: Lowest Attendance First' },
+                    { value: 'cgpa', label: 'Sort: Lowest CGPA First' }
+                  ]}
                 />
               </div>
-
-              <Select
-                value={selectedSeverity}
-                onChange={val => setSelectedSeverity(val)}
-                options={[
-                  { value: 'all', label: 'All Severity Cohorts' },
-                  { value: 'critical', label: 'Critical Risk Only (<75% Att.)' },
-                  { value: 'moderate', label: 'Moderate Watchlist (75-80%)' },
-                  { value: 'safe', label: 'Good Standing (>80%)' }
-                ]}
-              />
-
-              <Select
-                value={selectedDept}
-                onChange={val => setSelectedDept(val)}
-                options={[
-                  { value: 'all', label: 'All Departments' },
-                  { value: 'Computer Science', label: 'Computer Science & Eng.' },
-                  { value: 'Artificial Intelligence', label: 'AI & Data Science' },
-                  { value: 'Electronics', label: 'Electronics & Comm.' },
-                  { value: 'Mechanical', label: 'Mechanical Engineering' },
-                  { value: 'Management', label: 'School of Management' }
-                ]}
-              />
-
-              <Select
-                value={sortBy}
-                onChange={val => setSortBy(val as any)}
-                options={[
-                  { value: 'risk', label: 'Sort: Highest Risk Score' },
-                  { value: 'attendance', label: 'Sort: Lowest Attendance First' },
-                  { value: 'cgpa', label: 'Sort: Lowest CGPA First' }
-                ]}
-              />
             </div>
           </SoftCard>
 
@@ -363,99 +376,134 @@ export const AcademicRiskModule: React.FC = () => {
               return (
                 <SoftCard 
                   key={student.id} 
-                  className={`p-3.5 transition-all hover:shadow-md ${
-                    isCritical 
-                      ? 'border-rose-300/80 dark:border-rose-900/60 bg-rose-50/20 dark:bg-rose-950/10' 
-                      : isModerate 
-                      ? 'border-amber-300/80 dark:border-amber-900/60 bg-amber-50/20 dark:bg-amber-950/10' 
-                      : 'border-slate-200 dark:border-slate-800'
-                  }`}
+                  className="relative overflow-hidden rounded-xl border border-slate-200/90 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-150"
                 >
-                  {/* Card Header */}
-                  <div className="flex items-start justify-between gap-2.5 pb-2 border-b border-slate-100 dark:border-slate-800/80">
+                  {/* Dark Royal Oxford Navy Top Banner */}
+                  <div className="px-4 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-xs font-bold text-white tracking-wide">
+                        {student.enrollmentId}
+                      </span>
+                      <span className="text-[10px] text-sky-200 font-mono">
+                        Sem {student.currentSemester}
+                      </span>
+                    </div>
+                    <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider ${
+                      isCritical
+                        ? 'bg-rose-500/30 text-rose-200 border border-rose-400/30'
+                        : isModerate
+                        ? 'bg-amber-500/30 text-amber-200 border border-amber-400/30'
+                        : 'bg-emerald-500/30 text-emerald-200 border border-emerald-400/30'
+                    }`}>
+                      {isCritical ? 'Critical' : isModerate ? 'Watchlist' : 'Good Standing'}
+                    </span>
+                  </div>
+
+                  <div className="p-4 space-y-3 relative">
+                    {/* Subtle Left Severity Accent Bar */}
+                    <span 
+                      className={`absolute left-0 top-0 bottom-0 w-1 ${
+                        isCritical 
+                          ? 'bg-rose-500' 
+                          : isModerate 
+                          ? 'bg-amber-500' 
+                          : 'bg-emerald-500'
+                      }`}
+                      aria-hidden="true"
+                    />
+
+                  {/* Card Header: Identity & Status Badge */}
+                  <div className="flex items-start justify-between gap-3 pb-2.5 border-b border-slate-100 dark:border-slate-800/80">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <img 
                         src={student.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"} 
                         alt={student.fullName}
-                        className="w-9 h-9 rounded-lg object-cover border border-slate-200 dark:border-slate-700 shrink-0" 
+                        className="w-10 h-10 rounded-lg object-cover ring-1 ring-slate-200 dark:ring-slate-700 shrink-0" 
                       />
                       <div className="min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
                             {student.fullName}
                           </h4>
-                          <span className="font-mono text-[9px] text-slate-400 bg-slate-100 dark:bg-slate-800 px-1 py-0.2 rounded">
+                          <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.2 rounded font-semibold border border-slate-200/60 dark:border-slate-700">
                             {student.enrollmentId}
                           </span>
                         </div>
-                        <p className="text-[10px] text-slate-500 truncate mt-0.5">
-                          {student.department} • Sem {student.currentSemester}
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                          {student.department} • Semester {student.currentSemester}
                         </p>
                       </div>
                     </div>
 
                     <div className="text-right shrink-0">
-                      <span className={`inline-block px-2.5 py-0.5 rounded text-[11px] font-semibold ${
+                      <span className={`inline-block px-2 py-0.5 rounded text-[11px] font-mono font-bold uppercase tracking-wider ${
                         isCritical
-                          ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300'
+                          ? 'bg-rose-100/90 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900/60'
                           : isModerate
-                          ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300'
-                          : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300'
+                          ? 'bg-amber-100/90 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/80 dark:border-amber-900/60'
+                          : 'bg-emerald-100/90 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-900/60'
                       }`}>
-                        {isCritical ? '⚠ Critical' : isModerate ? '⏳ Watchlist' : '✓ Safe'}
+                        {isCritical ? 'Critical' : isModerate ? 'Watchlist' : 'Good Standing'}
                       </span>
-                      <div className="text-[9px] font-mono text-slate-400 mt-0.5">
-                        Risk: <span className="font-bold text-slate-700 dark:text-slate-200">{riskScore}/100</span>
+                      <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 mt-0.5">
+                        Risk: <span className="font-bold text-slate-700 dark:text-slate-300">{riskScore}/100</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Telemetry Metrics */}
-                  <div className="grid grid-cols-3 gap-1.5 py-2 border-b border-slate-100 dark:border-slate-800/80 text-center text-xs">
-                    <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                      <span className="text-[9px] text-slate-400 block uppercase tracking-wider font-mono">Attendance</span>
-                      <span className={`font-bold font-mono text-xs ${
-                        student.attendancePercentage < 75 
-                          ? 'text-rose-600 dark:text-rose-400' 
-                          : student.attendancePercentage < 80 
-                          ? 'text-amber-600 dark:text-amber-400' 
-                          : 'text-emerald-600 dark:text-emerald-400'
-                      }`}>
-                        {student.attendancePercentage}%
-                      </span>
-                      <span className="text-[8.5px] text-slate-400 block">
-                        {student.attendancePercentage < 75 ? '-' + (75 - student.attendancePercentage).toFixed(1) + '%' : 'OK'}
-                      </span>
+                  {/* Clean Telemetry Metrics Strip */}
+                  <div className="grid grid-cols-3 gap-2 p-2.5 rounded-lg bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 text-xs">
+                    <div>
+                      <span className="text-[9.5px] text-slate-400 dark:text-slate-500 block uppercase tracking-wider font-mono font-semibold">Attendance</span>
+                      <div className="flex items-baseline gap-1 mt-0.5">
+                        <span className={`font-bold font-mono text-xs ${
+                          student.attendancePercentage < 75 
+                            ? 'text-rose-600 dark:text-rose-400' 
+                            : student.attendancePercentage < 80 
+                            ? 'text-amber-600 dark:text-amber-400' 
+                            : 'text-emerald-600 dark:text-emerald-400'
+                        }`}>
+                          {student.attendancePercentage}%
+                        </span>
+                        {student.attendancePercentage < 75 && (
+                          <span className="text-[9px] font-mono text-rose-500">
+                            (-{(75 - student.attendancePercentage).toFixed(1)}%)
+                          </span>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                      <span className="text-[9px] text-slate-400 block uppercase tracking-wider font-mono">CGPA / SGPA</span>
-                      <span className="font-bold font-mono text-xs text-slate-800 dark:text-slate-200">
-                        {student.cgpa} <span className="text-[9px] text-slate-400 font-normal">({student.sgpa})</span>
-                      </span>
-                      <span className="text-[8.5px] text-slate-400 block">10.0 Scale</span>
+                    <div className="border-l border-slate-200/70 dark:border-slate-700/60 pl-2">
+                      <span className="text-[9.5px] text-slate-400 dark:text-slate-500 block uppercase tracking-wider font-mono font-semibold">CGPA / SGPA</span>
+                      <div className="flex items-baseline gap-1 mt-0.5 font-mono">
+                        <span className="font-bold text-xs text-slate-800 dark:text-slate-200">
+                          {student.cgpa}
+                        </span>
+                        <span className="text-[9.5px] text-slate-400 font-normal">({student.sgpa})</span>
+                      </div>
                     </div>
 
-                    <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                      <span className="text-[9px] text-slate-400 block uppercase tracking-wider font-mono">Fee Ledger</span>
-                      <span className={`font-bold font-mono text-xs ${student.feeBalance > 0 ? 'text-amber-600' : 'text-emerald-600'}`}>
-                        {student.feeBalance > 0 ? `₹${student.feeBalance.toLocaleString()}` : 'Cleared'}
-                      </span>
-                      <span className="text-[8.5px] text-slate-400 block">{student.feeStatus.toUpperCase()}</span>
+                    <div className="border-l border-slate-200/70 dark:border-slate-700/60 pl-2">
+                      <span className="text-[9.5px] text-slate-400 dark:text-slate-500 block uppercase tracking-wider font-mono font-semibold">Fee Balance</span>
+                      <div className="mt-0.5">
+                        <span className={`font-bold font-mono text-xs ${student.feeBalance > 0 ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                          {student.feeBalance > 0 ? `INR ${student.feeBalance.toLocaleString()}` : 'Cleared'}
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Attendance Progress Bar relative to 75% Statutory Cutoff */}
-                  <div className="py-1.5 space-y-1">
-                    <div className="flex justify-between text-[9px] font-mono text-slate-500">
-                      <span>UGC 75% Statutory Cutoff</span>
-                      <span className={student.attendancePercentage < 75 ? 'text-rose-600 font-bold' : 'text-emerald-600 font-bold'}>
+                  {/* Statutory 75% Cutoff Progress Line */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-[10px] font-mono">
+                      <span className="text-slate-500">UGC 75% Statutory Cutoff</span>
+                      <span className={`font-semibold ${student.attendancePercentage < 75 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
                         {student.attendancePercentage >= 75 ? 'Hall Ticket Eligible' : 'Detention Risk'}
                       </span>
                     </div>
-                    <div className="relative w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div className="relative w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                       <div 
-                        className={`h-full rounded-full transition-all ${
+                        className={`h-full rounded-full transition-all duration-300 ${
                           student.attendancePercentage < 75 
                             ? 'bg-rose-500' 
                             : student.attendancePercentage < 80 
@@ -473,13 +521,13 @@ export const AcademicRiskModule: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Trigger Factors */}
+                  {/* Trigger Factors Tags */}
                   {student.riskFactors && student.riskFactors.length > 0 && (
-                    <div className="py-1 flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1">
                       {student.riskFactors.map((factor, idx) => (
                         <span 
                           key={idx} 
-                          className="px-1.5 py-0.2 text-[9px] rounded font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
+                          className="px-2 py-0.5 text-[10px] rounded font-mono bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700"
                         >
                           {factor}
                         </span>
@@ -487,17 +535,17 @@ export const AcademicRiskModule: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Action Buttons */}
-                  <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
-                    <div className="text-[9.5px] text-slate-500 font-mono truncate">
-                      Guardian: <span className="text-slate-700 dark:text-slate-300 font-medium">{student.guardianName}</span>
+                  {/* Footer & Actions */}
+                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2 text-xs">
+                    <div className="text-[10px] text-slate-500 font-mono truncate">
+                      Guardian: <span className="text-slate-700 dark:text-slate-300 font-sans font-medium">{student.guardianName}</span>
                     </div>
                     
-                    <div className="flex items-center gap-1 shrink-0">
+                    <div className="flex items-center gap-1.5 shrink-0">
                       <Button
-                        variant="ghost"
+                        variant="outline"
                         size="sm"
-                        className="h-6 text-[10px] px-1.5 text-slate-600 hover:text-slate-900"
+                        className="h-6 text-[10px] px-2 font-medium"
                         onClick={() => handleOpenCalculator(student)}
                       >
                         Calculator
@@ -505,7 +553,7 @@ export const AcademicRiskModule: React.FC = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="h-6 text-[10px] px-1.5"
+                        className="h-6 text-[10px] px-2 font-medium"
                         onClick={() => handleOpenNoticeModal(student)}
                       >
                         Advisory
@@ -513,14 +561,15 @@ export const AcademicRiskModule: React.FC = () => {
                       <Button
                         variant="primary"
                         size="sm"
-                        className="h-6 text-[10px] px-2"
+                        className="h-6 text-[10px] px-2.5 font-semibold"
                         onClick={() => handleOpenCounselingModal(student)}
                       >
                         Counsel
                       </Button>
                     </div>
                   </div>
-                </SoftCard>
+                </div>
+              </SoftCard>
               );
             })}
           </div>
@@ -538,34 +587,58 @@ export const AcademicRiskModule: React.FC = () => {
       {/* Tab 2: Intervention & Counseling Ledger */}
       {activeTab === 'interventions' && (
         <div className="space-y-4">
-          <SoftCard className="p-4 flex items-center justify-between">
-            <div>
-              <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
-                Official Counseling &amp; Academic Intervention Log
-              </h3>
-              <p className="text-xs text-slate-500">
-                Non-punitive institutional mentoring sessions, parental conferences, and follow-up commitments.
-              </p>
+          <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-bold font-serif text-white">
+                  Official Counseling &amp; Academic Intervention Log
+                </h3>
+                <p className="text-xs text-sky-200/80 mt-0.5">
+                  Non-punitive institutional mentoring sessions, parental conferences, and follow-up commitments
+                </p>
+              </div>
+              <Button
+                variant="primary"
+                size="sm"
+                icon={<Calendar className="w-4 h-4" />}
+                onClick={() => {
+                  if (criticalStudents.length > 0) handleOpenCounselingModal(criticalStudents[0]);
+                  else if (students.length > 0) handleOpenCounselingModal(students[0]);
+                }}
+              >
+                Log New Counseling Case
+              </Button>
             </div>
-            <Button
-              variant="primary"
-              size="sm"
-              icon={<Calendar className="w-4 h-4" />}
-              onClick={() => {
-                if (criticalStudents.length > 0) handleOpenCounselingModal(criticalStudents[0]);
-                else if (students.length > 0) handleOpenCounselingModal(students[0]);
-              }}
-            >
-              Log New Counseling Case
-            </Button>
           </SoftCard>
 
           <div className="space-y-3">
             {interventions.map(intv => (
-              <SoftCard key={intv.id} className="p-4 border border-slate-200 dark:border-slate-800">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <SoftCard key={intv.id} className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+                {/* Oxford Navy Strip */}
+                <div className="px-4 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs font-bold text-white">
+                      {intv.enrollmentId} — {intv.studentName}
+                    </span>
+                    <span className="text-[10px] text-sky-200 font-mono">
+                      Session Date: {intv.date}
+                    </span>
+                  </div>
+                  <span className={`inline-block px-2.5 py-0.5 rounded text-[10px] font-mono font-bold ${
+                    intv.status === 'completed'
+                      ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-400/30'
+                      : intv.status === 'in_progress'
+                      ? 'bg-amber-500/20 text-amber-200 border border-amber-400/30'
+                      : 'bg-sky-500/20 text-sky-200 border border-sky-400/30'
+                  }`}>
+                    {intv.status === 'completed' ? '✓ Completed' : intv.status === 'in_progress' ? '⏳ In Progress' : 'Scheduled'}
+                  </span>
+                </div>
+
+                <div className="p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-institutional-100 dark:bg-institutional-900/60 text-institutional-700 dark:text-institutional-300 flex items-center justify-center font-bold text-xs shrink-0">
+                    <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-500/25 flex items-center justify-center font-bold text-xs shrink-0">
                       <HeartHandshake className="w-4 h-4" />
                     </div>
                     <div>
@@ -632,8 +705,8 @@ export const AcademicRiskModule: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="bg-institutional-50/50 dark:bg-institutional-950/30 p-3 rounded-lg border border-institutional-200/50 dark:border-institutional-800/50">
-                    <span className="font-semibold text-[11px] text-institutional-900 dark:text-institutional-200 block mb-1">
+                  <div className="bg-blue-50/40 dark:bg-slate-800/50 p-3 rounded-lg border border-blue-200/50 dark:border-blue-900/40">
+                    <span className="font-semibold text-[11px] text-[#0F2942] dark:text-sky-300 block mb-1">
                       Agreed Action Items &amp; Recovery Plan:
                     </span>
                     <p className="text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-line text-[11px]">
@@ -641,7 +714,8 @@ export const AcademicRiskModule: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </SoftCard>
+              </div>
+            </SoftCard>
             ))}
 
             {interventions.length === 0 && (
@@ -656,15 +730,22 @@ export const AcademicRiskModule: React.FC = () => {
       {/* Tab 3: UGC Condonation Simulator */}
       {activeTab === 'simulator' && (
         <div className="space-y-4">
-          <SoftCard className="p-6">
-            <div className="max-w-2xl">
-              <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
-                Interactive UGC Attendance Recovery &amp; Condonation Calculator
-              </h3>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                Under Axiogen University Academic Ordinance 14.2, scholars must achieve an aggregate attendance of 75.0% to receive an End-Semester Examination Hall Ticket. Use this tool to calculate mathematically whether a scholar can recover or requires an official Medical Condonation petition before the Dean.
-              </p>
+          <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-bold font-serif text-white">
+                  Interactive UGC Attendance Recovery &amp; Condonation Calculator
+                </h3>
+                <p className="text-xs text-sky-200/80 mt-0.5">
+                  Ordinance 14.2 statutory compliance, recovery trajectory modeling, and hall ticket eligibility
+                </p>
+              </div>
+              <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+                Statutory Engine
+              </span>
             </div>
+
+            <div className="p-6">
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
               <div>
@@ -747,7 +828,7 @@ export const AcademicRiskModule: React.FC = () => {
                 {is75Achievable ? (
                   <CheckCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
                 ) : (
-                  <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                  <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                 )}
                 <div>
                   <h4 className="font-bold">
@@ -767,7 +848,8 @@ export const AcademicRiskModule: React.FC = () => {
                 </div>
               </div>
             </div>
-          </SoftCard>
+          </div>
+        </SoftCard>
         </div>
       )}
 

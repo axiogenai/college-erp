@@ -62,18 +62,18 @@ export const Modal: React.FC<ModalProps> = ({
           className={`relative transform overflow-hidden rounded-2xl bg-white dark:bg-slate-900 text-left shadow-soft-lg transition-all duration-200 sm:my-8 w-full ${maxWidthClasses} border border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in-95 flex flex-col`}
           onClick={e => e.stopPropagation()}
         >
-          {/* Header: Professional Filled Soft Institutional Top Bar */}
-          <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-institutional-700 via-institutional-600 to-institutional-800 text-white shrink-0 border-b border-institutional-800/40 shadow-xs">
+          {/* Header: Dark Royal Oxford Navy Top Banner */}
+          <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white shrink-0 border-b border-blue-500/25 shadow-xs">
             <div className="flex items-center gap-3.5 min-w-0 flex-1 pr-4">
-              <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-xs flex items-center justify-center text-white shrink-0 border border-white/20 shadow-2xs">
-                {icon || <GraduationCap className="w-5 h-5 text-white" />}
+              <div className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center text-sky-300 shrink-0 border border-white/15 shadow-2xs">
+                {icon || <GraduationCap className="w-5 h-5 text-sky-300" />}
               </div>
               <div className="min-w-0 flex-1 flex flex-col justify-center">
                 <h3 className="text-base font-bold text-white font-sans tracking-tight truncate leading-tight">
                   {title}
                 </h3>
                 {subtitle && (
-                  <p className="mt-1 text-xs text-institutional-100/90 font-medium truncate leading-normal">
+                  <p className="mt-1 text-xs text-sky-100/90 font-medium truncate leading-normal">
                     {subtitle}
                   </p>
                 )}

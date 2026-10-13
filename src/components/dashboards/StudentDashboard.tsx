@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   GraduationCap, Clock, Award, CreditCard, Calendar, 
-  FileText, CheckCircle2, AlertTriangle, Download, 
+  FileText, CheckCircle2, Download, 
   Printer, ArrowRight, BookOpen 
 } from 'lucide-react';
 import { SoftCard } from '../common/SoftCard';
@@ -52,27 +52,37 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigate }
   return (
     <div className="space-y-6">
       {/* Student Profile Overview Banner */}
-      <SoftCard className="p-5 sm:p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <img
-              src={currentStudent.avatar || currentUser.avatar}
-              alt={currentStudent.fullName}
-              className="w-14 h-14 rounded-2xl object-cover ring-2 ring-institutional-500 shrink-0"
-            />
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold font-serif text-slate-900 dark:text-white">{currentStudent.fullName}</h2>
-                <Badge variant="primary" size="sm">Semester {currentStudent.currentSemester}</Badge>
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+          <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+            Scholar Academic Dossier &amp; Continuous Standing
+          </h3>
+          <span className="text-[11px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            Enrollment Verified
+          </span>
+        </div>
+
+        <div className="p-5 sm:p-6 bg-white dark:bg-slate-900">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <img
+                src={currentStudent.avatar || currentUser.avatar}
+                alt={currentStudent.fullName}
+                className="w-14 h-14 rounded-2xl object-cover ring-2 ring-[#0F2942] dark:ring-sky-400 shrink-0"
+              />
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-bold font-serif text-slate-900 dark:text-white">{currentStudent.fullName}</h2>
+                  <Badge variant="primary" size="sm">Semester {currentStudent.currentSemester}</Badge>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                  {currentStudent.program} • Roll No: {currentStudent.enrollmentId}
+                </p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-1">
+                  Batch: {currentStudent.batch} • Academic Mentor: Dr. Meera Nambiar
+                </p>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                {currentStudent.program} • Roll No: {currentStudent.enrollmentId}
-              </p>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-1">
-                Batch: {currentStudent.batch} • Academic Mentor: Dr. Meera Nambiar
-              </p>
             </div>
-          </div>
 
           <div className="flex items-center gap-2">
             {studentPayments.length > 0 && (
@@ -95,7 +105,8 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigate }
             </Button>
           </div>
         </div>
-      </SoftCard>
+      </div>
+    </SoftCard>
 
       {/* KPI Cards: Attendance, CGPA, SGPA, Fee Balance */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -142,17 +153,19 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigate }
 
       {/* Main Grid: Today's Schedule & Academic Gradebook */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left: Classes Today & Upcoming Exams */}
+          {/* Left: Classes Today & Upcoming Exams */}
         <div className="lg:col-span-7 space-y-6">
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-institutional-600 dark:text-institutional-400" />
-                <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+                <Calendar className="w-4 h-4 text-sky-300" />
+                <h3 className="text-sm font-semibold tracking-tight text-white">
                   Classes Today (Monday - Fall Term)
                 </h3>
               </div>
-              <Badge variant="primary" size="sm">{myTimetableToday.length} Periods</Badge>
+              <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-white/10 text-white border border-white/20">
+                {myTimetableToday.length} Periods
+              </span>
             </div>
 
             <div className="p-5">
@@ -181,14 +194,16 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigate }
 
           {/* Academic Results Published */}
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+                <Award className="w-4 h-4 text-amber-300" />
+                <h3 className="text-sm font-semibold tracking-tight text-white">
                   Published Examination Results
                 </h3>
               </div>
-              <Badge variant="success" size="sm">Verified by COE</Badge>
+              <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-white/10 text-white border border-white/20">
+                Verified by COE
+              </span>
             </div>
 
             <div className="p-5">
@@ -218,13 +233,17 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigate }
         <div className="lg:col-span-5 space-y-6">
           {/* Fee Balance & Printable Receipt */}
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
-              <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+              <h3 className="text-sm font-semibold tracking-tight text-white">
                 Treasury &amp; Fee Status
               </h3>
-              <Badge variant={currentStudent.feeBalance === 0 ? 'success' : 'warning'} size="sm">
+              <span className={`text-[11px] font-mono font-semibold px-2 py-0.5 rounded-md border ${
+                currentStudent.feeBalance === 0
+                  ? 'bg-white/10 text-white border-white/20'
+                  : 'bg-amber-500/20 text-amber-200 border-amber-400/30'
+              }`}>
                 {currentStudent.feeBalance === 0 ? 'Cleared' : 'Pending'}
-              </Badge>
+              </span>
             </div>
 
             <div className="p-5 space-y-2.5 text-xs">
@@ -265,11 +284,13 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigate }
 
           {/* Institutional Circulars for Students */}
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
-              <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+              <h3 className="text-sm font-semibold tracking-tight text-white">
                 Campus Notices for Scholars
               </h3>
-              <Badge variant="primary" size="xs">Bulletins</Badge>
+              <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-white/10 text-white border border-white/20">
+                Bulletins
+              </span>
             </div>
             <div className="p-5">
               <div className="divide-y divide-slate-100 dark:divide-slate-800 text-xs">

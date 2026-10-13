@@ -47,12 +47,12 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onN
     : [];
 
   const defaultNavigationItems = [
-    { label: 'Executive Principal Dashboard', module: 'dashboard', icon: <Shield className="w-4 h-4 text-institutional-600" /> },
-    { label: 'Students Academic Registry', module: 'students', icon: <GraduationCap className="w-4 h-4 text-emerald-600" /> },
-    { label: 'Faculty Directory & Workload', module: 'faculty', icon: <User className="w-4 h-4 text-sky-600" /> },
-    { label: 'Timetable & Room Scheduling', module: 'timetable', icon: <Calendar className="w-4 h-4 text-purple-600" /> },
-    { label: 'Fee Invoices & Student Ledger', module: 'finance', icon: <CreditCard className="w-4 h-4 text-amber-600" /> },
-    { label: 'Official Circulars & Senate Notices', module: 'notices', icon: <FileText className="w-4 h-4 text-rose-600" /> },
+    { label: 'Executive Principal Dashboard', module: 'dashboard', icon: <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" /> },
+    { label: 'Students Academic Registry', module: 'students', icon: <GraduationCap className="w-4 h-4 text-blue-600 dark:text-blue-400" /> },
+    { label: 'Faculty Directory & Workload', module: 'faculty', icon: <User className="w-4 h-4 text-blue-600 dark:text-blue-400" /> },
+    { label: 'Timetable & Room Scheduling', module: 'timetable', icon: <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" /> },
+    { label: 'Fee Invoices & Student Ledger', module: 'finance', icon: <CreditCard className="w-4 h-4 text-blue-600 dark:text-blue-400" /> },
+    { label: 'Official Circulars & Senate Notices', module: 'notices', icon: <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" /> },
   ];
 
   const handleSelect = (module: string, param?: string) => {
@@ -63,11 +63,24 @@ export const GlobalSearch: React.FC<GlobalSearchProps> = ({ isOpen, onClose, onN
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20">
-      <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onClick={onClose} />
+      <div className="fixed inset-0 bg-black/75 backdrop-blur-md transition-opacity" onClick={onClose} />
 
-      <div className="relative mx-auto max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-slate-900 shadow-soft-lg border border-slate-200 dark:border-slate-800 transition-all">
+      <div className="relative mx-auto max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-[#121215] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7),inset_0_1px_0_0_rgba(255,255,255,0.08)] border border-neutral-200 dark:border-white/[0.08] transition-all">
+        {/* Oxford Navy Dialog Chrome */}
+        <div className="px-5 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-sky-300" />
+            <span className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+              Axiogen Enterprise Global Search
+            </span>
+          </div>
+          <span className="text-[10px] font-mono text-sky-200 bg-white/10 px-2 py-0.5 rounded border border-white/15">
+            ESC to Exit
+          </span>
+        </div>
+
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex items-center px-4 py-3.5 border-b border-neutral-200 dark:border-white/[0.06] bg-neutral-50 dark:bg-[#161619]">
           <Search className="w-5 h-5 text-slate-400 mr-3" />
           <input
             type="text"

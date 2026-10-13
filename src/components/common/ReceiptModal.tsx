@@ -45,7 +45,7 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, pay
         <div className="border-b-2 border-institutional-800 pb-4 text-center">
           <div className="flex items-center justify-center gap-3 mb-1">
             <div className="w-10 h-10 rounded-full bg-institutional-800 text-white flex items-center justify-center font-serif font-bold text-lg">
-              C
+              A
             </div>
             <div>
               <h2 className="text-lg sm:text-xl font-bold tracking-tight text-institutional-900 dark:text-institutional-100 font-serif uppercase">
@@ -151,12 +151,12 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ isOpen, onClose, pay
         </div>
 
         {/* Verification & Signatory Stamp */}
-        <div className="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800 text-xs">
-          <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 mb-3 sm:mb-0">
+        <div className="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-neutral-200 dark:border-white/[0.08] text-xs">
+          <div className="flex items-center gap-2 text-[#C5A059] mb-3 sm:mb-0">
             <CheckCircle className="w-5 h-5 shrink-0" />
             <div>
-              <span className="font-semibold block">Digitally Verified & Reconciled</span>
-              <span className="text-[10px] text-slate-400">Secured via University Treasury Gateway</span>
+              <span className="font-semibold block text-neutral-900 dark:text-[#EDEDEF]">Digitally Verified & Reconciled</span>
+              <span className="text-[10px] text-neutral-400 dark:text-[#71717A]">Secured via University Treasury Gateway</span>
             </div>
           </div>
 

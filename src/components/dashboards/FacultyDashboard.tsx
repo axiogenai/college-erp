@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Calendar, Clock, BookOpen, CheckSquare, Award, 
-  AlertCircle, Users, ArrowRight, CheckCircle2, ChevronRight, MapPin 
+  GraduationCap, Users, ArrowRight, CheckCircle2, ChevronRight, MapPin 
 } from 'lucide-react';
 import { SoftCard } from '../common/SoftCard';
 import { StatCard } from '../common/StatCard';
@@ -35,27 +35,37 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
   return (
     <div className="space-y-6">
       {/* Welcome & Faculty Meta Banner */}
-      <SoftCard className="p-5 sm:p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <img
-              src={currentUser.avatar}
-              alt={currentUser.name}
-              className="w-14 h-14 rounded-2xl object-cover ring-2 ring-institutional-500 shrink-0"
-            />
-            <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold font-serif text-slate-900 dark:text-white">{currentUser.name}</h2>
-                <Badge variant="primary" size="sm">Dean Academics</Badge>
+      <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+        <div className="px-5 py-3 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+          <h3 className="text-xs font-bold font-serif text-white tracking-wide uppercase">
+            Faculty Academic Dossier &amp; Department Leadership
+          </h3>
+          <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-white/10 text-white/85 border border-white/15 px-2 py-0.5 rounded">
+            Active Status: Verified
+          </span>
+        </div>
+
+        <div className="p-5 sm:p-6 bg-white dark:bg-slate-900">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.name}
+                className="w-14 h-14 rounded-2xl object-cover ring-2 ring-[#0F2942] dark:ring-sky-400 shrink-0"
+              />
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-bold font-serif text-slate-900 dark:text-white">{currentUser.name}</h2>
+                  <Badge variant="primary" size="sm">Dean Academics</Badge>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                  {currentUser.department} • Employee ID: {currentUser.employeeId || 'FAC-CSE-014'}
+                </p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-1">
+                  Weekly Teaching Load: 14 Hours/Week • 3 Active Subjects
+                </p>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                {currentUser.department} • Employee ID: {currentUser.employeeId || 'FAC-CSE-014'}
-              </p>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono mt-1">
-                Weekly Teaching Load: 14 Hours/Week • 3 Active Subjects
-              </p>
             </div>
-          </div>
 
           <div className="flex items-center gap-2">
             <Button
@@ -76,7 +86,8 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
             </Button>
           </div>
         </div>
-      </SoftCard>
+      </div>
+    </SoftCard>
 
       {/* KPI Stats for Faculty */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -102,7 +113,7 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
           change="+12% this month"
           trend="up"
           subtitle="Target for Mid-Term: 70%"
-          colorScheme="emerald"
+          colorScheme="gold"
           icon={<CheckSquare className="w-5 h-5" />}
         />
         <StatCard
@@ -121,21 +132,23 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
         {/* Left: Today's Lectures with One-Click Attendance */}
         <div className="lg:col-span-7 space-y-6">
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-institutional-600 dark:text-institutional-400" />
-                <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+                <Calendar className="w-4 h-4 text-sky-300" />
+                <h3 className="text-sm font-semibold tracking-tight text-white">
                   Today&rsquo;s Teaching Timetable (Monday)
                 </h3>
               </div>
-              <Badge variant="primary" size="sm">Fall Term</Badge>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-white/10 text-white/85 border border-white/15 px-2 py-0.5 rounded">
+                Fall Term
+              </span>
             </div>
 
             <div className="p-5 space-y-2.5">
               {facultyClassesToday.map((slot, idx) => (
                 <div 
                   key={slot.id} 
-                  className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-soft transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-slate-400 dark:hover:border-slate-600 transition-all duration-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="flex items-center gap-3 min-w-0 flex-1">
                     <div className="w-10 h-10 rounded-lg bg-institutional-50 dark:bg-institutional-950/60 border border-institutional-200/60 dark:border-institutional-800/60 flex flex-col items-center justify-center font-mono shrink-0">
@@ -161,14 +174,10 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-2.5 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800">
-                    <Badge 
-                      variant="neutral" 
-                      size="sm" 
-                      className="whitespace-nowrap shrink-0 px-2.5 py-1 text-[11px] font-mono"
-                    >
+                    <span className="whitespace-nowrap shrink-0 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50">
                       <MapPin className="w-3 h-3 mr-1 text-slate-400 shrink-0 inline" />
                       {slot.roomNumber}
-                    </Badge>
+                    </span>
 
                     <Button
                       variant={idx === 0 ? "primary" : "outline"}
@@ -186,14 +195,16 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
 
           {/* Pending Marks Entry Queue */}
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-amber-600" />
-                <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+                <Award className="w-4 h-4 text-amber-300" />
+                <h3 className="text-sm font-semibold tracking-tight text-white">
                   Gradebook Evaluation Queue
                 </h3>
               </div>
-              <Badge variant="warning" size="sm">{pendingMarksExams.length} Exams</Badge>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30 px-2 py-0.5 rounded">
+                {pendingMarksExams.length} Exams Pending
+              </span>
             </div>
 
             <div className="p-5">
@@ -223,11 +234,13 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
         {/* Right: Assigned Subjects & Syllabus Tracker */}
         <div className="lg:col-span-5 space-y-6">
           <SoftCard className="overflow-hidden">
-            <div className="px-5 py-3.5 bg-institutional-50/80 dark:bg-slate-800/90 border-b border-institutional-200/70 dark:border-slate-700/80 flex items-center justify-between">
-              <h3 className="text-sm font-bold font-serif text-slate-900 dark:text-slate-100">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
+              <h3 className="text-sm font-semibold tracking-tight text-white">
                 Syllabus Completion Tracker
               </h3>
-              <Badge variant="primary" size="xs">Mid-Term Phase</Badge>
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-white/10 text-white/85 border border-white/15 px-2 py-0.5 rounded">
+                Mid-Term Phase
+              </span>
             </div>
 
             <div className="p-5">
@@ -271,15 +284,17 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
         </SoftCard>
 
         {/* Student Counseling Alert */}
-        <SoftCard className="overflow-hidden border-amber-200/60 dark:border-amber-900/40">
-          <div className="px-5 py-2.5 bg-amber-50 dark:bg-amber-950/40 border-b border-amber-200/60 dark:border-amber-900/40 flex items-center justify-between">
+        <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+          <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-              <h4 className="text-xs font-bold text-amber-900 dark:text-amber-200 uppercase tracking-wider font-mono">
+              <GraduationCap className="w-4 h-4 text-amber-300" />
+              <h4 className="text-xs font-bold font-serif text-white uppercase tracking-wider">
                 Academic Counseling Alert
               </h4>
             </div>
-            <Badge variant="warning" size="xs">Action Needed</Badge>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/30 px-2 py-0.5 rounded">
+              Action Needed
+            </span>
           </div>
           <div className="p-5">
             <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">

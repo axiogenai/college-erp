@@ -31,7 +31,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
             <React.Fragment key={idx}>
               {idx > 0 && <ChevronRight className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600" />}
               {crumb.active ? (
-                <span className="text-institutional-600 dark:text-institutional-400 font-semibold">{crumb.label}</span>
+                <span className="text-[#0F2942] dark:text-sky-300 font-semibold">{crumb.label}</span>
               ) : (
                 <span className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors">{crumb.label}</span>
               )}
@@ -44,7 +44,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
           {icon && (
-            <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-institutional-600 dark:text-institutional-400 border border-slate-200 dark:border-slate-700 shrink-0">
+            <div className="p-2.5 rounded-xl bg-[#0F2942]/10 dark:bg-slate-800 text-[#0F2942] dark:text-sky-400 border border-[#0F2942]/20 dark:border-slate-700 shrink-0">
               {icon}
             </div>
           )}

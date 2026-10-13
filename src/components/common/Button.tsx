@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const variantStyles: Record<ButtonVariant, string> = {
-    primary: 'bg-institutional-600 hover:bg-institutional-700 text-white font-medium shadow-soft border border-transparent',
+    primary: 'bg-gradient-to-r from-[#5B1389] via-[#450D6F] to-[#350757] hover:from-[#6A17A0] hover:via-[#501082] hover:to-[#3E0966] text-white font-medium shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_2px_8px_rgba(69,13,111,0.35)] border border-purple-400/25',
     secondary: 'bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700',
     outline: 'border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200',
     ghost: 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-800',

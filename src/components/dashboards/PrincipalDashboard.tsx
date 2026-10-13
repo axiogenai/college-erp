@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Users, GraduationCap, Award, CreditCard, TrendingUp, 
-  AlertTriangle, CheckCircle, Clock, ShieldCheck, ChevronRight, 
+  Activity, CheckCircle, Clock, ShieldCheck, ChevronRight, 
   Building, UserPlus, ArrowUpRight, BarChart3, PieChart 
 } from 'lucide-react';
 import { SoftCard } from '../common/SoftCard';
@@ -112,16 +112,20 @@ export const PrincipalDashboard: React.FC<PrincipalDashboardProps> = ({ onNaviga
         {/* Row 1, Left: Directorate Approval Queue */}
         <SoftCard className="overflow-hidden flex flex-col justify-between border border-slate-200 dark:border-slate-800">
           <div>
-            <div className="px-5 py-3.5 bg-institutional-100 dark:bg-slate-800 border-b border-institutional-200 dark:border-slate-700 flex items-center justify-between">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-institutional-600 dark:text-institutional-400" />
-                <h3 className="text-sm font-bold font-sans tracking-tight text-slate-900 dark:text-slate-100">
+                <ShieldCheck className="w-4 h-4 text-sky-300" />
+                <h3 className="text-sm font-semibold tracking-tight text-white">
                   Directorate Approval Queue
                 </h3>
               </div>
-              <Badge variant={pendingRefunds.length + pendingExams.length > 0 ? 'warning' : 'success'} size="sm">
+              <span className={`text-[11px] font-mono font-semibold px-2 py-0.5 rounded-md border ${
+                pendingRefunds.length + pendingExams.length > 0 
+                  ? 'bg-amber-500/20 text-amber-200 border-amber-400/30' 
+                  : 'bg-white/10 text-white border-white/20'
+              }`}>
                 {pendingRefunds.length + pendingExams.length} Actions Pending
-              </Badge>
+              </span>
             </div>
 
             <div className="p-5">
@@ -231,14 +235,16 @@ export const PrincipalDashboard: React.FC<PrincipalDashboardProps> = ({ onNaviga
         {/* Row 1, Right: Admissions Intake Funnel */}
         <SoftCard className="overflow-hidden flex flex-col justify-between border border-slate-200 dark:border-slate-800">
           <div>
-            <div className="px-5 py-3.5 bg-institutional-100 dark:bg-slate-800 border-b border-institutional-200 dark:border-slate-700 flex items-center justify-between">
+            <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <UserPlus className="w-4 h-4 text-institutional-600 dark:text-institutional-400" />
-                <h3 className="text-sm font-bold font-sans tracking-tight text-slate-900 dark:text-slate-100">
+                <UserPlus className="w-4 h-4 text-sky-300" />
+                <h3 className="text-sm font-semibold tracking-tight text-white">
                   Admissions Intake Funnel (2026–27)
                 </h3>
               </div>
-              <Badge variant="primary" size="sm">Phase II Active</Badge>
+              <span className="text-[11px] font-mono font-medium px-2 py-0.5 rounded-md bg-white/10 text-white border border-white/20">
+                Phase II Active
+              </span>
             </div>
 
             <div className="p-5 space-y-3 text-xs">
@@ -298,83 +304,111 @@ export const PrincipalDashboard: React.FC<PrincipalDashboardProps> = ({ onNaviga
         </SoftCard>
 
         {/* Row 2, Left: Early Academic Risk & Counseling Radar */}
-        <SoftCard className="overflow-hidden flex flex-col justify-between border border-slate-200 dark:border-slate-800">
+        <SoftCard className="overflow-hidden flex flex-col justify-between border border-slate-200/90 dark:border-slate-800 shadow-2xs">
           <div>
-            <div className="px-5 py-3.5 bg-institutional-100 dark:bg-slate-800 border-b border-institutional-200 dark:border-slate-700 flex items-center justify-between">
+            {/* Slim Header: Deep Oxford Navy Surface */}
+            <div className="px-4 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-rose-600" />
-                <h3 className="text-sm font-bold font-sans tracking-tight text-slate-900 dark:text-slate-100">
+                <div className="w-6 h-6 rounded-md bg-white/10 border border-white/20 flex items-center justify-center text-sky-300 shrink-0">
+                  <Activity className="w-3.5 h-3.5 text-sky-300" />
+                </div>
+                <h3 className="text-xs font-semibold tracking-tight text-white">
                   Early Academic Risk &amp; Counseling Radar
                 </h3>
               </div>
-              <Badge variant="danger" size="sm">
-                {criticalStudents.length} Scholars Critical
-              </Badge>
+              <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-md bg-rose-600 text-white shadow-xs">
+                {criticalStudents.length} Critical
+              </span>
             </div>
 
-            <div className="p-5 space-y-3">
+            {/* Slim Student List */}
+            <div className="p-3.5 space-y-2.5">
               {students.filter(s => s.riskLevel === 'critical' || s.attendancePercentage < 75).slice(0, 2).map(stu => (
                 <div 
                   key={stu.id} 
-                  className="p-4 rounded-xl bg-slate-50/70 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 border-l-4 border-l-rose-500 space-y-2.5 text-xs shadow-2xs hover:shadow-soft transition-all"
+                  className="relative pl-3.5 pr-3 py-2.5 rounded-xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60 hover:bg-white dark:hover:bg-slate-800/70 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-150 overflow-hidden shadow-2xs"
                 >
-                  {/* Header: Name & ID on left, Badges & Action on right - ZERO text collision! */}
-                  <div className="flex items-start justify-between gap-3">
+                  {/* Slim Vertical Left Indicator Bar */}
+                  <span 
+                    className={`absolute left-0 top-0 bottom-0 w-1 ${
+                      stu.riskLevel === 'critical' ? 'bg-rose-500' : 'bg-amber-500'
+                    }`} 
+                    aria-hidden="true"
+                  />
+
+                  {/* Header Row: Identity & Quick Action */}
+                  <div className="flex items-center justify-between gap-2">
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-bold text-slate-900 dark:text-white text-sm tracking-tight truncate">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <h4 className="font-bold text-slate-900 dark:text-slate-100 text-xs tracking-tight truncate">
                           {stu.fullName}
                         </h4>
-                        <span className="font-mono text-slate-600 dark:text-slate-400 text-[10px] font-semibold bg-white dark:bg-slate-900 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700 shrink-0">
+                        <span className="font-mono text-slate-600 dark:text-slate-400 text-[10px] font-semibold bg-white dark:bg-slate-900 px-1.5 py-0.2 rounded border border-slate-200 dark:border-slate-700/80 shrink-0">
                           {stu.enrollmentId}
                         </span>
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
+                          Sem {stu.currentSemester} • {stu.department.split('&')[0].trim()}
+                        </span>
                       </div>
-                      <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 truncate font-medium">
-                        Semester {stu.currentSemester} • {stu.department.split('&')[0].trim()}
-                      </p>
                     </div>
 
-                    <div className="shrink-0 flex items-center gap-2">
-                      <Badge variant={stu.riskLevel === 'critical' ? 'danger' : 'warning'} size="xs" dot>
-                        {stu.riskLevel === 'critical' ? 'Critical Action' : 'Warning'}
-                      </Badge>
+                    <div className="shrink-0 flex items-center gap-1.5">
+                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-semibold ${
+                        stu.riskLevel === 'critical' 
+                          ? 'bg-rose-100/80 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300 border border-rose-200/80 dark:border-rose-900/60' 
+                          : 'bg-amber-100/80 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/80 dark:border-amber-900/60'
+                      }`}>
+                        <span className={`w-1 h-1 rounded-full ${stu.riskLevel === 'critical' ? 'bg-rose-500' : 'bg-amber-500'}`} />
+                        {stu.riskLevel === 'critical' ? 'Critical' : 'Warning'}
+                      </span>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => onNavigate('students')}
-                        className="text-[11px] h-7 px-2.5 font-medium shadow-2xs"
+                        className="text-[10px] h-6 px-2 font-medium"
                       >
                         Counsel
                       </Button>
                     </div>
                   </div>
 
-                  {/* Classic 3-Metric Micro Grid */}
-                  <div className="grid grid-cols-3 gap-2 p-2 rounded-lg bg-white dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-700/70 text-center">
-                    <div>
-                      <span className="text-[10px] text-slate-400 block uppercase font-medium">Attendance</span>
-                      <span className={`text-xs font-bold font-mono ${stu.attendancePercentage < 75 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-800 dark:text-slate-200'}`}>
+                  {/* Slim Inline Metrics Strip */}
+                  <div className="flex items-center gap-3 mt-2 pt-2 border-t border-slate-200/60 dark:border-slate-700/50 text-[10.5px]">
+                    {/* Attendance with Micro Progress */}
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500">Attd:</span>
+                      <span className={`font-mono font-bold ${stu.attendancePercentage < 75 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-700 dark:text-slate-200'}`}>
                         {stu.attendancePercentage}%
                       </span>
+                      <div className="w-10 h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden shrink-0">
+                        <div 
+                          className={`h-full rounded-full ${stu.attendancePercentage < 75 ? 'bg-rose-500' : 'bg-emerald-500'}`} 
+                          style={{ width: `${Math.min(100, stu.attendancePercentage)}%` }} 
+                        />
+                      </div>
                     </div>
-                    <div className="border-x border-slate-100 dark:border-slate-800">
-                      <span className="text-[10px] text-slate-400 block uppercase font-medium">CGPA</span>
-                      <span className="text-xs font-bold font-mono text-slate-800 dark:text-slate-200">
+
+                    {/* CGPA */}
+                    <div className="flex items-center gap-1">
+                      <span className="text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500">CGPA:</span>
+                      <span className="font-mono font-bold text-slate-700 dark:text-slate-200">
                         {stu.cgpa.toFixed(2)}
                       </span>
                     </div>
-                    <div>
-                      <span className="text-[10px] text-slate-400 block uppercase font-medium">Risk Score</span>
-                      <span className="text-xs font-bold font-mono text-rose-600 dark:text-rose-400">
+
+                    {/* Academic Risk */}
+                    <div className="flex items-center gap-1 ml-auto">
+                      <span className="text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500">Risk:</span>
+                      <span className="font-mono font-bold text-rose-600 dark:text-rose-400">
                         {stu.academicRiskScore}/100
                       </span>
                     </div>
                   </div>
 
-                  {/* Triggers Alert Strip */}
+                  {/* Slim Triggers Line */}
                   {stu.riskFactors && (
-                    <div className="text-[11px] text-slate-600 dark:text-slate-400 bg-rose-50/60 dark:bg-rose-950/20 px-2.5 py-1.5 rounded-lg border border-rose-200/60 dark:border-rose-900/40 flex items-start gap-1.5">
-                      <span className="font-semibold text-rose-700 dark:text-rose-400 shrink-0">Triggers:</span>
+                    <div className="mt-1.5 text-[10px] text-slate-600 dark:text-slate-400 flex items-center gap-1 truncate">
+                      <span className="font-semibold text-rose-600 dark:text-rose-400 shrink-0">Triggers:</span>
                       <span className="truncate">{stu.riskFactors.join(', ')}</span>
                     </div>
                   )}
@@ -383,13 +417,13 @@ export const PrincipalDashboard: React.FC<PrincipalDashboardProps> = ({ onNaviga
             </div>
           </div>
 
-          <div className="p-4 bg-slate-50/60 dark:bg-slate-800/30 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-            <span className="text-[11px] text-slate-500 font-mono">UGC Statutory Attendance Alert Engine: Active</span>
+          <div className="px-4 py-2 bg-slate-50/60 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px]">
+            <span className="text-[10.5px] text-slate-500 font-mono">UGC Statutory Alert Engine: Active</span>
             <Button
               variant="outline"
               size="sm"
               onClick={() => onNavigate('risk-detector')}
-              className="text-[11px] h-7"
+              className="text-[10px] h-6 px-2"
             >
               View Full Risk Radar
             </Button>
@@ -397,75 +431,90 @@ export const PrincipalDashboard: React.FC<PrincipalDashboardProps> = ({ onNaviga
         </SoftCard>
 
         {/* Row 2, Right: Department Performance Summary */}
-        <SoftCard className="overflow-hidden flex flex-col justify-between border border-slate-200 dark:border-slate-800">
+        <SoftCard className="overflow-hidden flex flex-col justify-between border border-slate-200/90 dark:border-slate-800 shadow-2xs">
           <div>
-            <div className="px-5 py-3.5 bg-institutional-100 dark:bg-slate-800 border-b border-institutional-200 dark:border-slate-700 flex items-center justify-between">
+            {/* Slim Header: Deep Oxford Navy Surface */}
+            <div className="px-4 py-2.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Building className="w-4 h-4 text-institutional-600 dark:text-institutional-400" />
-                <h3 className="text-sm font-bold font-sans tracking-tight text-slate-900 dark:text-slate-100">
+                <div className="w-6 h-6 rounded-md bg-white/10 border border-white/20 flex items-center justify-center text-sky-300 shrink-0">
+                  <Building className="w-3.5 h-3.5 text-sky-300" />
+                </div>
+                <h3 className="text-xs font-semibold tracking-tight text-white">
                   Department Performance Summary
                 </h3>
               </div>
-              <span className="text-[11px] text-slate-500 font-mono">Academic Year 2026–27</span>
+              <span className="text-[10.5px] text-white/80 font-mono">AY 2026–27</span>
             </div>
 
-            <div className="p-4 sm:p-5 space-y-2.5 text-xs">
+            {/* Slim Department Rows */}
+            <div className="p-3.5 space-y-2 text-xs">
               {[
                 {
                   name: 'Computer Science & Engineering',
                   lead: 'Dean: Dr. Meera Nambiar',
                   pass: '91.2%',
                   attd: '89.4%',
-                  status: 'emerald'
+                  barColor: 'bg-blue-600 dark:bg-blue-500',
+                  textColor: 'text-blue-600 dark:text-blue-400'
                 },
                 {
                   name: 'AI & Data Science',
                   lead: 'HOD: Dr. Sanyukta Ghosh',
                   pass: '94.0%',
                   attd: '91.0%',
-                  status: 'emerald'
+                  barColor: 'bg-emerald-600 dark:bg-emerald-500',
+                  textColor: 'text-emerald-600 dark:text-emerald-400'
                 },
                 {
                   name: 'Electronics & Communication',
                   lead: 'HOD: Dr. K. R. Venkatraman',
                   pass: '86.5%',
                   attd: '82.3%',
-                  status: 'amber'
+                  barColor: 'bg-purple-600 dark:bg-purple-500',
+                  textColor: 'text-purple-600 dark:text-purple-400'
                 },
                 {
                   name: 'Mechanical Engineering',
                   lead: 'HOD: Prof. Harpreet Singh Sodhi',
                   pass: '88.2%',
                   attd: '84.6%',
-                  status: 'emerald'
+                  barColor: 'bg-amber-600 dark:bg-amber-500',
+                  textColor: 'text-amber-600 dark:text-amber-400'
                 }
               ].map(dept => (
                 <div 
                   key={dept.name}
-                  className="p-3 rounded-xl bg-slate-50/80 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5 hover:bg-slate-100/60 dark:hover:bg-slate-800/70 transition-colors"
+                  className="px-3 py-2 rounded-lg bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/70 dark:border-slate-700/60 hover:bg-white dark:hover:bg-slate-800/70 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-150 space-y-1.5 shadow-2xs"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <div className="min-w-0 flex-1">
                       <span className="font-bold text-slate-900 dark:text-slate-100 block text-xs truncate">
                         {dept.name}
                       </span>
-                      <span className="text-[11px] text-slate-500 dark:text-slate-400 block truncate font-medium">
+                      <span className="text-[10.5px] text-slate-500 dark:text-slate-400 block truncate font-medium">
                         {dept.lead}
                       </span>
                     </div>
-                    <div className="text-right shrink-0">
-                      <span className={`font-bold font-mono text-xs block ${dept.status === 'emerald' ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`}>
-                        {dept.pass} Pass
-                      </span>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-                        {dept.attd} Avg Attd
-                      </span>
+                    <div className="text-right shrink-0 flex items-center gap-2.5">
+                      <div>
+                        <span className={`font-bold font-mono text-xs block ${dept.textColor}`}>
+                          {dept.pass}
+                        </span>
+                        <span className="text-[9.5px] uppercase text-slate-400 font-semibold block">Pass</span>
+                      </div>
+                      <div className="border-l border-slate-200 dark:border-slate-700 pl-2">
+                        <span className="font-mono text-xs text-slate-700 dark:text-slate-300 font-semibold block">
+                          {dept.attd}
+                        </span>
+                        <span className="text-[9.5px] uppercase text-slate-400 font-semibold block">Attd</span>
+                      </div>
                     </div>
                   </div>
-                  {/* Performance Indicator Bar */}
-                  <div className="w-full bg-slate-200/70 dark:bg-slate-700/70 h-1 rounded-full overflow-hidden">
+
+                  {/* Slim High-Tech Micro Progress Bar */}
+                  <div className="w-full bg-slate-200/70 dark:bg-slate-700/70 h-1.5 rounded-full overflow-hidden">
                     <div 
-                      className={`h-full rounded-full ${dept.status === 'emerald' ? 'bg-emerald-500' : 'bg-amber-500'}`} 
+                      className={`h-full rounded-full transition-all duration-500 ${dept.barColor}`} 
                       style={{ width: dept.pass }} 
                     />
                   </div>
@@ -474,13 +523,13 @@ export const PrincipalDashboard: React.FC<PrincipalDashboardProps> = ({ onNaviga
             </div>
           </div>
 
-          <div className="p-4 bg-slate-50/60 dark:bg-slate-800/30 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-            <span className="text-[11px] text-slate-500 font-mono">All 4 Accredited Departments Reporting</span>
+          <div className="px-4 py-2 bg-slate-50/60 dark:bg-slate-900/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px]">
+            <span className="text-[10.5px] text-slate-500 font-mono">All 4 Accredited Depts Active</span>
             <Button
               variant="outline"
               size="sm"
               onClick={() => onNavigate('faculty')}
-              className="text-[11px] h-7"
+              className="text-[10px] h-6 px-2"
             >
               Inspect Faculty Dossiers
             </Button>

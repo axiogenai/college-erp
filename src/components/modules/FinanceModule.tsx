@@ -137,7 +137,7 @@ export const FinanceModule: React.FC = () => {
           onClick={() => setActiveTab('invoices')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors ${
             activeTab === 'invoices'
-              ? 'border-institutional-700 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -147,7 +147,7 @@ export const FinanceModule: React.FC = () => {
           onClick={() => setActiveTab('payments')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors ${
             activeTab === 'payments'
-              ? 'border-institutional-700 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -157,7 +157,7 @@ export const FinanceModule: React.FC = () => {
           onClick={() => setActiveTab('refunds')}
           className={`pb-3 px-3 text-xs font-semibold border-b-2 transition-colors ${
             activeTab === 'refunds'
-              ? 'border-institutional-700 text-institutional-700 dark:text-institutional-300 dark:border-institutional-400'
+              ? 'border-[#0F2942] text-[#0F2942] dark:text-sky-400 dark:border-sky-400'
               : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
           }`}
         >
@@ -167,10 +167,24 @@ export const FinanceModule: React.FC = () => {
 
       {/* Tab 1: Invoices */}
       {activeTab === 'invoices' && (
-        <SoftCard className="overflow-hidden">
+        <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+          <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-bold font-serif text-white">
+                Student Fee Invoices &amp; Receivables Ledger ({feeInvoices.length} Invoices)
+              </h3>
+              <p className="text-xs text-sky-200/80 mt-0.5">
+                Official billing statements, payment clearance tracking, and term accounts
+              </p>
+            </div>
+            <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+              AY 2026–27 Billing
+            </span>
+          </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold uppercase text-[10px] tracking-wider border-b border-institutional-200 dark:border-slate-700">
+              <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold uppercase text-[10px] tracking-wider border-b border-blue-500/25">
                 <tr>
                   <th className="px-4 py-3 align-middle whitespace-nowrap">Invoice Number</th>
                   <th className="px-4 py-3 align-middle whitespace-nowrap">Scholar Name</th>
@@ -243,10 +257,24 @@ export const FinanceModule: React.FC = () => {
 
       {/* Tab 2: Payments & Receipts */}
       {activeTab === 'payments' && (
-        <SoftCard className="overflow-hidden">
+        <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+          <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-bold font-serif text-white">
+                Settled Payments &amp; Treasury Reconciled Receipts ({feePayments.length} Receipts)
+              </h3>
+              <p className="text-xs text-sky-200/80 mt-0.5">
+                Multi-channel counter vouchers, online payment gateway clearances, and official receipts
+              </p>
+            </div>
+            <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+              Gateway Synced
+            </span>
+          </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold uppercase text-[10px] tracking-wider border-b border-institutional-200 dark:border-slate-700">
+              <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold uppercase text-[10px] tracking-wider border-b border-blue-500/25">
                 <tr>
                   <th className="px-4 py-3 align-middle whitespace-nowrap">Receipt Number</th>
                   <th className="px-4 py-3 align-middle whitespace-nowrap">Scholar Name</th>
@@ -308,10 +336,24 @@ export const FinanceModule: React.FC = () => {
 
       {/* Tab 3: Refund Claims */}
       {activeTab === 'refunds' && (
-        <SoftCard className="overflow-hidden">
+        <SoftCard className="overflow-hidden border border-slate-200 dark:border-slate-800 shadow-soft">
+          <div className="px-5 py-3.5 bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white border-b border-blue-500/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.15)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-bold font-serif text-white">
+                Treasury Caution Deposit &amp; Fee Refund Claims ({refundRequests.length} Claims)
+              </h3>
+              <p className="text-xs text-sky-200/80 mt-0.5">
+                Security deposits, excess fee reversions, and bursar authorization workflows
+              </p>
+            </div>
+            <span className="text-[11px] font-mono font-medium px-2.5 py-0.5 rounded-md bg-white/10 text-white border border-white/20 w-fit">
+              Treasury Queue
+            </span>
+          </div>
+
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-institutional-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold uppercase text-[10px] tracking-wider border-b border-institutional-200 dark:border-slate-700">
+              <thead className="bg-gradient-to-r from-[#0F2942] via-[#1B3F66] to-[#0B1D30] text-white font-semibold uppercase text-[10px] tracking-wider border-b border-blue-500/25">
                 <tr>
                   <th className="px-4 py-3 align-middle whitespace-nowrap">Claim Ref</th>
                   <th className="px-4 py-3 align-middle whitespace-nowrap">Scholar Name</th>
