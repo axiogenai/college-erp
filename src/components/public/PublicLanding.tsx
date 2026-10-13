@@ -838,10 +838,11 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
       >
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-institutional-600 dark:text-institutional-400">
-              <BookOpen className="w-4 h-4" /> Academic Catalog
+            <div className="inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+              <BookOpen className="w-3.5 h-3.5 text-[#C5A059]" />
+              <span>Academic Catalog</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-1">
+            <h2 className="text-2xl sm:text-4xl font-bold font-serif text-slate-900 dark:text-white mt-1.5 tracking-tight">
               Degrees & Disciplines of Excellence
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl">
@@ -862,7 +863,7 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
                 onClick={() => setProgramTab(tab.id as any)}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 ${
                   programTab === tab.id
-                    ? 'bg-white dark:bg-slate-900 text-institutional-700 dark:text-institutional-300 border border-slate-200/80 dark:border-slate-700/80'
+                    ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-bold shadow-xs border border-slate-200/80 dark:border-slate-700/80'
                     : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -877,22 +878,22 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
           {filteredPrograms.map(p => (
             <div 
               key={p.id}
-              className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 group"
+              className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-colors flex flex-col justify-between hover:border-slate-300 dark:hover:border-slate-700 group shadow-2xs"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-institutional-50 dark:bg-institutional-950 text-institutional-700 dark:text-institutional-300 border border-institutional-200/80 dark:border-institutional-800">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded border bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-slate-700">
                     {p.tag}
                   </span>
-                  <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                  <span className="text-[11px] font-mono font-medium text-slate-500 dark:text-slate-400">
                     {p.rating}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1 leading-snug group-hover:text-institutional-600 dark:group-hover:text-institutional-400 transition-colors">
+                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1 leading-snug group-hover:text-institutional-700 dark:group-hover:text-sky-300 transition-colors">
                   {p.title}
                 </h3>
-                <p className="text-[11px] font-medium text-institutional-600 dark:text-institutional-400 mb-2.5">
+                <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 font-mono mb-2.5">
                   {p.degree} • {p.duration}
                 </p>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mb-4 line-clamp-3 leading-relaxed">

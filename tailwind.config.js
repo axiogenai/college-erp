@@ -51,17 +51,17 @@ export default {
           wineMuted: 'rgba(122, 28, 40, 0.15)',
         },
         institutional: {
-          50: '#FDF2F8',
-          100: '#FCE7F3',
-          200: '#FBCFE8',
-          300: '#F9A8D4',
-          400: '#F472B6',
-          500: '#DB2777',
-          600: '#B8236B', // Soft Classic Royal Mulberry
-          700: '#98197F', // Velvety Royal Plum
-          800: '#701A75', // Deep Regal Wine
-          900: '#581C87',
-          950: '#3B0764',
+          50: '#F0F4F8',
+          100: '#D9E2EC',
+          200: '#BCCCDC',
+          300: '#9FB3C8',
+          400: '#627D98',
+          500: '#334E68',
+          600: '#1B3F66', // Oxford Navy Mid
+          700: '#0F2942', // Signature Deep Oxford Navy
+          800: '#0B1D30', // Ultra Deep Navy
+          900: '#081422',
+          950: '#040A12',
         },
         classicWine: {
           50: '#FDF2F4',
