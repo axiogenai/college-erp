@@ -1211,29 +1211,32 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
       </section>
 
       {/* ── 11. Comprehensive Executive Institutional Footer ───────────────── */}
-      <footer className="bg-institutional-950 text-slate-400 text-xs py-14 border-t border-institutional-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b border-institutional-900">
+      <footer className="bg-[#0A0A0C] text-neutral-400 text-xs py-14 border-t border-white/[0.08] relative overflow-hidden">
+        {/* Soft Luxury Micro-Pattern Texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff0a_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10 pb-10 border-b border-white/[0.08]">
             
             {/* Identity */}
             <div className="space-y-3">
               <div className="flex items-center gap-2.5">
-                <UniversityCrest className="w-7 h-7 shrink-0" />
-                <span className="font-bold text-white text-sm uppercase tracking-wide">Axiogen Institute</span>
+                <UniversityCrest className="w-7 h-7 shrink-0 text-[#C5A059]" />
+                <span className="font-bold text-white text-sm uppercase tracking-wider font-serif">Axiogen Institute</span>
               </div>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
+              <p className="text-[11px] text-neutral-400 leading-relaxed">
                 Autonomous Premier Technical University • Approved by AICTE, Affiliated to State Technological Board.
               </p>
-              <p className="text-[11px] text-slate-500 flex items-start gap-1">
-                <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" />
+              <p className="text-[11px] text-neutral-500 flex items-start gap-1 font-mono">
+                <MapPin className="w-3.5 h-3.5 text-[#C5A059] shrink-0 mt-0.5" />
                 <span>Knowledge Corridor, Tech City, Bengaluru – 560100, India</span>
               </p>
             </div>
 
             {/* Academic Disciplines */}
             <div>
-              <p className="font-bold text-white mb-3 text-xs uppercase tracking-wider">Academic Faculties</p>
-              <ul className="space-y-2 text-[11px]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-400 mb-3 font-semibold">Academic Faculties</p>
+              <ul className="space-y-2 text-[11px] text-neutral-300">
                 <li><a href="#programs" className="hover:text-white transition-colors">Computer Science & Engineering</a></li>
                 <li><a href="#programs" className="hover:text-white transition-colors">Artificial Intelligence & Data Science</a></li>
                 <li><a href="#programs" className="hover:text-white transition-colors">Electronics & Communication</a></li>
@@ -1244,8 +1247,8 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
 
             {/* ERP Portals */}
             <div>
-              <p className="font-bold text-white mb-3 text-xs uppercase tracking-wider">ERP Portals</p>
-              <ul className="space-y-2 text-[11px]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-400 mb-3 font-semibold">ERP Portals</p>
+              <ul className="space-y-2 text-[11px] text-neutral-300">
                 <li><button onClick={() => onEnterPortal('student')} className="hover:text-white transition-colors">Student Self-Service Portal</button></li>
                 <li><button onClick={() => onEnterPortal('faculty')} className="hover:text-white transition-colors">Faculty Academic Registry</button></li>
                 <li><button onClick={() => onEnterPortal('accountant')} className="hover:text-white transition-colors">Bursar & Treasury Gateway</button></li>
@@ -1256,24 +1259,24 @@ export const PublicLanding: React.FC<PublicLandingProps> = ({ onEnterPortal }) =
 
             {/* Governance & Anti-Ragging */}
             <div>
-              <p className="font-bold text-white mb-3 text-xs uppercase tracking-wider">Statutory Governance</p>
-              <p className="text-[11px] text-slate-400 mb-3 leading-relaxed">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-400 mb-3 font-semibold">Statutory Governance</p>
+              <p className="text-[11px] text-neutral-400 mb-4 leading-relaxed">
                 Internal Quality Assurance Cell (IQAC), Anti-Ragging Committee, Equal Opportunity Cell &amp; Student Grievance Redressal Board.
               </p>
               <button
                 onClick={() => onEnterPortal('principal')}
-                className="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#5B1389] via-[#450D6F] to-[#350757] hover:from-[#6A17A0] hover:via-[#501082] hover:to-[#3E0966] text-white font-medium text-xs shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_2px_8px_rgba(69,13,111,0.35)] border border-purple-400/25 transition-all flex items-center justify-center gap-2 active:scale-[0.985]"
               >
-                <LogIn className="w-3.5 h-3.5" />
+                <LogIn className="w-3.5 h-3.5 text-purple-200" />
                 <span>Enter Campus ERP</span>
               </button>
             </div>
 
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-neutral-500 font-mono">
             <p>© {new Date().getFullYear()} Axiogen Institute of Technology & Sciences. All statutory rights reserved.</p>
-            <p className="font-mono">Enterprise ERP SIS Platform 2.4.0-Production</p>
+            <p className="text-[10px] uppercase tracking-wider text-neutral-600">Enterprise ERP SIS Platform 2.4.0-Production</p>
           </div>
         </div>
       </footer>
