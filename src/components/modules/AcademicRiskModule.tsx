@@ -10,6 +10,7 @@ import { StatCard } from '../common/StatCard';
 import { Button } from '../common/Button';
 import { PageHeader } from '../common/PageHeader';
 import { Select } from '../common/Select';
+import { Avatar } from '../common/Avatar';
 import { useErpData } from '../../context/ErpDataContext';
 import { useAuth } from '../../context/AuthContext';
 import { Student, AcademicIntervention } from '../../types';
@@ -400,26 +401,10 @@ export const AcademicRiskModule: React.FC = () => {
                   </div>
 
                   <div className="p-4 space-y-3 relative">
-                    {/* Subtle Left Severity Accent Bar */}
-                    <span 
-                      className={`absolute left-0 top-0 bottom-0 w-1 ${
-                        isCritical 
-                          ? 'bg-rose-500' 
-                          : isModerate 
-                          ? 'bg-amber-500' 
-                          : 'bg-emerald-500'
-                      }`}
-                      aria-hidden="true"
-                    />
-
                   {/* Card Header: Identity & Status Badge */}
                   <div className="flex items-start justify-between gap-3 pb-2.5 border-b border-slate-100 dark:border-slate-800/80">
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <img 
-                        src={student.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"} 
-                        alt={student.fullName}
-                        className="w-10 h-10 rounded-lg object-cover ring-1 ring-slate-200 dark:ring-slate-700 shrink-0" 
-                      />
+                      <Avatar name={student.fullName} size="md" shape="rounded" />
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
                           <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 truncate">

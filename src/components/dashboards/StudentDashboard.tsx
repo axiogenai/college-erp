@@ -9,6 +9,7 @@ import { StatCard } from '../common/StatCard';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
 import { ReceiptModal } from '../common/ReceiptModal';
+import { Avatar } from '../common/Avatar';
 import { useErpData } from '../../context/ErpDataContext';
 import { useAuth } from '../../context/AuthContext';
 
@@ -65,11 +66,7 @@ export const StudentDashboard: React.FC<StudentDashboardProps> = ({ onNavigate }
         <div className="p-5 sm:p-6 bg-white dark:bg-slate-900">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <img
-                src={currentStudent.avatar || currentUser.avatar}
-                alt={currentStudent.fullName}
-                className="w-14 h-14 rounded-2xl object-cover ring-2 ring-[#0F2942] dark:ring-sky-400 shrink-0"
-              />
+              <Avatar name={currentStudent.fullName} size="xl" shape="rounded" variant="solid" />
               <div>
                 <div className="flex items-center gap-2">
                   <h2 className="text-xl font-bold font-serif text-slate-900 dark:text-white">{currentStudent.fullName}</h2>

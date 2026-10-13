@@ -10,6 +10,7 @@ import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { PageHeader } from '../common/PageHeader';
 import { Select } from '../common/Select';
+import { Avatar } from '../common/Avatar';
 import { useErpData } from '../../context/ErpDataContext';
 import { useAuth } from '../../context/AuthContext';
 import { Faculty } from '../../types';
@@ -245,10 +246,11 @@ export const FacultyModule: React.FC = () => {
               {/* Profile Avatar */}
               <div className="relative -mt-6 flex justify-center">
                 <div className="relative">
-                  <img
-                    src={fac.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(fac.fullName)}&background=1E4E79&color=fff`}
-                    alt={fac.fullName}
-                    className="w-12 h-12 rounded-full object-cover ring-2 ring-white dark:ring-[#121215] shadow-xs bg-white shrink-0 group-hover:scale-105 transition-transform"
+                  <Avatar
+                    name={fac.fullName}
+                    size="lg"
+                    variant="solid"
+                    className="ring-2 ring-white dark:ring-[#121215] shadow-xs"
                   />
                 </div>
               </div>
@@ -373,10 +375,11 @@ export const FacultyModule: React.FC = () => {
                   <div className="flex items-start sm:items-end gap-3.5 min-w-0">
                     {/* Avatar */}
                     <div className="-mt-6 shrink-0">
-                      <img
-                        src={selectedFacultyForView.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedFacultyForView.fullName)}&background=1E4E79&color=fff`}
-                        alt={selectedFacultyForView.fullName}
-                        className="w-14 h-14 rounded-full object-cover ring-2 ring-white dark:ring-[#121215] shadow-xs bg-white shrink-0"
+                      <Avatar
+                        name={selectedFacultyForView.fullName}
+                        size="xl"
+                        variant="solid"
+                        className="ring-2 ring-white dark:ring-[#121215] shadow-xs"
                       />
                     </div>
                     <div className="min-w-0 flex-1 pt-2 sm:pt-0">

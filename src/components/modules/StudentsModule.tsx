@@ -10,6 +10,7 @@ import { Badge } from '../common/Badge';
 import { Modal } from '../common/Modal';
 import { PageHeader } from '../common/PageHeader';
 import { Select } from '../common/Select';
+import { Avatar } from '../common/Avatar';
 import { useErpData } from '../../context/ErpDataContext';
 import { useAuth } from '../../context/AuthContext';
 import { Student } from '../../types';
@@ -248,11 +249,7 @@ export const StudentsModule: React.FC = () => {
                 <tr key={student.id} className="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <img
-                        src={student.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(student.fullName)}&background=0D2235&color=fff`}
-                        alt={student.fullName}
-                        className="w-9 h-9 rounded-full object-cover ring-1 ring-slate-200 dark:ring-slate-700 shrink-0"
-                      />
+                      <Avatar name={student.fullName} size="md" />
                       <div className="min-w-0">
                         <span className="font-semibold text-xs text-slate-900 dark:text-slate-100 block truncate">{student.fullName}</span>
                         <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 block">{student.enrollmentId}</span>
@@ -371,11 +368,7 @@ export const StudentsModule: React.FC = () => {
             <div className="p-4 rounded-xl bg-white dark:bg-[#121215] border border-neutral-200 dark:border-white/[0.08] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3.5">
                 <div className="relative">
-                  <img
-                    src={selectedStudentForView.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedStudentForView.fullName)}&background=0D2235&color=fff`}
-                    alt={selectedStudentForView.fullName}
-                    className="w-14 h-14 rounded-full object-cover ring-2 ring-white dark:ring-[#121215] shadow-xs shrink-0"
-                  />
+                  <Avatar name={selectedStudentForView.fullName} size="xl" variant="solid" />
                   <span className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ring-2 ring-white dark:ring-[#121215] ${
                     selectedStudentForView.status === 'active' ? 'bg-[#C5A059]' : 'bg-rose-500'
                   }`} />

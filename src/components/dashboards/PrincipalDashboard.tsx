@@ -326,16 +326,8 @@ export const PrincipalDashboard: React.FC<PrincipalDashboardProps> = ({ onNaviga
               {students.filter(s => s.riskLevel === 'critical' || s.attendancePercentage < 75).slice(0, 2).map(stu => (
                 <div 
                   key={stu.id} 
-                  className="relative pl-3.5 pr-3 py-2.5 rounded-xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60 hover:bg-white dark:hover:bg-slate-800/70 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-150 overflow-hidden shadow-2xs"
+                  className="relative px-3.5 py-2.5 rounded-xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60 hover:bg-white dark:hover:bg-slate-800/70 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-150 overflow-hidden shadow-2xs"
                 >
-                  {/* Slim Vertical Left Indicator Bar */}
-                  <span 
-                    className={`absolute left-0 top-0 bottom-0 w-1 ${
-                      stu.riskLevel === 'critical' ? 'bg-rose-500' : 'bg-amber-500'
-                    }`} 
-                    aria-hidden="true"
-                  />
-
                   {/* Header Row: Identity & Quick Action */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="min-w-0 flex-1">

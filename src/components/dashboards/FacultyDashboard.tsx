@@ -7,6 +7,7 @@ import { SoftCard } from '../common/SoftCard';
 import { StatCard } from '../common/StatCard';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
+import { Avatar } from '../common/Avatar';
 import { useErpData } from '../../context/ErpDataContext';
 import { useAuth } from '../../context/AuthContext';
 
@@ -48,11 +49,7 @@ export const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ onNavigate }
         <div className="p-5 sm:p-6 bg-white dark:bg-slate-900">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <img
-                src={currentUser.avatar}
-                alt={currentUser.name}
-                className="w-14 h-14 rounded-2xl object-cover ring-2 ring-[#0F2942] dark:ring-sky-400 shrink-0"
-              />
+              <Avatar name={currentUser.name} size="xl" shape="rounded" variant="solid" />
               <div>
                 <div className="flex items-center gap-2">
                   <h2 className="text-xl font-bold font-serif text-slate-900 dark:text-white">{currentUser.name}</h2>

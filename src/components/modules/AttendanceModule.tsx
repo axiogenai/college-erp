@@ -225,10 +225,10 @@ export const AttendanceModule: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleMarkAll('present')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-gradient-to-r from-[#5B1389] via-[#450D6F] to-[#350757] hover:from-[#6A17A0] hover:via-[#501082] hover:to-[#3E0966] text-white border border-purple-400/25 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.22),0_2px_8px_rgba(69,13,111,0.35)] transition-all active:scale-[0.985]"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#14532D] hover:bg-[#166534] text-white border border-white/15 shadow-xs transition-all active:scale-[0.985]"
                 title="Mark all scholars present for this session"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-purple-200" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-white/90" />
                 <span>Mark All Present</span>
               </button>
               <button
@@ -291,8 +291,8 @@ export const AttendanceModule: React.FC = () => {
                             onClick={() => toggleStudentStatus(stu.id, 'present')}
                             className={`px-2.5 py-1 rounded text-xs font-medium transition-all flex items-center gap-1.5 ${
                               currentStatus === 'present'
-                                ? 'bg-[#0F2942] dark:bg-[#1B3F66] text-white shadow-xs'
-                                : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
+                                ? 'bg-[#15803D] dark:bg-[#166534] text-white shadow-xs'
+                                : 'text-slate-600 hover:text-[#15803D] dark:text-slate-400 dark:hover:text-white'
                             }`}
                             title="Mark Present"
                           >

@@ -12,7 +12,7 @@ export const defaultPersonas: Record<string, UserPersona> = {
     role: 'principal',
     designation: 'Director & Executive Principal',
     department: 'Institutional Administration',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
+    avatar: '',
     email: 'principal@axiogen.edu.in',
     phone: '+91 98450 11200',
     employeeId: 'ADM-DIR-001'
@@ -23,7 +23,7 @@ export const defaultPersonas: Record<string, UserPersona> = {
     role: 'faculty',
     designation: 'Professor & Dean of Academic Affairs',
     department: 'Computer Science & Engineering',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=250',
+    avatar: '',
     email: 'meera.nambiar@axiogen.edu.in',
     phone: '+91 94480 33411',
     employeeId: 'FAC-CSE-014'
@@ -34,7 +34,7 @@ export const defaultPersonas: Record<string, UserPersona> = {
     role: 'student',
     designation: 'Undergraduate Scholar (Year 3)',
     department: 'Computer Science & Engineering',
-    avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=250',
+    avatar: '',
     email: 'aditya.verma24@axiogen.edu.in',
     phone: '+91 99801 77234',
     studentId: 'STU-2024-CS-042'
@@ -45,7 +45,7 @@ export const defaultPersonas: Record<string, UserPersona> = {
     role: 'accountant',
     designation: 'Chief Bursar & Comptroller of Finance',
     department: 'Treasury & Accounts',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250',
+    avatar: '',
     email: 'bursar.accounts@axiogen.edu.in',
     phone: '+91 98802 66500',
     employeeId: 'FIN-BUR-003'
@@ -74,8 +74,7 @@ export const initialStudents: Student[] = [
     status: 'active',
     guardianName: 'Ramesh Verma',
     guardianPhone: '+91 98450 44321',
-    admissionDate: '2024-08-01',
-    avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2024-08-01'
   },
   {
     id: 'stu-02',
@@ -98,8 +97,7 @@ export const initialStudents: Student[] = [
     status: 'active',
     guardianName: 'K. Sundaram',
     guardianPhone: '+91 94481 99201',
-    admissionDate: '2024-08-01',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2024-08-01'
   },
   {
     id: 'stu-03',
@@ -122,8 +120,7 @@ export const initialStudents: Student[] = [
     status: 'probation',
     guardianName: 'Sunil Deshmukh',
     guardianPhone: '+91 98801 22345',
-    admissionDate: '2024-08-01',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2024-08-01'
   },
   {
     id: 'stu-04',
@@ -146,8 +143,7 @@ export const initialStudents: Student[] = [
     status: 'active',
     guardianName: 'Amitava Roy',
     guardianPhone: '+91 94330 88712',
-    admissionDate: '2024-08-02',
-    avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2024-08-02'
   },
   {
     id: 'stu-05',
@@ -170,8 +166,7 @@ export const initialStudents: Student[] = [
     status: 'active',
     guardianName: 'Tariq Malik',
     guardianPhone: '+91 98200 44567',
-    admissionDate: '2024-08-03',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2024-08-03'
   },
   {
     id: 'stu-06',
@@ -194,8 +189,7 @@ export const initialStudents: Student[] = [
     status: 'active',
     guardianName: 'P. Nambeesan',
     guardianPhone: '+91 94470 11980',
-    admissionDate: '2024-08-01',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2024-08-01'
   },
   {
     id: 'stu-07',
@@ -218,8 +212,7 @@ export const initialStudents: Student[] = [
     status: 'active',
     guardianName: 'Digvijay Rathore',
     guardianPhone: '+91 98290 11234',
-    admissionDate: '2023-07-15',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2023-07-15'
   },
   {
     id: 'stu-08',
@@ -242,8 +235,7 @@ export const initialStudents: Student[] = [
     status: 'active',
     guardianName: 'V. Kulkarni',
     guardianPhone: '+91 98220 54321',
-    admissionDate: '2024-08-01',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=200'
+    admissionDate: '2024-08-01'
   }
 ];
 
@@ -260,8 +252,7 @@ export const initialFaculty: Faculty[] = [
     specialization: 'Distributed Systems & Cloud Architecture',
     assignedSubjects: ['CS501', 'CS505'],
     weeklyHours: 14,
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200'
+    status: 'active'
   },
   {
     id: 'fac-02',
@@ -275,8 +266,7 @@ export const initialFaculty: Faculty[] = [
     specialization: 'Algorithms & Computational Complexity',
     assignedSubjects: ['CS502'],
     weeklyHours: 16,
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200'
+    status: 'active'
   },
   {
     id: 'fac-03',
@@ -290,8 +280,7 @@ export const initialFaculty: Faculty[] = [
     specialization: 'Deep Learning & Natural Language Processing',
     assignedSubjects: ['AI501', 'CS504'],
     weeklyHours: 15,
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200'
+    status: 'active'
   },
   {
     id: 'fac-04',
@@ -305,8 +294,7 @@ export const initialFaculty: Faculty[] = [
     specialization: 'VLSI Design & Embedded Systems',
     assignedSubjects: ['EC501'],
     weeklyHours: 12,
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200'
+    status: 'active'
   },
   {
     id: 'fac-05',
@@ -320,8 +308,7 @@ export const initialFaculty: Faculty[] = [
     specialization: 'Thermodynamics & Computational Fluid Dynamics',
     assignedSubjects: ['ME501'],
     weeklyHours: 16,
-    status: 'active',
-    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200'
+    status: 'active'
   }
 ];
 

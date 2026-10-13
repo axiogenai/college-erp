@@ -8,6 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { UserRole } from '../../types';
 import { useErpData } from '../../context/ErpDataContext';
+import { Avatar } from '../common/Avatar';
 
 interface TopNavbarProps {
   onOpenMobileSidebar: () => void;
@@ -94,12 +95,6 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
             Ctrl+K
           </kbd>
         </button>
-
-        {/* Academic Term Badge */}
-        <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-md bg-white/10 text-white border border-white/15 text-xs font-medium">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-          <span>AY 2026–27 • Fall Term</span>
-        </div>
       </div>
 
       {/* Right section: Persona switcher, notifications, theme, public portal link */}
@@ -238,11 +233,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
             }}
             className="flex items-center gap-2 p-1.5 pl-2 rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 transition-colors"
           >
-            <img
-              src={currentUser.avatar}
-              alt={currentUser.name}
-              className="w-7 h-7 rounded-full object-cover ring-1 ring-white/30"
-            />
+            <Avatar name={currentUser.name} size="sm" variant="navbar" />
             <ChevronDown className="w-3.5 h-3.5 text-white/80" />
           </button>
 
